@@ -2,7 +2,40 @@
 <html>
 <head>
   <title>Task 3</title>
+  <link rel="stylesheet" href="css/task3.css">
+  <script src="js/task3.js"></script>
 </head>
 <body>
+  <h1 align="center">HW03 Task Three</h1>
+  <table>
+    <tr>
+      <th class="left-col">Link Text</th>
+      <th class="right-col">Right Column Contents</th>
+    </tr>
+    <tr>
+      <td class="left-col"><a onclick=showText("lorem") href="#">Lorem Ipsem</a></td>
+      <td class="right-col right-text" id="lorem">
+        <!-- Lorem ipsum text source: https://www.lipsum.com/feed/html -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus ex, tincidunt et erat a, mollis efficitur sem. In placerat efficitur urna, sed iaculis nulla gravida id. Donec volutpat, odio vitae vulputate semper, eros risus fermentum felis, ut congue purus massa et erat. Maecenas feugiat ex in feugiat vehicula. Proin commodo nisl sed ipsum finibus suscipit. Pellentesque varius quam at tortor luctus, id pulvinar nisi finibus. Donec euismod tellus non facilisis varius. Phasellus tincidunt lorem vitae lectus venenatis, et pellentesque leo dignissim. Sed elit sem, varius eu efficitur ut, maximus et nulla.</p>
+        <p>Duis ultrices lacus a enim aliquet lobortis. Sed finibus pharetra fermentum. Integer rhoncus molestie luctus. In maximus mollis eros, vel ultrices ipsum. Duis ac fermentum justo. Curabitur vestibulum nisl leo. Praesent vulputate consectetur neque, eu aliquam arcu tempor euismod. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+        <p>Vivamus vel cursus ex. Pellentesque ac magna ipsum. Praesent euismod mollis tortor, non vestibulum elit lacinia eget. Donec in enim fermentum, porttitor nunc eu, lacinia tellus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Pellentesque mattis semper vulputate. Maecenas fringilla placerat purus efficitur scelerisque. Donec auctor suscipit quam, a tempus urna.</p>
+        <p>Morbi imperdiet pretium tellus quis consectetur. Nulla vel venenatis dolor. Nullam vitae mauris ultricies, malesuada metus vel, tempor risus. Proin tincidunt mollis molestie. In egestas dignissim tortor, nec cursus ligula tincidunt et. Cras posuere tincidunt velit, ac elementum neque bibendum vitae. Suspendisse potenti. Nullam quis turpis id leo finibus commodo. Sed nec tellus quam.</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="left-col"><a onclick=showText("bottles") href="#">99 Bottles</a></td>
+      <td class="right-col right-text" id="bottles">
+        <!-- 99 Bottles text source: http://www.99-bottles-of-beer.net/lyrics.html -->
+        <p>99 bottles of beer on the wall, 99 bottles of beer.<br>Take one down and pass it around, 98 bottles of beer on the wall.</p>
+        <p>98 bottles of beer on the wall, 98 bottles of beer.<br>Take one down and pass it around, 97 bottles of beer on the wall.</p>
+        <p>97 bottles of beer on the wall, 97 bottles of beer.<br>Take one down and pass it around, 96 bottles of beer on the wall.</p>
+        <p>96 bottles of beer on the wall, 96 bottles of beer.<br>Take one down and pass it around, 95 bottles of beer on the wall.</p>
+      </td>
+    </tr>
+    <tr>
+      <td class="left-col"><a onclick=showText("third") href="#">Last Thing</a></td>
+      <td class="right-col right-text" id="third">this is the third thing</td>
+    </tr>
+  </table>
 </body>
 </html>

@@ -1,0 +1,48 @@
+body {
+  font-family: Courier;
+  color: #353638;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td, th {
+  padding: 10px 10px;
+}
+
+th {
+  font-size: 19px;
+}
+
+td {
+  vertical-align: top;
+}
+
+.left-col {
+  width: 33%;
+}
+
+.right-col {
+  width: 66%;
+}
+
+.right-text {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  border-bottom: 2px dashed #353638;
+  padding-bottom: 3px;
+  border-bottom-color: #3e6ebc;
+}
+
+a:visited {
+  color: #353638;
+}
