@@ -1,0 +1,19 @@
+body {
+  background-color: #a2b8bf;
+  color: white;
+  font-family: Courier;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+#main {
+  text-align: center;
+}
+
+button {
+  font-size: 14px;
+  font-family: Courier;
+  color: #222628;
+}
