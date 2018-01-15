@@ -1,0 +1,54 @@
+body {
+  font-family: Courier;
+  color: #353638;
+}
+
+h1 {
+  letter-spacing: 2px;
+}
+
+#main {
+  margin: 10px 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  padding-bottom: 3px;
+  border-bottom: 2px dashed #353638;
+}
+
+.github {
+  color: #5079ba;
+}
+
+.github:visited {
+  color: #5079ba;
+}
+
+.github:hover {
+  border-bottom-color: #5079ba;
+}
+
+.hw {
+  color: #60914a;
+}
+
+.hw:visited {
+  color: #60914a;
+}
+
+.hw:hover {
+  border-bottom-color: #60914a;
+}
