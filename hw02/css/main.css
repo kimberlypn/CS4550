@@ -1,0 +1,48 @@
+body {
+  font-family: Courier;
+}
+
+a {
+  text-decoration: none;
+  font-size: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+#center {
+  position: fixed;
+  width: 50%;
+  top: 50%;
+  left: 50%;
+  margin-top: -5%;
+  margin-left: -25%;
+  text-align: center;
+  vertical-align: center;
+}
+
+#task1 {
+  color: #82ce83;
+}
+
+#task1:hover {
+  border-bottom: 2px dashed #82ce83;
+  padding-bottom: 3px;
+}
+
+#task2 {
+  color: #82a6ce;
+}
+
+#task2:hover {
+  border-bottom: 2px dashed #82a6ce;
+  padding-bottom: 3px;
+}
+
+#task3 {
+  color: #e07f95;
+}
+
+#task3:hover {
+  border-bottom: 2px dashed #e07f95;
+  padding-bottom: 3px;
+}

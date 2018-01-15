@@ -40,7 +40,6 @@ a {
 a:hover {
   border-bottom: 2px dashed #353638;
   padding-bottom: 3px;
-  border-bottom-color: #3e6ebc;
 }
 
 a:visited {
