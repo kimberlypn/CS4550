@@ -2,7 +2,7 @@
 function showText(id) {
   var flag = document.getElementById(id).style.display;
   if (flag === "none" || flag === "") {
-    document.getElementById(id).style.display = "table-row";
+    document.getElementById(id).style.display = "inline";
   }
   else {
     document.getElementById(id).style.display = "none";
