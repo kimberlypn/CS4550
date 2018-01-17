@@ -1,10 +1,10 @@
 body {
   background-color: #9da998;
   font-family: Courier;
+  color: #2b2b2b;
 }
 
 h1 {
-  font-family: Courier;
   text-align: center;
   font-size: 45px;
 }
@@ -33,35 +33,44 @@ h1 {
 
 #links {
   margin-bottom: 35px;
+  float: left;
 }
 
-.body {
-  display: inline-block;
-  position: relative;
-  margin-bottom: 20px;
+#powers {
+  float: right;
 }
 
 a {
-  padding: 10px 10px;
-  background-color: #3a6766;
-  color: white;
-  border-radius: 10px;
+  padding: 8px 8px;
+  color: #2b2b2b;
+  border-radius: 7px;
   text-decoration: none;
   letter-spacing: 2px;
   font-size: 14px;
 }
 
+a:visited {
+  color: #2b2b2b;
+}
+
 a:hover {
-  background-color: #213a51;
+  background-color: #3e6a82;
+  color: white;
 }
 
 table {
   border-collapse: collapse;
+  box-shadow: 3px 3px 7px #6a6a6d;
 }
 
 td, th {
   border: 1px solid #14160c;
   padding: 10px 10px;
+  width: 90px;
+}
+
+th {
+  background-color: #578aa5;
 }
 
 td {
