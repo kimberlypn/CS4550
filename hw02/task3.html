@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>Task 3</title>
   <link rel="stylesheet" href="css/task3.css">
-  <script src="js/task3.js"></script>
 </head>
 <body>
   <div id="main">
@@ -19,7 +18,7 @@
     </div>
     <div class="row">
       <div class="left-col">
-        <p><a onclick=showText('lorem') href="#">Lorem Ipsum</a></p>
+        <p><a id="lorem-link" href="#">Lorem Ipsum</a></p>
       </div>
       <!-- Lorem ipsum text source: https://www.lipsum.com/feed/html -->
       <div class="right-col right-text" id="lorem">
@@ -31,7 +30,7 @@
     </div>
     <div class="row">
       <div class="left-col">
-        <p><a onclick=showText('bottles') href="#">99 Bottles</a></p>
+        <p><a id="bottles-link" href="#">99 Bottles</a></p>
       </div>
       <!-- 99 Bottles text source: http://www.99-bottles-of-beer.net/lyrics.html -->
       <div class="right-col right-text" id="bottles">
@@ -43,12 +42,13 @@
     </div>
     <div class="row">
       <div class="left-col">
-        <p><a onclick=showText('third') href="#">Last Thing</a></p>
+        <p><a id="third-link" href="#">Last Thing</a></p>
       </div>
       <div class="right-col right-text" id="third">
         <p>this is the third thing</p>
       </div>
     </div>
   </div>
+  <script src="js/task3.js"></script>
 </body>
 </html>
