@@ -1,3 +1,8 @@
+// Set the onclick function of the three buttons
+document.getElementById('display').onclick = function() { showVal() };
+document.getElementById('increment').onclick = function() { increment() };
+document.getElementById('append').onclick = function() { append() };
+
 // Makes an "alert" popup with the current value of the counter
 function showVal() {
   alert(document.getElementById('counter').innerHTML);
