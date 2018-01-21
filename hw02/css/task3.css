@@ -7,21 +7,6 @@ h1 {
   text-align: center;
 }
 
-#main {
-  margin: 15px 15px;
-}
-
-.row {
-  clear: left;
-  width: 100%;
-}
-
-.col-header {
-  font-size: 19px;
-  text-align: center;
-  font-weight: bold;
-}
-
 .left-col {
   width: 33%;
   float: left;
