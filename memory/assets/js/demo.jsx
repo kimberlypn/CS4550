@@ -74,6 +74,7 @@ class MemoryGame extends React.Component {
   }
 
   unflip(card) {
+    console.log("hey");
     let xs = _.map(this.state.cards, (c) => {
       if (c.id == card.id || c.id == this.state.prev.id) {
         return _.extend(c, {
@@ -112,7 +113,7 @@ class MemoryGame extends React.Component {
     // Increment the number of cards flipped
     let flipped_count = this.state.flipped + 1;
     // Increment the number of clicks
-    let click_count = this.state.clicks + 1;
+    let click_count = (card.matched) ? this.state.clicks : this.state.clicks + 1;
     // Update and set the new state
     let st1 = _.extend(this.state, {
       clicks: click_count,
@@ -124,7 +125,7 @@ class MemoryGame extends React.Component {
     // If this is the second guess, flip back the two cards after 1 second
     // if they were not a match
     if (this.state.flipped == 2) {
-      setTimeout(this.unflip(card), 5000000000);
+      setTimeout(() => {this.unflip(card)}, 1000);
     }
   }
 
