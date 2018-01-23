@@ -97,7 +97,7 @@ class MemoryGame extends React.Component {
   flip(card) {
     // Only execute if the card has not been matched, the card is the first card
     // of the game, or if the card is different from the previous card
-    if (!card.matched || (!this.state.prev || this.state.prev.id != card.id)) {
+    if (!card.matched && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
       // Set the flipped and matched flags of the flipped card
       let xs = _.map(this.state.cards, (c) => {
         if (c.id == card.id) {
