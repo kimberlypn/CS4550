@@ -95,8 +95,8 @@ class MemoryGame extends React.Component {
 
   // Handles what happens when a card is flipped by the user
   flip(card) {
-    // Only execute if the card has not been matched, the card is the first card
-    // of the game, or if the card is different from the previous card
+    // Only execute if the card has not been matched and the card is the first
+    // card of the game or is different from the previous card
     if (!card.matched && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
       // Set the flipped and matched flags of the flipped card
       let xs = _.map(this.state.cards, (c) => {
@@ -115,7 +115,10 @@ class MemoryGame extends React.Component {
       // Increment the number of cards flipped
       let flipped_count = this.state.flipped + 1;
       // Increment the number of clicks
-      let click_count = (this.state.prev && card.id == this.state.prev.id) ? this.state.clicks : this.state.clicks + 1;
+      if (this.state.prev) {
+        console.log(this.state.flipped);
+      }
+      let click_count = this.state.clicks + 1;
       // Update and set the new state
       let st1 = _.extend(this.state, {
         clicks: click_count,
