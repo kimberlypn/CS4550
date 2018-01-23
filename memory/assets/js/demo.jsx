@@ -142,7 +142,7 @@ class MemoryGame extends React.Component {
     return (
       <div>
         <div className="row">
-          <p>Number of Clicks: {this.state.clicks}</p>
+          <p>NUMBER OF CLICKS: {this.state.clicks}</p>
         </div>
         <div className="row">
           {cards}
@@ -155,5 +155,5 @@ class MemoryGame extends React.Component {
 function RenderCards(props) {
   let card = props.card;
   let text = (card.matched || card.flipped) ? card.letter : '?';
-  return <div className="col-3 text-center" onClick={() => props.flip(card)}><div className="letter">{text}</div></div>
+  return <div className="col-3 text-center"><div className="letter" onClick={() => props.flip(card)}>{text}</div></div>
 }

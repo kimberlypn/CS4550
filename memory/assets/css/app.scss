@@ -2,15 +2,30 @@
 
 @import "bootstrap";
 
+body {
+  font-family: Courier;
+  color: #586f7a;
+}
+
 h1 {
   text-align: center;
+  letter-spacing: 5px;
+}
+
+p {
+  font-size: 20px;
 }
 
 .letter {
+  font-size: 25px;
   border: 1px solid black;
   margin-left: 30px;
   margin-right: 30px;
   margin-bottom: 30px;
   padding-top: 75px;
   padding-bottom: 75px;
+  border-radius: 5px;
+  box-shadow: 6px 6px 8px #6a6a6d;
+  background: #a4c6d6;
+  color: #394951;
 }
