@@ -6,20 +6,31 @@ export default function run_demo(root) {
   ReactDOM.render(<MemoryGame />, root);
 }
 
-// App state for MemoryGame is:
-// {
-// matches: int // number of matches so far
-// clicks: int // number of clicks so far
-// }
+// Randomizes the order of the cards array
+// Attribution of shuffling logic goes to:
+// https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+function ShuffleCards(c) {
+  let newCards = c;
+  var j, x, i;
+  for (i = newCards.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    x = newCards[i];
+    newCards[i] = newCards[j];
+    newCards[j] = x;
+  }
+  return newCards;
+}
+
 class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matches: 0,
-      clicks: 0,
-      flipped: 0,
-      prev: null,
-      cards: [
+      matches: 0,  // number of matches so far
+      clicks: 0,   // number of clicks so far
+      flipped: 0,  // number of cards currently flipped
+      prev: null,  // previous card that was flipped
+      ready: true, // false if a turn is still in progress
+      cards: ShuffleCards([
         {letter: 'A', matched: false, flipped: false, id: 0},
         {letter: 'A', matched: false, flipped: false, id: 1},
         {letter: 'B', matched: false, flipped: false, id: 2},
@@ -36,26 +47,8 @@ class MemoryGame extends React.Component {
         {letter: 'G', matched: false, flipped: false, id: 13},
         {letter: 'H', matched: false, flipped: false, id: 14},
         {letter: 'H', matched: false, flipped: false, id: 15}
-      ]
+      ]) // shuffled deck of cards
     };
-  }
-
-  // Randomizes the order of the cards array
-  // Attribution of shuffling logic goes to:
-  // https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
-  shuffleCards() {
-    let newCards = this.state.cards;
-    var j, x, i;
-    for (i = newCards.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = newCards[i];
-      newCards[i] = newCards[j];
-      newCards[j] = x;
-    }
-    let st1 = _.extend(this.state, {
-      cards: newCards,
-    });
-    this.setState(st1);
   }
 
   matched(cards, cur) {
@@ -87,7 +80,7 @@ class MemoryGame extends React.Component {
 
     let st1 = _.extend(this.state, {
       flipped: 0,
-      //prev: card,
+      ready: true,
       cards: xs
     });
     this.setState(st1);
@@ -97,7 +90,7 @@ class MemoryGame extends React.Component {
   flip(card) {
     // Only execute if the card has not been matched and the card is the first
     // card of the game or is different from the previous card
-    if (!card.matched && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
+    if (!card.matched && this.state.ready && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
       // Set the flipped and matched flags of the flipped card
       let xs = _.map(this.state.cards, (c) => {
         if (c.id == card.id) {
@@ -112,6 +105,9 @@ class MemoryGame extends React.Component {
       });
       // Only update prev if this is the first guess
       let p = (this.state.flipped == 0) ? card : this.state.prev;
+      // Lock the next turn if this is the second guess so that the user
+      // cannot start a new turn while the unflip logic is executing
+      let r = (this.state.flipped == 0);
       // Increment the number of cards flipped
       let flipped_count = this.state.flipped + 1;
       // Increment the number of clicks
@@ -124,6 +120,7 @@ class MemoryGame extends React.Component {
         clicks: click_count,
         flipped: flipped_count,
         prev: p,
+        ready: r,
         cards: xs,
       });
       this.setState(st1);
@@ -136,6 +133,7 @@ class MemoryGame extends React.Component {
   }
 
   render() {
+    //var shuffledCards = this.shuffleCards(this.state.cards);
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} flip={this.flip.bind(this)} key={ii}/>;
     });
