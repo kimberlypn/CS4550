@@ -220,12 +220,17 @@ function RenderCards(props) {
   let card = props.card;
   let text = "?";
   if (card.flipped) {
-  text = card.letter;
+    text = card.letter;
   }
   if (card.matched) {
-  text = <span class="glyphicon glyphicon-thumbs-up"></span>;
+    text = (<span class="glyphicon glyphicon-thumbs-up"></span>);
   }
-  return <div className="col-3 text-center"><div className="letter" onClick={() => props.flip(card)}>{text}</div></div>
+  return (
+    <div className="col-3 text-center">
+      <div className="letter" onClick={() => props.flip(card)}>{text}
+      </div>
+    </div>
+  )
 }
 
 function Reset(props) {
