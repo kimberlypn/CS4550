@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
-//import thumbsup from '../../assets/static/images/thumbsup.png';
 
 export default function run_demo(root) {
   ReactDOM.render(<MemoryGame />, root);
@@ -206,8 +205,6 @@ function RenderCards(props) {
     text = card.letter;
   }
   if (card.matched) {
-    // text = {thumbsup};
-    //text = <img src="/static/images/thumbsup.png"/>;
     text = "MATCHED";
   }
   return (
