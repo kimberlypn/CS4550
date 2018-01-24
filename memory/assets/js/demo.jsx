@@ -223,19 +223,24 @@ function Reset(props) {
   return <Button onClick={() => props.reset()}>RESET</Button>
 }
 
+/*
 function Winner(props) {
   return (
-    <div>
-      <div className="row">
-        <div className="col-12">
-          <p>YOU WIN!</p>
-        </div>
+    <div className="row">
+      <div className="col-12 text-center">
+        <p id="win-text">YOU WIN!</p>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <p>It only took you {props.game.state.clicks} clicks.</p>
-        </div>
+    </div>
+    <div className="row">
+      <div className="col-12 text-center">
+        <p>It took you {this.state.clicks} clicks.</p>
+      </div>
+    </div>
+    <div className="row">
+      <div className="col-12 text-center">
+        <p>Press the 'Reset' button to play again.</p>
       </div>
     </div>
   )
 }
+*/
