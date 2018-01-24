@@ -7,16 +7,18 @@ export default function run_demo(root) {
 }
 
 // Randomizes the order of the cards array
-// Attribution of shuffling logic goes to:
-// https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function ShuffleCards(c) {
   let newCards = c;
-  var j, x, i;
-  for (i = newCards.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    x = newCards[i];
-    newCards[i] = newCards[j];
-    newCards[j] = x;
+  var i, random_idx, old;
+  for (var i = 0; i < newCards.length; i++) {
+    // Grab a random index
+    random_idx = Math.floor(Math.random() * newCards.length);
+    // Save the card that was previously at i
+    old = newCards[i];
+    // Set the card at i to be the card at random_idx
+    newCards[i] = newCards[random_idx];
+    // Set the card at random_idx to be the card that used to be at i
+    newCards[random_idx] = old;
   }
   return newCards;
 }
@@ -51,7 +53,7 @@ class MemoryGame extends React.Component {
     };
   }
 
-  // Determins if the current card is a match
+  // Determines if the current card is a match
   matched(card) {
     var match = false;
     // If this is the second card in the turn
@@ -64,11 +66,10 @@ class MemoryGame extends React.Component {
       // Update the matches count
       var matches_count = this.state.matches + 1;
       _.extend(this.state, { matches: matches_count });
-      // Update the matched flag of the previous card
+      // Update the matched flag of this card and the previous card
       _.extend(this.state.prev, { matched: true });
+      _.extend(card, { matched: true });
     }
-    // Return match to be updated for the current card
-    return match;
   }
 
   // Handles what happens when a turn is complete
@@ -77,34 +78,37 @@ class MemoryGame extends React.Component {
     // if they are a match because RenderCards() checks both flags
     _.extend(card, { flipped: false });
     _.extend(this.state.prev, { flipped: false });
-
     // Reset the flipped count and change the ready flag back to true to
-    // indicate that the user can start a new turn and set the new state
+    // indicate that the user can start a new turn
     let st1 = _.extend(this.state, {
       flipped: 0,
       ready: true,
     });
+    // Set the new state
     this.setState(st1);
   }
 
-  // Handles what happens when a card is flipped by the user
-  flip(card) {
+  // Handles what happens when a card is clicked by the user
+  clicked(card) {
     // Only execute if the card has not been matched yet, another turn is not in
     // progress, and the card is the first card of the game or is different
     // from the previous card
     if (!card.matched && this.state.ready && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
-      // Set the flipped and matched flags of the flipped card
+      // Save the old count of matches
+      let oldCount = this.state.matches;
+      // Set the flipped flag of this card
       let xs = _.map(this.state.cards, (c) => {
         if (c.id == card.id) {
           return _.extend(c, {
             flipped: true,
-            matched: this.matched(c)
           });
         }
         else {
           return c;
         }
       });
+      // Check if the card is a match
+      this.matched(card);
       // Only update prev if this is the first guess in the turn
       let p = (this.state.flipped == 0) ? card : this.state.prev;
       // Lock the next turn if this is the second guess so that the user
@@ -123,10 +127,20 @@ class MemoryGame extends React.Component {
         cards: xs,
       });
       this.setState(st1);
+      // Get the new count of matches
+      let newCount = this.state.matches;
       // If this is the second guess in the turn, flip back the two cards after
       // 1 second and reset any other fields
       if (this.state.flipped == 2) {
-        setTimeout(() => {this.unflip(card)}, 1000);
+        // If a match was found, let the user start the next turn immediately
+        if (newCount > oldCount) {
+          this.unflip(card);
+        }
+        // Otherwise, set a 1 second delay so that the user has a chance to
+        // memorize the cards
+        else {
+          setTimeout(() => {this.unflip(card)}, 1000);
+        }
       }
     }
   }
@@ -164,7 +178,7 @@ class MemoryGame extends React.Component {
   // Renders the game board
   render() {
     let cards = _.map(this.state.cards, (card, ii) => {
-      return <RenderCards card={card} flip={this.flip.bind(this)} key={ii}/>;
+      return <RenderCards card={card} clicked={this.clicked.bind(this)} key={ii}/>;
     });
     // If the player has won, display the "winner" message
     if (this.state.matches == 8) {
@@ -173,7 +187,7 @@ class MemoryGame extends React.Component {
         <div id="winner">
           <div className="row">
             <div className="col-12 text-center">
-              <p id="win-text">YOU WIN!</p>
+              <p id="win-text">YOU WON!</p>
             </div>
           </div>
           <div className="row">
@@ -227,14 +241,14 @@ function RenderCards(props) {
   }
   return (
     <div className="col-3 text-center">
-      <div className="letter" onClick={() => props.flip(card)}>{text}
+      <div className="letter" onClick={() => props.clicked(card)}>{text}
       </div>
     </div>
   )
 }
 
 function Reset(props) {
-  return <Button onClick={() => props.reset()}>RESET</Button>
+  return <Button id="reset-btn" onClick={() => props.reset()}>RESET</Button>
 }
 
 /*
@@ -242,7 +256,7 @@ function Winner(props) {
 return (
 <div className="row">
 <div className="col-12 text-center">
-<p id="win-text">YOU WIN!</p>
+<p id="win-text">YOU WON!</p>
 </div>
 </div>
 <div className="row">
