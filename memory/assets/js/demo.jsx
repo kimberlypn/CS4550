@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
-//import thumbsup from '../static/images/thumbsup.png';
+//import thumbsup from '../../assets/static/images/thumbsup.png';
 
 export default function run_demo(root) {
   ReactDOM.render(<MemoryGame />, root);
@@ -224,7 +224,8 @@ function RenderCards(props) {
   }
   if (card.matched) {
     // text = {thumbsup};
-    text = <img src="/static/images/thumbsup.png"/>;
+    //text = <img src="/static/images/thumbsup.png"/>;
+    text = "MATCHED";
   }
   return (
     <div className="col-3 text-center">
@@ -235,10 +236,12 @@ function RenderCards(props) {
   )
 }
 
+// Renders the reset button
 function Reset(props) {
-  return <Button id="reset-btn" onClick={() => props.reset()}>RESET</Button>
+  return <Button onClick={() => props.reset()}>RESET</Button>
 }
 
+// Renders the winner message
 function Winner(props) {
   return (
     <div>
