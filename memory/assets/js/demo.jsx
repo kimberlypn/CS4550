@@ -131,6 +131,7 @@ class MemoryGame extends React.Component {
     }
   }
 
+  // Resets the state of the game
   reset() {
     let st1 = _.extend(this.state, {
       matches: 0,
@@ -165,6 +166,7 @@ class MemoryGame extends React.Component {
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} flip={this.flip.bind(this)} key={ii}/>;
     });
+    // If the player has won, display the "winner" message
     if (this.state.matches == 8) {
       console.log("win");
       return (
@@ -192,6 +194,7 @@ class MemoryGame extends React.Component {
         </div>
       )
     }
+    // Else, render the game board
     else {
       return (
         <div>
@@ -215,7 +218,13 @@ class MemoryGame extends React.Component {
 // Renders each individual card
 function RenderCards(props) {
   let card = props.card;
-  let text = (card.matched || card.flipped) ? card.letter : '?';
+  let text = "?";
+  if (card.flipped) {
+  text = card.letter;
+  }
+  if (card.matched) {
+  text = <span class="glyphicon glyphicon-thumbs-up"></span>;
+  }
   return <div className="col-3 text-center"><div className="letter" onClick={() => props.flip(card)}>{text}</div></div>
 }
 
@@ -225,22 +234,22 @@ function Reset(props) {
 
 /*
 function Winner(props) {
-  return (
-    <div className="row">
-      <div className="col-12 text-center">
-        <p id="win-text">YOU WIN!</p>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-12 text-center">
-        <p>It took you {this.state.clicks} clicks.</p>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-12 text-center">
-        <p>Press the 'Reset' button to play again.</p>
-      </div>
-    </div>
-  )
+return (
+<div className="row">
+<div className="col-12 text-center">
+<p id="win-text">YOU WIN!</p>
+</div>
+</div>
+<div className="row">
+<div className="col-12 text-center">
+<p>It took you {this.state.clicks} clicks.</p>
+</div>
+</div>
+<div className="row">
+<div className="col-12 text-center">
+<p>Press the 'Reset' button to play again.</p>
+</div>
+</div>
+)
 }
 */
