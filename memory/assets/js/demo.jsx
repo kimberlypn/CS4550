@@ -8,20 +8,37 @@ export default function run_demo(root) {
 }
 
 // Randomizes the order of the cards array
-function ShuffleCards(c) {
-  let newCards = c;
+function ShuffleCards() {
+  let cards = [
+    {letter: 'A', id: 0, matched: false, flipped: false},
+    {letter: 'A', id: 1, matched: false, flipped: false},
+    {letter: 'B', id: 2, matched: false, flipped: false},
+    {letter: 'B', id: 3, matched: false, flipped: false},
+    {letter: 'C', id: 4, matched: false, flipped: false},
+    {letter: 'C', id: 5, matched: false, flipped: false},
+    {letter: 'D', id: 6, matched: false, flipped: false},
+    {letter: 'D', id: 7, matched: false, flipped: false},
+    {letter: 'E', id: 8, matched: false, flipped: false},
+    {letter: 'E', id: 9, matched: false, flipped: false},
+    {letter: 'F', id: 10, matched: false, flipped: false},
+    {letter: 'F', id: 11, matched: false, flipped: false},
+    {letter: 'G', id: 12, matched: false, flipped: false},
+    {letter: 'G', id: 13, matched: false, flipped: false},
+    {letter: 'H', id: 14, matched: false, flipped: false},
+    {letter: 'H', id: 15, matched: false, flipped: false}
+  ];
   var i, random_idx, old;
-  for (var i = 0; i < newCards.length; i++) {
+  for (var i = 0; i < cards.length; i++) {
     // Grab a random index
-    random_idx = Math.floor(Math.random() * newCards.length);
+    random_idx = Math.floor(Math.random() * cards.length);
     // Save the card that was previously at i
-    old = newCards[i];
+    old = cards[i];
     // Set the card at i to be the card at random_idx
-    newCards[i] = newCards[random_idx];
+    cards[i] = cards[random_idx];
     // Set the card at random_idx to be the card that used to be at i
-    newCards[random_idx] = old;
+    cards[random_idx] = old;
   }
-  return newCards;
+  return cards;
 }
 
 class MemoryGame extends React.Component {
@@ -33,24 +50,7 @@ class MemoryGame extends React.Component {
       flipped: 0,  // number of cards currently flipped
       prev: null,  // previous card that was flipped
       ready: true, // false if a turn is still in progress
-      cards: ShuffleCards([
-        {letter: 'A', matched: false, flipped: false, id: 0},
-        {letter: 'A', matched: false, flipped: false, id: 1},
-        {letter: 'B', matched: false, flipped: false, id: 2},
-        {letter: 'B', matched: false, flipped: false, id: 3},
-        {letter: 'C', matched: false, flipped: false, id: 4},
-        {letter: 'C', matched: false, flipped: false, id: 5},
-        {letter: 'D', matched: false, flipped: false, id: 6},
-        {letter: 'D', matched: false, flipped: false, id: 7},
-        {letter: 'E', matched: false, flipped: false, id: 8},
-        {letter: 'E', matched: false, flipped: false, id: 9},
-        {letter: 'F', matched: false, flipped: false, id: 10},
-        {letter: 'F', matched: false, flipped: false, id: 11},
-        {letter: 'G', matched: false, flipped: false, id: 12},
-        {letter: 'G', matched: false, flipped: false, id: 13},
-        {letter: 'H', matched: false, flipped: false, id: 14},
-        {letter: 'H', matched: false, flipped: false, id: 15}
-      ]) // shuffled deck of cards
+      cards: ShuffleCards() // shuffled deck of cards
     };
   }
 
@@ -154,24 +154,7 @@ class MemoryGame extends React.Component {
       flipped: 0,
       prev: null,
       ready: true,
-      cards: ShuffleCards([
-        {letter: 'A', matched: false, flipped: false, id: 0},
-        {letter: 'A', matched: false, flipped: false, id: 1},
-        {letter: 'B', matched: false, flipped: false, id: 2},
-        {letter: 'B', matched: false, flipped: false, id: 3},
-        {letter: 'C', matched: false, flipped: false, id: 4},
-        {letter: 'C', matched: false, flipped: false, id: 5},
-        {letter: 'D', matched: false, flipped: false, id: 6},
-        {letter: 'D', matched: false, flipped: false, id: 7},
-        {letter: 'E', matched: false, flipped: false, id: 8},
-        {letter: 'E', matched: false, flipped: false, id: 9},
-        {letter: 'F', matched: false, flipped: false, id: 10},
-        {letter: 'F', matched: false, flipped: false, id: 11},
-        {letter: 'G', matched: false, flipped: false, id: 12},
-        {letter: 'G', matched: false, flipped: false, id: 13},
-        {letter: 'H', matched: false, flipped: false, id: 14},
-        {letter: 'H', matched: false, flipped: false, id: 15}
-      ])
+      cards: ShuffleCards()
     });
     this.setState(st1);
   }
@@ -252,7 +235,7 @@ function Winner(props) {
       </div>
       <div className="row">
         <div className="col-12 text-center">
-          <p>It took you {props.clicks} clicks.</p>
+          <p>It only took you {props.clicks} clicks.</p>
         </div>
       </div>
       <div className="row">
