@@ -1,5 +1,7 @@
 # CS4550 Web Development (Spring 2018)
-www.kimberlynguyen.solutions
+Main Website: www.kimberlynguyen.solutions
 
 This repository contains all of my assignments for CS4550 Web Development.
-- [HW01](http://hw01.kimberlynguyen.solutions/)
+- [HW01 - Getting Set Up](http://hw01.kimberlynguyen.solutions/)  
+- [HW02 - HTML, CSS, and JS](http://hw02.kimberlynguyen.solutions/)
+- [HW03 - Memory Game (Browser Only)](http://memory.kimberlynguyen.solutions/)
