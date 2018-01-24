@@ -30,3 +30,15 @@ p {
   color: #394951;
   border-color: #586f7a;
 }
+
+#winner {
+  margin-top: 40px;
+}
+
+#win-text {
+  font-size: 100px;
+  color: #adc9d1;
+  // Attribution of text-shadow arguments:
+  // https://stackoverflow.com/questions/2570972/css-font-border
+  text-shadow: -1px 0 #586f7a, 0 1px #586f7a, 1px 0 #586f7a, 0 -1px #586f7a;
+}

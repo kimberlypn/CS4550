@@ -131,21 +131,84 @@ class MemoryGame extends React.Component {
     }
   }
 
+  reset() {
+    let st1 = _.extend(this.state, {
+      matches: 0,
+      clicks: 0,
+      flipped: 0,
+      prev: null,
+      ready: true,
+      cards: ShuffleCards([
+        {letter: 'A', matched: false, flipped: false, id: 0},
+        {letter: 'A', matched: false, flipped: false, id: 1},
+        {letter: 'B', matched: false, flipped: false, id: 2},
+        {letter: 'B', matched: false, flipped: false, id: 3},
+        {letter: 'C', matched: false, flipped: false, id: 4},
+        {letter: 'C', matched: false, flipped: false, id: 5},
+        {letter: 'D', matched: false, flipped: false, id: 6},
+        {letter: 'D', matched: false, flipped: false, id: 7},
+        {letter: 'E', matched: false, flipped: false, id: 8},
+        {letter: 'E', matched: false, flipped: false, id: 9},
+        {letter: 'F', matched: false, flipped: false, id: 10},
+        {letter: 'F', matched: false, flipped: false, id: 11},
+        {letter: 'G', matched: false, flipped: false, id: 12},
+        {letter: 'G', matched: false, flipped: false, id: 13},
+        {letter: 'H', matched: false, flipped: false, id: 14},
+        {letter: 'H', matched: false, flipped: false, id: 15}
+      ])
+    });
+    this.setState(st1);
+  }
+
   // Renders the game board
   render() {
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} flip={this.flip.bind(this)} key={ii}/>;
     });
-    return (
-      <div>
-        <div className="row">
-          <p>NUMBER OF CLICKS: {this.state.clicks}</p>
+    if (this.state.matches == 8) {
+      console.log("win");
+      return (
+        <div id="winner">
+          <div className="row">
+            <div className="col-12 text-center">
+              <p id="win-text">YOU WIN!</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 text-center">
+              <p>It took you {this.state.clicks} clicks.</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 text-center">
+              <p>Press the 'Reset' button to play again.</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 text-center">
+              <Reset reset={this.reset.bind(this)} />
+            </div>
+          </div>
         </div>
-        <div className="row">
-          {cards}
+      )
+    }
+    else {
+      return (
+        <div>
+          <div className="row">
+            <div className="col-6">
+              <p>NUMBER OF CLICKS: {this.state.clicks}</p>
+            </div>
+            <div className="col-6 text-right">
+              <Reset reset={this.reset.bind(this)} />
+            </div>
+          </div>
+          <div className="row">
+            {cards}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 
@@ -154,4 +217,25 @@ function RenderCards(props) {
   let card = props.card;
   let text = (card.matched || card.flipped) ? card.letter : '?';
   return <div className="col-3 text-center"><div className="letter" onClick={() => props.flip(card)}>{text}</div></div>
+}
+
+function Reset(props) {
+  return <Button onClick={() => props.reset()}>RESET</Button>
+}
+
+function Winner(props) {
+  return (
+    <div>
+      <div className="row">
+        <div className="col-12">
+          <p>YOU WIN!</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <p>It only took you {props.game.state.clicks} clicks.</p>
+        </div>
+      </div>
+    </div>
+  )
 }
