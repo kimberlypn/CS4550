@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
+//import thumbsup from '../static/images/thumbsup.png';
 
 export default function run_demo(root) {
   ReactDOM.render(<MemoryGame />, root);
@@ -182,24 +183,9 @@ class MemoryGame extends React.Component {
     });
     // If the player has won, display the "winner" message
     if (this.state.matches == 8) {
-      console.log("win");
       return (
         <div id="winner">
-          <div className="row">
-            <div className="col-12 text-center">
-              <p id="win-text">YOU WON!</p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 text-center">
-              <p>It took you {this.state.clicks} clicks.</p>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 text-center">
-              <p>Press the 'Reset' button to play again.</p>
-            </div>
-          </div>
+          <Winner clicks={this.state.clicks} />
           <div className="row">
             <div className="col-12 text-center">
               <Reset reset={this.reset.bind(this)} />
@@ -237,11 +223,13 @@ function RenderCards(props) {
     text = card.letter;
   }
   if (card.matched) {
-    text = (<span class="glyphicon glyphicon-thumbs-up"></span>);
+    // text = {thumbsup};
+    text = <img src="/static/images/thumbsup.png"/>;
   }
   return (
     <div className="col-3 text-center">
-      <div className="letter" onClick={() => props.clicked(card)}>{text}
+      <div className="letter" onClick={() => props.clicked(card)}>
+        {text}
       </div>
     </div>
   )
@@ -251,24 +239,24 @@ function Reset(props) {
   return <Button id="reset-btn" onClick={() => props.reset()}>RESET</Button>
 }
 
-/*
 function Winner(props) {
-return (
-<div className="row">
-<div className="col-12 text-center">
-<p id="win-text">YOU WON!</p>
-</div>
-</div>
-<div className="row">
-<div className="col-12 text-center">
-<p>It took you {this.state.clicks} clicks.</p>
-</div>
-</div>
-<div className="row">
-<div className="col-12 text-center">
-<p>Press the 'Reset' button to play again.</p>
-</div>
-</div>
-)
+  return (
+    <div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p id="win-text">YOU WON!</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p>It took you {props.clicks} clicks.</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p>Press the 'Reset' button to play again.</p>
+        </div>
+      </div>
+    </div>
+  )
 }
-*/
