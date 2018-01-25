@@ -200,12 +200,15 @@ class MemoryGame extends React.Component {
 // Renders each individual card
 function RenderCards(props) {
   let card = props.card;
+  // If the card is neither flipped nor matched, display a question mark
   let text = "?";
+  // If the card is flipped, display the letter
   if (card.flipped) {
     text = card.letter;
   }
+  // If the card has been matched, display a thumbs up icon
   if (card.matched) {
-    text = "MATCHED";
+    text = <img src="/images/thumbsup.png" />
   }
   return (
     <div className="col-3 text-center">
