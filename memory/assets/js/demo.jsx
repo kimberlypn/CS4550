@@ -240,7 +240,7 @@ function Winner(props) {
       </div>
       <div className="row">
         <div className="col-12 text-center">
-          <p>Press the 'Reset' button to play again.</p>
+          <p>Press the 'RESET' button to play again.</p>
         </div>
       </div>
     </div>
