@@ -9,22 +9,22 @@ export default function run_demo(root) {
 // Randomizes the order of the cards array
 function ShuffleCards() {
   let cards = [
-    {letter: 'A', id: 0, matched: false, flipped: false},
-    {letter: 'A', id: 1, matched: false, flipped: false},
-    {letter: 'B', id: 2, matched: false, flipped: false},
-    {letter: 'B', id: 3, matched: false, flipped: false},
-    {letter: 'C', id: 4, matched: false, flipped: false},
-    {letter: 'C', id: 5, matched: false, flipped: false},
-    {letter: 'D', id: 6, matched: false, flipped: false},
-    {letter: 'D', id: 7, matched: false, flipped: false},
-    {letter: 'E', id: 8, matched: false, flipped: false},
-    {letter: 'E', id: 9, matched: false, flipped: false},
-    {letter: 'F', id: 10, matched: false, flipped: false},
-    {letter: 'F', id: 11, matched: false, flipped: false},
-    {letter: 'G', id: 12, matched: false, flipped: false},
-    {letter: 'G', id: 13, matched: false, flipped: false},
-    {letter: 'H', id: 14, matched: false, flipped: false},
-    {letter: 'H', id: 15, matched: false, flipped: false}
+    {letter: 'A', id: 0, flipped: false, matched: false},
+    {letter: 'A', id: 1, flipped: false, matched: false},
+    {letter: 'B', id: 2, flipped: false, matched: false},
+    {letter: 'B', id: 3, flipped: false, matched: false},
+    {letter: 'C', id: 4, flipped: false, matched: false},
+    {letter: 'C', id: 5, flipped: false, matched: false},
+    {letter: 'D', id: 6, flipped: false, matched: false},
+    {letter: 'D', id: 7, flipped: false, matched: false},
+    {letter: 'E', id: 8, flipped: false, matched: false},
+    {letter: 'E', id: 9, flipped: false, matched: false},
+    {letter: 'F', id: 10, flipped: false, matched: false},
+    {letter: 'F', id: 11, flipped: false, matched: false},
+    {letter: 'G', id: 12, flipped: false, matched: false},
+    {letter: 'G', id: 13, flipped: false, matched: false},
+    {letter: 'H', id: 14, flipped: false, matched: false},
+    {letter: 'H', id: 15, flipped: false, matched: false}
   ];
   var i, random_idx, old;
   for (var i = 0; i < cards.length; i++) {
