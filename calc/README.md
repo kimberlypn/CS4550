@@ -1,6 +1,9 @@
 # Calc
 
-**TODO: Add description**
+**TODO:**
+- Calc.eval (String -> Number) # Should parse and evaluate an arithmetic expression  
+- Calc.main # Should repeatedly print a prompt, read one line, eval it, and print  
+the result
 
 ## Installation
 
@@ -18,4 +21,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/calc](https://hexdocs.pm/calc).
-
