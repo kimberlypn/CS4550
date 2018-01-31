@@ -18,10 +18,6 @@ defmodule Calc do
   # ops: stack of operators
   # acc: accumulator for the postfix expression to be returned
   defp get_postfix(expr, ops, acc) do
-    #IO.inspect(expr)
-    #IO.inspect(ops)
-    #IO.inspect(acc)
-    #IO.puts("\n")
     cond do
       # If there are no more characters
       length(expr) == 0 ->
