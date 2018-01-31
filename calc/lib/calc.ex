@@ -3,6 +3,8 @@ defmodule Calc do
   Documentation for Calc.
   """
 
+  # Helper function for get_postfix(): adds all operators from the stack to the
+  # accumulator until a left parenthesis is found
   defp pop_operators(stack, acc) do
     if Enum.at(stack, -1) == "(" do
       [Enum.drop(stack, -1), acc]
@@ -125,17 +127,21 @@ defmodule Calc do
     end
   end
 
+  # Parses and evaluates an arithmetic expression passed as a string
   def eval(expr) do
-    # Convert the equation from infix to postfix notation and evaluate it
     expr
+    # Trim any whitespace and create an array of all of the characters
     |> String.trim()
     |> String.replace("(", " ( ")
     |> String.replace(")", " ) ")
     |> String.split()
+    # Convert the equation from infix to postfix notation and evaluate it
     |> get_postfix([], [])
     |> eval_postfix([])
   end
 
+  # Repeatedly prints a prompt, reads a line, evaluates it,
+  # and prints the result
   def main() do
     expr = IO.gets("")
     ans = eval(expr)
