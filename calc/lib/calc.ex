@@ -4,10 +4,6 @@ defmodule Calc do
   """
 
   def get_postfix(expr, ops, acc) do
-    IO.inspect(expr)
-    IO.inspect(ops)
-    IO.inspect(acc)
-    IO.puts("\n")
     cond do
       # If there are no more characters
       length(expr) == 0 ->
@@ -45,7 +41,7 @@ defmodule Calc do
             (char == "-" && Enum.at(ops, -1) == "/") ->
               get_postfix(expr, Enum.drop(ops, -1), acc ++ Enum.take(ops, -1))
             true ->
-              get_postfix(rest, ops ++ char, acc)
+              get_postfix(rest, ops ++ [char], acc)
           end
         end
       # If the character is a number
