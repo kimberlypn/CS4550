@@ -15,7 +15,7 @@ defmodule Calc do
   # expr: expression in infix notation
   # ops: stack of operators
   # acc: accumulator for the postfix expression to be returned
-  def get_postfix(expr, ops, acc) do
+  defp get_postfix(expr, ops, acc) do
     #IO.inspect(expr)
     #IO.inspect(ops)
     #IO.inspect(acc)
