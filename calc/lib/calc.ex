@@ -129,6 +129,8 @@ defmodule Calc do
     # Convert the equation from infix to postfix notation and evaluate it
     expr
     |> String.trim()
+    |> String.replace("(", " ( ")
+    |> String.replace(")", " ) ")
     |> String.split()
     |> get_postfix([], [])
     |> eval_postfix([])
