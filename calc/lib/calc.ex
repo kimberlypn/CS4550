@@ -3,7 +3,7 @@ defmodule Calc do
   Documentation for Calc.
   """
 
-  def pop_operators(stack, acc) do
+  defp pop_operators(stack, acc) do
     if Enum.at(stack, -1) == "(" do
       [Enum.drop(stack, -1), acc]
     else
@@ -83,7 +83,7 @@ defmodule Calc do
   # Evaluates an expression in postfix notation.
   # expr: expression in postfix notation to be evaluated
   # stack: stack of numbers to be evaluated
-  def eval_postfix(expr, stack) do
+  defp eval_postfix(expr, stack) do
     cond do
       # If there are no more characters, return the stack
       length(expr) == 0 ->
