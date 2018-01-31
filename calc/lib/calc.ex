@@ -53,7 +53,7 @@ defmodule Calc do
       true ->
         # Add it to the accumulator and recurse on the rest of expr
         rest = Enum.drop(expr, 1)
-        char = Enum.at(expr, 0)
+        char = String.to_integer(Enum.at(expr, 0))
         get_postfix(rest, ops, acc ++ [char])
     end
   end
@@ -65,7 +65,7 @@ defmodule Calc do
     cond do
       # If there are no more characters, return the stack
       length(expr) == 0 ->
-        String.to_integer(Enum.at(stack, 0))
+        Enum.at(stack, 0)
       # If the character is a number, push it to the stack and recurse
       not Enum.member?(["*","/","+", "-"], Enum.at(expr, 0)) ->
         rest = Enum.drop(expr, 1)
@@ -74,8 +74,8 @@ defmodule Calc do
       # If the character is an operator
       true ->
         # Pop the first two numbers on the stack
-        first = String.to_integer(Enum.at(stack, -2))
-        second = String.to_integer(Enum.at(stack, -1))
+        first = Enum.at(stack, -2)
+        second = Enum.at(stack, -1)
         # Add the evaluation of the two numbers to the stack and recurse
         rest = Enum.drop(expr, 1)
         case Enum.at(expr, 0) do
@@ -83,22 +83,22 @@ defmodule Calc do
             eval_postfix(rest,
               (stack
               |> Enum.drop(-1)
-              |> Enum.drop(-1)) ++ [Integer.to_string(first * second)])
+              |> Enum.drop(-1)) ++ [first * second])
           "/" ->
-          eval_postfix(rest,
-            (stack
-            |> Enum.drop(-1)
-            |> Enum.drop(-1)) ++ [Integer.to_string(first / second)])
+            eval_postfix(rest,
+              (stack
+              |> Enum.drop(-1)
+              |> Enum.drop(-1)) ++ [first / second])
           "+" ->
-          eval_postfix(rest,
-            (stack
-            |> Enum.drop(-1)
-            |> Enum.drop(-1)) ++ [Integer.to_string(first + second)])
+            eval_postfix(rest,
+              (stack
+              |> Enum.drop(-1)
+              |> Enum.drop(-1)) ++ [first + second])
           "-" ->
-          eval_postfix(rest,
-            (stack
-            |> Enum.drop(-1)
-            |> Enum.drop(-1)) ++ [Integer.to_string(first - second)])
+            eval_postfix(rest,
+              (stack
+              |> Enum.drop(-1)
+              |> Enum.drop(-1)) ++ [first - second])
         end
     end
   end
