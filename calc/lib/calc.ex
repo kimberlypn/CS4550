@@ -110,7 +110,7 @@ defmodule Calc do
             eval_postfix(rest,
               (stack
               |> Enum.drop(-1)
-              |> Enum.drop(-1)) ++ [first / second])
+              |> Enum.drop(-1)) ++ [round(first / second)])
           "+" ->
             eval_postfix(rest,
               (stack
