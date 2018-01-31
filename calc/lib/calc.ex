@@ -3,11 +3,23 @@ defmodule Calc do
   Documentation for Calc.
   """
 
+  def pop_operators(stack, acc) do
+    if Enum.at(stack, -1) == "(" do
+      [Enum.drop(stack, -1), acc]
+    else
+      pop_operators(Enum.drop(stack, -1), acc ++ Enum.take(stack, -1))
+    end
+  end
+
   # Converts an expression in infix notation to postfix notation.
   # expr: expression in infix notation
   # ops: stack of operators
   # acc: accumulator for the postfix expression to be returned
   def get_postfix(expr, ops, acc) do
+    #IO.inspect(expr)
+    #IO.inspect(ops)
+    #IO.inspect(acc)
+    #IO.puts("\n")
     cond do
       # If there are no more characters
       length(expr) == 0 ->
@@ -49,6 +61,16 @@ defmodule Calc do
               get_postfix(rest, ops ++ [char], acc)
           end
         end
+      # If the character is a left parenthesis, add it to the stack and recurse
+      Enum.at(expr, 0) == "(" ->
+        rest = Enum.drop(expr, 1)
+        get_postfix(rest, ops ++ [Enum.at(expr, 0)], acc)
+      # If the character is a right parenthesis, add all of the operators up to
+      # the first left parenthesis to the acc
+      Enum.at(expr, 0) == ")" ->
+        rest = Enum.drop(expr, 1)
+        new_acc = pop_operators(ops, acc)
+        get_postfix(rest, Enum.at(new_acc, 0), Enum.at(new_acc, 1))
       # If the character is a number
       true ->
         # Add it to the accumulator and recurse on the rest of expr
