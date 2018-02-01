@@ -37,7 +37,7 @@ defmodule CalcTest do
     assert Calc.eval("20 / 4") == 5
     assert Calc.eval("-24 / -4") == 6
     assert Calc.eval("-30 / 10") == -3
-    assert Calc.eval("1 / 2") == 1
+    assert Calc.eval("1 / 2") == 0
     assert Calc.eval("(20 / 5) / 2") == 2
     assert Calc.eval("900 / 9 / 5 / 4") == 5
   end
