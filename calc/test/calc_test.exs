@@ -48,6 +48,7 @@ defmodule CalcTest do
     assert Calc.eval("4 - 6 + 7") == 5
     assert Calc.eval("5 - 3 / 3") == 4
     assert Calc.eval("3 * 4 * (5 + 7)") == 144
+    assert Calc.eval("1 + 3 * 3 + 1") == 11
   end
 
   test "obnoxious parentheses" do
