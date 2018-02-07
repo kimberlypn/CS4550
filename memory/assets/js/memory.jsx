@@ -57,6 +57,10 @@ class MemoryGame extends React.Component {
     .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
+  gotView(view) {
+    this.setState(view.game);
+  }
+
   // Determines if the current card is a match
   matched(card) {
     var match = false;
