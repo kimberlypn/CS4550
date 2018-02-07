@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_demo(root) {
+export default function run_game(root) {
   ReactDOM.render(<MemoryGame />, root);
 }
 
