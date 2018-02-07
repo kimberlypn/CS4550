@@ -1,6 +1,10 @@
 defmodule MemoryWeb.Router do
   use MemoryWeb, :router
 
+  def game(conn, params) do
+    render conn, "game.html", game: params["game"]
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -17,6 +21,7 @@ defmodule MemoryWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/game/:game", PageController, :game
   end
 
   # Other scopes may use custom stacks.

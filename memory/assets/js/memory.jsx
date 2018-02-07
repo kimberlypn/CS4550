@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_game(root) {
-  ReactDOM.render(<MemoryGame />, root);
+export default function run_game(root, channel) {
+  ReactDOM.render(<MemoryGame channel={channel}/>, root);
 }
 
 // Randomizes the order of the cards array
@@ -43,6 +43,7 @@ function ShuffleCards() {
 class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
+    this.channel = props.channel;
     this.state = {
       matches: 0,  // number of matches so far
       clicks: 0,   // number of clicks so far
@@ -51,6 +52,9 @@ class MemoryGame extends React.Component {
       ready: true, // false if a turn is still in progress
       cards: ShuffleCards() // shuffled deck of cards
     };
+    this.channel.join()
+    .receive("ok", this.gotView.bind(this))
+    .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
   // Determines if the current card is a match
