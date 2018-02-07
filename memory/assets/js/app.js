@@ -24,7 +24,6 @@ import run_game from "./memory";
 
 function init() {
   let root = document.getElementById('root');
-  run_game(root);
   if (root) {
     let channel = socket.channel("games:" + window.gameName, {});
     run_game(root, channel);

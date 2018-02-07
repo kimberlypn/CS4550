@@ -1,10 +1,6 @@
 defmodule MemoryWeb.Router do
   use MemoryWeb, :router
 
-  def game(conn, params) do
-    render conn, "game.html", game: params["game"]
-  end
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
