@@ -23,16 +23,46 @@ defmodule Memory.Game do
     }
   end
 
-  # Returns the match count and a flag indicating if the match count increased
-  defp matched(game, card) do
-    # If this is the second card in the turn and this card's letter
-    # matches the previous card's letter
+  # Sets the flipped flag of the card to true
+  defp flip_card(cards, card) do
+    # Update this card's flipped and matched flag
+    Map.put(cards,
+      card["id"],
+      %{letter: card["letter"],
+        id: card["id"],
+        flipped: true,
+        matched: card["matched"]})
+  end
+
+  # Helper for update_matched;
+  # updates the cards of the game and the matches count
+  defp update_cards(cards, game) do
+    Map.put(game, :cards, cards)
+    |> Map.put(:matches, game.matches + 1)
+  end
+
+  # Determines if the current card is a match
+  defp update_matched(game, card) do
+    # If this is the second card in the turn and this card's letter matches
+    # the previous card's letter
     if game.flipped != 0 && game.prev["letter"] == card["letter"] do
-      # Increment the number of matches by 1
-      [game.matches + 1, true]
+      # Set the matched flag of both to true
+      Map.put(game.cards,
+        card["id"],
+        %{letter: card["letter"],
+          id: card["id"],
+          flipped: card["flipped"],
+          matched: true})
+      |> Map.put(game.prev["id"],
+          %{letter: game.prev["letter"],
+            id: game.prev["id"],
+            flipped: game.prev["flipped"],
+            matched: true})
+      # Update the matches count
+      |> update_cards(game)
+    # Else, don't do anything
     else
-      # Else, do not change anything
-      [game.matches, false]
+      game
     end
   end
 
@@ -43,35 +73,6 @@ defmodule Memory.Game do
     else
       game.prev
     end
-  end
-
-  # Updates the matched flag of the previous card
-  defp update_prev(game, flag) do
-    # If there is a prev (i.e. if this is the second guess of the turn)
-    if game.matches!= 0 do
-      # Update prev's matched flag
-      """
-      Map.put(game.cards,
-        game.prev["id"],
-        %{letter: game.prev["letter"],
-          id: game.prev["id"],
-          flipped: flag,
-          matched: flag})
-          """
-          game
-    # Else, don't update prev
-    else
-      game
-    end
-  end
-
-  # Sets the flipped flag of the card to true and the matched flag of this card
-  # and the previous card to true if applicable
-  defp update_card(game, card, flag) do
-    # Update this card's flipped and matched flag
-    Map.put(game.cards,
-    card["id"],
-    %{letter: card["letter"], id: card["id"], flipped: true, matched: flag})
   end
 
   defp unflip(game, card, old_count) do
@@ -116,25 +117,21 @@ defmodule Memory.Game do
       && (game.flipped == 0 || game.prev["id"] != card["id"]) do
       # Save the old match count
       old_count = game.matches
-      # Check if this card is a match
-      matched = matched(game, card)
-      game
-      # Increment the match count if applicable
-      |> Map.put(:matches, Enum.at(matched, 0))
-      # Increment the click count by 1
-      |> Map.put(:clicks, game.clicks + 1)
-      # Increment the flipped count by 1
-      |> Map.put(:flipped, game.flipped + 1)
+      game = game
+      # Set the flipped flag of this card to true
+      |> Map.put(:cards, flip_card(game.cards, card))
+      # Check if the card is a match and update the matched flags
+      # and matches count accordingly
+      |> update_matched(card)
       # Update prev if applicable
       |> Map.put(:prev, set_prev(game, card))
       # Lock the next turn if this is the second guess so that the user
       # cannot start a new turn while the unflip logic is executing
       |> Map.put(:ready, game.flipped == 0)
-      # Update any card flags
-      |> Map.put(:cards, update_card(game, card, Enum.at(matched, 1)))
-      |> Map.put(:cards, update_prev(game, Enum.at(matched, 1)))
-      # Execute the unflipping logic on the new state
-      #|> unflip(card, old_count)
+      # Increment the click count by 1
+      |> Map.put(:clicks, game.clicks + 1)
+      # Increment the flipped count by 1
+      |> Map.put(:flipped, game.flipped + 1)
     else
       game
     end
