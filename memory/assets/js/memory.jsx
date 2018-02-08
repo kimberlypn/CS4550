@@ -34,7 +34,6 @@ class MemoryGame extends React.Component {
 
   // Renders the game board
   render() {
-    console.log(this.state)
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} clicked={this.sendCard.bind(this)} key={ii}/>;
     });
