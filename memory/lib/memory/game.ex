@@ -34,32 +34,27 @@ defmodule Memory.Game do
         matched: card["matched"]})
   end
 
-  # Helper for update_matched;
-  # updates the cards of the game and the matches count
-  defp update_cards(cards, game) do
-    Map.put(game, :cards, cards)
-    |> Map.put(:matches, game.matches + 1)
-  end
-
   # Determines if the current card is a match
   defp update_matched(game, card) do
     # If this is the second card in the turn and this card's letter matches
     # the previous card's letter
     if game.flipped != 0 && game.prev["letter"] == card["letter"] do
       # Set the matched flag of both to true
-      Map.put(game.cards,
-        card["id"],
-        %{letter: card["letter"],
-          id: card["id"],
-          flipped: card["flipped"],
-          matched: true})
-      |> Map.put(game.prev["id"],
-          %{letter: game.prev["letter"],
-            id: game.prev["id"],
-            flipped: game.prev["flipped"],
+      new_cards =
+        Map.put(game.cards,
+          card["id"],
+          %{letter: card["letter"],
+            id: card["id"],
+            flipped: card["flipped"],
             matched: true})
-      # Update the matches count
-      |> update_cards(game)
+        |> Map.put(game.prev["id"],
+            %{letter: game.prev["letter"],
+              id: game.prev["id"],
+              flipped: game.prev["flipped"],
+              matched: true})
+        # Update the cards and increment the matches count by 1
+        Map.put(game, :cards, new_cards)
+        |> Map.put(:matches, game.matches + 1)
     # Else, don't do anything
     else
       game
@@ -75,36 +70,31 @@ defmodule Memory.Game do
     end
   end
 
-  defp unflip(game, card, old_count) do
-    new_count = game.matches
-    # If this is the second guess in the turn, flip back the two cards after 1
-    # second and reset any other fields
-    if game.flipped == 2 && new_count > old_count do
-      game
-      # Change the flipped flag of the two cards back to false; does not
-      # matter if they are a match because RenderCards() checks both flags
-      |> Map.put(:cards,
-        Map.put(game.cards,
-          card["id"],
-          %{letter: card["letter"],
-            id: card["id"],
+  defp unflip(game, card) do
+    # Update card and prev to match the state of card and prev in the deck
+    new_game = Map.put(game, :prev, game.cards[game.prev["id"]])
+    new_card = new_game.cards[card["id"]]
+    # Change the flipped flag of the two cards back to false; does not
+    # matter if they are a match because RenderCards() checks both flags
+    new_cards =
+      Map.put(new_game.cards,
+        new_card["id"],
+        %{letter: new_card["letter"],
+          id: new_card["id"],
+          flipped: false,
+          matched: new_card["matched"]})
+      |> Map.put(new_game.prev["id"],
+          %{letter: new_game.prev["letter"],
+            id: new_game.prev["id"],
             flipped: false,
-            matched: card["matched"]}))
-      |> Map.put(:cards,
-        Map.put(game.cards,
-          game.prev["id"],
-          %{letter: game.prev["letter"],
-            id: game.prev["id"],
-            flipped: false,
-            matched: game.prev["matched"]}))
+            matched: new_game.prev["matched"]})
+      new_game
+      |> Map.put(:cards, new_cards)
       # Reset the flipped count
       |> Map.put(:flipped, 0)
       # Change the ready flag back to true to indicate that the user can
       # start a new turn
       |> Map.put(:ready, true)
-    else
-      game
-    end
   end
 
   # Handles what happens when a card is clicked by the user
@@ -117,21 +107,38 @@ defmodule Memory.Game do
       && (game.flipped == 0 || game.prev["id"] != card["id"]) do
       # Save the old match count
       old_count = game.matches
-      game = game
-      # Set the flipped flag of this card to true
-      |> Map.put(:cards, flip_card(game.cards, card))
-      # Check if the card is a match and update the matched flags
-      # and matches count accordingly
-      |> update_matched(card)
-      # Update prev if applicable
-      |> Map.put(:prev, set_prev(game, card))
-      # Lock the next turn if this is the second guess so that the user
-      # cannot start a new turn while the unflip logic is executing
-      |> Map.put(:ready, game.flipped == 0)
-      # Increment the click count by 1
-      |> Map.put(:clicks, game.clicks + 1)
-      # Increment the flipped count by 1
-      |> Map.put(:flipped, game.flipped + 1)
+      new_game = game
+        # Set the flipped flag of this card to true
+        |> Map.put(:cards, flip_card(game.cards, card))
+        # Check if the card is a match and update the matched flags
+        # and matches count accordingly
+        |> update_matched(card)
+        # Update prev if applicable
+        |> Map.put(:prev, set_prev(game, card))
+        # Lock the next turn if this is the second guess so that the user
+        # cannot start a new turn while the unflip logic is executing
+        |> Map.put(:ready, game.flipped == 0)
+        # Increment the click count by 1
+        |> Map.put(:clicks, game.clicks + 1)
+        # Increment the flipped count by 1
+        |> Map.put(:flipped, game.flipped + 1)
+      # If this is the second guess in the turn, flip back the two cards after 1
+      # second and reset any other fields
+      if new_game.flipped == 2 do
+        # If a match was found, let the user start the next turn immediately
+        if new_game.matches > old_count do
+          unflip(new_game, card)
+        # Else, set a 1-second delay so that the user has a chance to
+        # memorize the cards
+        else
+          :timer.sleep 1000
+          unflip(new_game, card)
+        end
+      # Else, don't do anything
+      else
+        new_game
+      end
+    # Else, don't do anything
     else
       game
     end
@@ -139,7 +146,7 @@ defmodule Memory.Game do
 
   # Randomizes the order of the cards array
   defp shuffle do
-    cards = %{
+    %{
       0 => %{letter: "A", id: 0, flipped: false, matched: false},
       1 => %{letter: "A", id: 1, flipped: false, matched: false},
       2 => %{letter: "B", id: 2, flipped: false, matched: false},
