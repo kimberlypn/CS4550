@@ -29,7 +29,7 @@ function init() {
     run_game(root, channel);
   }
   if (document.getElementById('index-page')) {
-    form_init();
+    //form_init();
   }
 }
 
