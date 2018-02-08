@@ -25,7 +25,6 @@ defmodule Memory.Game do
 
   # Sets the flipped flag of the card to true
   defp flip_card(cards, card) do
-    # Update this card's flipped and matched flag
     Map.put(cards,
       card["id"],
       %{letter: card["letter"],
@@ -63,11 +62,7 @@ defmodule Memory.Game do
 
   # Updates prev if the current card is the first guess in the turn
   defp set_prev(game, card) do
-    if game.flipped == 0 do
-      card
-    else
-      game.prev
-    end
+    if(game.flipped == 0, do: card, else: game.prev)
   end
 
   defp unflip(game, card) do
