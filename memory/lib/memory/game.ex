@@ -66,7 +66,6 @@ defmodule Memory.Game do
   end
 
   defp unflip(game, card) do
-
     # Update card and prev to match the state of card and prev in the deck
     new_card = game.cards[card.id]
     new_game = Map.put(game, :prev, game.cards[game.prev.id])
@@ -136,6 +135,7 @@ defmodule Memory.Game do
         # Else, set a 1-second delay so that the user has a chance to
         # memorize the cards
         else
+          # :timer.apply_after(1000, Memory.Game, unflip(), [new_game, new_card])
           unflip(new_game, new_card)
         end
       # Else, don't do anything

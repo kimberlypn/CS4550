@@ -32,24 +32,48 @@ class MemoryGame extends React.Component {
     .receive("ok", this.gotView.bind(this));
   }
 
+  sendReset() {
+    this.channel.push("reset")
+    .receive("ok", this.gotView.bind(this))
+  }
+
   // Renders the game board
   render() {
     console.log(this.state)
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} clicked={this.sendCard.bind(this)} key={ii}/>;
     });
-    return (
-      <div>
-        <div className="row">
-          <div className="col-6">
-            <p>NUMBER OF CLICKS: {this.state.clicks}</p>
+    // If the player has won, display the "winner" message
+    if (this.state.matches == 8) {
+      return (
+        <div id="winner">
+          <Winner clicks={this.state.clicks} />
+          <div className="row">
+            <div className="col-12 text-center">
+              <Reset reset={this.sendReset.bind(this)} />
+            </div>
           </div>
         </div>
-        <div className="row">
-          {cards}
+      )
+    }
+    // Else, render the game board
+    else {
+      return (
+        <div>
+          <div className="row">
+            <div className="col-6">
+              <p>NUMBER OF CLICKS: {this.state.clicks}</p>
+            </div>
+            <div className="col-6 text-right">
+              <Reset reset={this.sendReset.bind(this)} />
+            </div>
+          </div>
+          <div className="row">
+            {cards}
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 
@@ -70,6 +94,34 @@ function RenderCards(props) {
     <div className="col-3 text-center">
       <div className="letter" onClick={() => props.clicked(card)}>
         {text}
+      </div>
+    </div>
+  )
+}
+
+// Renders the reset button
+function Reset(props) {
+  return <Button onClick={() => props.reset()}>RESET</Button>
+}
+
+// Renders the winner message
+function Winner(props) {
+  return (
+    <div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p id="win-text">YOU WON!</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p>It only took you {props.clicks} clicks.</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 text-center">
+          <p>Press the 'RESET' button to play again.</p>
+        </div>
       </div>
     </div>
   )
