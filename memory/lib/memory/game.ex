@@ -21,6 +21,7 @@ defmodule Memory.Game do
         15 => %{letter: "H", id: 15, flipped: false, matched: false},
         16 => %{letter: "H", id: 16, flipped: false, matched: false}
       }
+    new_cards = shuffle(cards, 0, %{})
     %{
       matches: 0,
       clicks: 0,
@@ -28,7 +29,7 @@ defmodule Memory.Game do
       cur: nil,
       prev: nil,
       ready: true,
-      cards: shuffle(cards, 0, %{}),
+      cards: cards
     }
   end
 
@@ -41,7 +42,7 @@ defmodule Memory.Game do
       cur: game.cur,
       prev: game.prev,
       ready: game.ready,
-      cards: game.cards,
+      cards: game.cards
     }
   end
 
