@@ -24,22 +24,42 @@ class MemoryGame extends React.Component {
     .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
+  // Sets the state
   gotView(view) {
     this.setState(view.game);
   }
 
+  // Sends a request to the server to handle the logic for the clicked card;
+  // calls gotView() to set the returned state or sendUnflip() to handle
+  // the unflipping logic
   sendCard(card) {
     this.channel.push("clicked", { card: card })
-    .receive("ok", this.gotView.bind(this));
-    // .receive("unflip", this.sendUnflip.bind(this));
+    .receive("ok", this.gotView.bind(this))
+    .receive("unflip", this.sendUnflip.bind(this));
   }
 
-  sendUnflip() {
-    console.log(this.state);
-    //setTimeout(() => {this.channel.push("unflip")
-    //.receive("ok", this.gotView.bind(this))}, 1000);
+  // Sends a request to the server to unflip the two cards
+  // and calls gotView() to set the returned state
+  sendUnflip(view) {
+    // Save the old count
+    let oldCount = this.state.matches;
+    // Set the state returned from sendCard()
+    this.gotView(view)
+    // Get the new count
+    let newCount = this.state.matches;
+    // If a match was found, let the user start the next turn immediately
+    if (newCount > oldCount) {
+      this.channel.push("unflip").receive("ok", this.gotView.bind(this))
+    }
+    // Otherwise, set a 1 second delay so that the user has a chance to
+    // memorize the cards
+    else {
+      setTimeout(() => {this.channel.push("unflip").receive("ok", this.gotView.bind(this))}, 1000);
+    }
   }
 
+  // Sends a request to the server to reset the game
+  // and calls gotView() to set the returned state
   sendReset() {
     this.channel.push("reset")
     .receive("ok", this.gotView.bind(this))

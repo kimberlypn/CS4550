@@ -155,12 +155,6 @@ defmodule Memory.Game do
         |> Map.put(:clicks, game.clicks + 1)
         # Increment the flipped count by 1
         |> Map.put(:flipped, game.flipped + 1)
-      if new_game.flipped == 2 do
-        unflip(new_game)
-      # Else, don't do anything
-      else
-        new_game
-      end
     # Else, don't do anything
     else
       game

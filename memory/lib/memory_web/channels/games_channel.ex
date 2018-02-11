@@ -3,6 +3,7 @@ defmodule MemoryWeb.GamesChannel do
 
   alias Memory.Game
 
+  # Handles what happens when a user joins a game
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
       # Get initial game on join
@@ -30,8 +31,13 @@ defmodule MemoryWeb.GamesChannel do
     socket = assign(socket, :game, game)
     # Save game after generating new state
     Memory.GameBackup.save(socket.assigns[:name], socket.assigns[:game])
-    # Send an ok message
-    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
+    # Send an ok message if this is the first guess in the turn or an
+    # unflip message if this is the second guess in the turn
+    if game.flipped == 2 do
+      {:reply, {:unflip, %{ "game" => Game.client_view(game) }}, socket}
+    else
+      {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
+    end
   end
 
   # Sends a request to unflip the two cards
@@ -55,7 +61,7 @@ defmodule MemoryWeb.GamesChannel do
     # Save game after generating new state
     Memory.GameBackup.save(socket.assigns[:name], socket.assigns[:game])
     # Send an ok message
-    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
+    {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
   end
 
   # Add authorization logic here as required.
