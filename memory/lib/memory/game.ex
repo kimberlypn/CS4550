@@ -1,6 +1,7 @@
 defmodule Memory.Game do
   # Resets the state of the game
   def new do
+    # Create a map of the cards to be shuffled
     cards =
       %{
         1 => %{letter: "A", id: 1, flipped: false, matched: false},
@@ -87,6 +88,7 @@ defmodule Memory.Game do
     if(game.flipped == 0, do: card.id, else: game.prev)
   end
 
+  # Handles what happens when a turn is complete
   def unflip(game) do
     # If this is the second guess in the turn, flip back the two cards after 1
     # second and reset any other fields
@@ -184,7 +186,7 @@ defmodule Memory.Game do
   # Converts the map keys from strings to atoms;
   # ATTRIBUTION:
   # https://stackoverflow.com/questions/31990134/how-to-convert-map-keys-from-strings-to-atoms-in-elixir
-  def string_to_atom(m) do
+  defp string_to_atom(m) do
     for {key, val} <- m, into: %{}, do: {String.to_atom(key), val}
   end
 
