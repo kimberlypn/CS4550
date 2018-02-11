@@ -2,166 +2,73 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
-export default function run_game(root) {
-  ReactDOM.render(<MemoryGame />, root);
-}
-
-// Randomizes the order of the cards array
-function ShuffleCards() {
-  let cards = [
-    {letter: 'A', id: 0, flipped: false, matched: false},
-    {letter: 'A', id: 1, flipped: false, matched: false},
-    {letter: 'B', id: 2, flipped: false, matched: false},
-    {letter: 'B', id: 3, flipped: false, matched: false},
-    {letter: 'C', id: 4, flipped: false, matched: false},
-    {letter: 'C', id: 5, flipped: false, matched: false},
-    {letter: 'D', id: 6, flipped: false, matched: false},
-    {letter: 'D', id: 7, flipped: false, matched: false},
-    {letter: 'E', id: 8, flipped: false, matched: false},
-    {letter: 'E', id: 9, flipped: false, matched: false},
-    {letter: 'F', id: 10, flipped: false, matched: false},
-    {letter: 'F', id: 11, flipped: false, matched: false},
-    {letter: 'G', id: 12, flipped: false, matched: false},
-    {letter: 'G', id: 13, flipped: false, matched: false},
-    {letter: 'H', id: 14, flipped: false, matched: false},
-    {letter: 'H', id: 15, flipped: false, matched: false}
-  ];
-  var i, random_idx, old;
-  for (var i = 0; i < cards.length; i++) {
-    // Grab a random index
-    random_idx = Math.floor(Math.random() * cards.length);
-    // Save the card that was previously at i
-    old = cards[i];
-    // Set the card at i to be the card at random_idx
-    cards[i] = cards[random_idx];
-    // Set the card at random_idx to be the card that used to be at i
-    cards[random_idx] = old;
-  }
-  return cards;
+export default function run_game(root, channel) {
+  ReactDOM.render(<MemoryGame channel={channel}/>, root);
 }
 
 class MemoryGame extends React.Component {
   constructor(props) {
     super(props);
+    this.channel = props.channel;
     this.state = {
       matches: 0,  // number of matches so far
       clicks: 0,   // number of clicks so far
       flipped: 0,  // number of cards currently flipped
-      prev: null,  // previous card that was flipped
+      cur: null, // id of the current card that was clicked
+      prev: null,  // id of the previous card that was flipped
       ready: true, // false if a turn is still in progress
-      cards: ShuffleCards() // shuffled deck of cards
+      cards: [], // shuffled deck of cards
     };
+    this.channel.join()
+    .receive("ok", this.gotView.bind(this))
+    .receive("error", resp => { console.log("Unable to join", resp) });
   }
 
-  // Determines if the current card is a match
-  matched(card) {
-    var match = false;
-    // If this is the second card in the turn
-    if (this.state.flipped != 0) {
-      // Check if this card's letter matches the previous card's letter
-      match = (this.state.prev.letter == card.letter);
+  // Sets the state
+  gotView(view) {
+    this.setState(view.game);
+  }
+
+  // Sends a request to the server to handle the logic for the clicked card;
+  // calls gotView() to set the returned state or sendUnflip() to handle
+  // the unflipping logic
+  sendCard(card) {
+    this.channel.push("clicked", { card: card })
+    .receive("ok", this.gotView.bind(this))
+    .receive("unflip", this.sendUnflip.bind(this));
+  }
+
+  // Sends a request to the server to unflip the two cards
+  // and calls gotView() to set the returned state
+  sendUnflip(view) {
+    // Save the old count
+    let oldCount = this.state.matches;
+    // Set the state returned from sendCard()
+    this.gotView(view)
+    // Get the new count
+    let newCount = this.state.matches;
+    // If a match was found, let the user start the next turn immediately
+    if (newCount > oldCount) {
+      this.channel.push("unflip").receive("ok", this.gotView.bind(this))
     }
-    // If there is a match
-    if (match) {
-      // Update the matches count
-      var matches_count = this.state.matches + 1;
-      _.extend(this.state, { matches: matches_count });
-      // Update the matched flag of this card and the previous card
-      _.extend(this.state.prev, { matched: true });
-      _.extend(card, { matched: true });
-    }
-  }
-
-  // Handles what happens when a turn is complete
-  unflip(card) {
-    // Change the flipped flag of the two cards back to false; does not matter
-    // if they are a match because RenderCards() checks both flags
-    _.extend(card, { flipped: false });
-    _.extend(this.state.prev, { flipped: false });
-    // Reset the flipped count and change the ready flag back to true to
-    // indicate that the user can start a new turn
-    let st1 = _.extend(this.state, {
-      flipped: 0,
-      ready: true,
-    });
-    // Set the new state
-    this.setState(st1);
-  }
-
-  // Handles what happens when a card is clicked by the user
-  clicked(card) {
-    // Only execute if the card has not been matched yet, another turn is not in
-    // progress, and the card is the first card of the game or is different
-    // from the previous card
-    if (!card.matched && this.state.ready && (this.state.flipped == 0 || this.state.prev.id != card.id)) {
-      // Save the old count of matches
-      let oldCount = this.state.matches;
-      // Set the flipped flag of this card
-      let xs = _.map(this.state.cards, (c) => {
-        if (c.id == card.id) {
-          return _.extend(c, {
-            flipped: true,
-          });
-        }
-        else {
-          return c;
-        }
-      });
-      // Check if the card is a match
-      this.matched(card);
-      // Only update prev if this is the first guess in the turn
-      let p = (this.state.flipped == 0) ? card : this.state.prev;
-      // Lock the next turn if this is the second guess so that the user
-      // cannot start a new turn while the unflip logic is executing
-      let r = (this.state.flipped == 0);
-      // Increment the number of cards flipped
-      let flipped_count = this.state.flipped + 1;
-      // Increment the number of clicks
-      let click_count = this.state.clicks + 1;
-      // Update and set the new state
-      let st1 = _.extend(this.state, {
-        clicks: click_count,
-        flipped: flipped_count,
-        prev: p,
-        ready: r,
-        cards: xs,
-      });
-      this.setState(st1);
-      // Get the new count of matches
-      let newCount = this.state.matches;
-      // If this is the second guess in the turn, flip back the two cards after
-      // 1 second and reset any other fields
-      if (this.state.flipped == 2) {
-        // If a match was found, let the user start the next turn immediately
-        if (newCount > oldCount) {
-          this.unflip(card);
-        }
-        // Otherwise, set a 1 second delay so that the user has a chance to
-        // memorize the cards
-        else {
-          setTimeout(() => {this.unflip(card)}, 1000);
-        }
-      }
+    // Otherwise, set a 1 second delay so that the user has a chance to
+    // memorize the cards
+    else {
+      setTimeout(() => {this.channel.push("unflip").receive("ok", this.gotView.bind(this))}, 1000);
     }
   }
 
-  // Resets the state of the game
-  reset() {
-    let st1 = _.extend(this.state, {
-      matches: 0,
-      clicks: 0,
-      flipped: 0,
-      prev: null,
-      ready: true,
-      cards: ShuffleCards()
-    });
-    this.setState(st1);
+  // Sends a request to the server to reset the game
+  // and calls gotView() to set the returned state
+  sendReset() {
+    this.channel.push("reset")
+    .receive("ok", this.gotView.bind(this))
   }
 
   // Renders the game board
   render() {
     let cards = _.map(this.state.cards, (card, ii) => {
-      return <RenderCards card={card} clicked={this.clicked.bind(this)} key={ii}/>;
+      return <RenderCards card={card} clicked={this.sendCard.bind(this)} key={ii}/>;
     });
     // If the player has won, display the "winner" message
     if (this.state.matches == 8) {
@@ -170,7 +77,7 @@ class MemoryGame extends React.Component {
           <Winner clicks={this.state.clicks} />
           <div className="row">
             <div className="col-12 text-center">
-              <Reset reset={this.reset.bind(this)} />
+              <Reset reset={this.sendReset.bind(this)} />
             </div>
           </div>
         </div>
@@ -185,7 +92,7 @@ class MemoryGame extends React.Component {
               <p>NUMBER OF CLICKS: {this.state.clicks}</p>
             </div>
             <div className="col-6 text-right">
-              <Reset reset={this.reset.bind(this)} />
+              <Reset reset={this.sendReset.bind(this)} />
             </div>
           </div>
           <div className="row">
