@@ -5,7 +5,12 @@ defmodule MemoryWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = Game.new()
+      # Get initial game on join
+      game = Memory.GameBackup.load(name) || Game.new()
+
+      # Save game after generating new state.
+      Memory.GameBackup.save(socket.assigns[:name], game)
+
       socket = socket
       |> assign(:game, game)
       |> assign(:name, name)
@@ -21,6 +26,17 @@ defmodule MemoryWeb.GamesChannel do
   # Sends the clicked card to clicked()
   def handle_in("clicked", %{"card" => c}, socket) do
     game = Game.clicked(socket.assigns[:game], c)
+    socket = assign(socket, :game, game)
+    if game.flipped < 2 do
+      {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
+    else
+      {:reply, {:unflip, %{ "game" => Game.client_view(game)}}, socket}
+    end
+  end
+
+  # Sends a request to unflip the two cards
+  def handle_in("unflip", %{}, socket) do
+    game = Game.unflip(socket.assigns[:game])
     socket = assign(socket, :game, game)
     {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end

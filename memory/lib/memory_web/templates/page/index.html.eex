@@ -1,6 +1,19 @@
-<div class="row">
-  <div class="col">
-    <h1 id="index-page">JOIN A GAME</h1>
-    <p><a href="/game/demo">Join</a></p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 id="index-page">JOIN A GAME</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <label for="game_name">GAME NAME:</label>
+      <input class="form-control" id="game_name" type="text" required>
+      <p id="error">PLEASE ENTER A GAME NAME.</p>
+      <p>
+        <a href="#" id="join" onClick="getLink()">
+          JOIN
+        </a>
+      </p>
+    </div>
   </div>
 </div>

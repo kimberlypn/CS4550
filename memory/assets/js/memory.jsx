@@ -14,7 +14,8 @@ class MemoryGame extends React.Component {
       matches: 0,  // number of matches so far
       clicks: 0,   // number of clicks so far
       flipped: 0,  // number of cards currently flipped
-      prev: null,  // previous card that was flipped
+      cur: null, // id of the current card that was clicked
+      prev: null,  // id of the previous card that was flipped
       ready: true, // false if a turn is still in progress
       cards: [], // shuffled deck of cards
     };
@@ -29,7 +30,14 @@ class MemoryGame extends React.Component {
 
   sendCard(card) {
     this.channel.push("clicked", { card: card })
-    .receive("ok", this.gotView.bind(this));
+    .receive("ok", this.gotView.bind(this))
+    .receive("unflip", this.sendUnflip.bind(this));
+  }
+
+  sendUnflip() {
+    console.log(this.state);
+    //setTimeout(() => {this.channel.push("unflip")
+    //.receive("ok", this.gotView.bind(this))}, 1000);
   }
 
   sendReset() {
@@ -39,7 +47,6 @@ class MemoryGame extends React.Component {
 
   // Renders the game board
   render() {
-    console.log(this.state)
     let cards = _.map(this.state.cards, (card, ii) => {
       return <RenderCards card={card} clicked={this.sendCard.bind(this)} key={ii}/>;
     });

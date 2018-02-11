@@ -8,6 +8,14 @@
   <meta name="author" content="">
   <script>
     window.userToken = "TODO";
+    function getLink() {
+      var game_name = document.getElementById('game_name').value;
+      var link = "game/" + game_name;
+      if (!game_name)
+        document.getElementById('error').style.display = 'inline';
+      else
+        document.getElementById('join').href = link;
+    }
   </script>
   <title>Memory Game</title>
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">

@@ -5,6 +5,7 @@ defmodule Memory.Game do
       matches: 0,
       clicks: 0,
       flipped: 0,
+      cur: nil,
       prev: nil,
       ready: true,
       cards: shuffle(),
@@ -13,10 +14,12 @@ defmodule Memory.Game do
 
   # Returns the current state of the game
   def client_view(game) do
+    IO.puts("HELLOOOOOOOOOO")
     %{
       matches: game.matches,
       clicks: game.clicks,
       flipped: game.flipped,
+      cur: game.cur,
       prev: game.prev,
       ready: game.ready,
       cards: game.cards,
@@ -37,8 +40,9 @@ defmodule Memory.Game do
   defp update_matched(game, card) do
     # If this is the second card in the turn and this card's letter matches
     # the previous card's letter
-    if game.flipped != 0 && game.prev.letter == card.letter do
+    if game.flipped != 0 && game.cards[game.prev].letter == card.letter do
       # Set the matched flag of both to true
+      prev = game.cards[game.prev]
       new_cards =
         Map.put(game.cards,
           card.id,
@@ -46,14 +50,14 @@ defmodule Memory.Game do
             id: card.id,
             flipped: card.flipped,
             matched: true})
-        |> Map.put(game.prev.id,
-            %{letter: game.prev.letter,
-              id: game.prev.id,
-              flipped: game.prev.flipped,
+        |> Map.put(game.prev,
+            %{letter: prev.letter,
+              id: prev.id,
+              flipped: prev.flipped,
               matched: true})
-        # Update the cards and increment the matches count by 1
-        Map.put(game, :cards, new_cards)
-        |> Map.put(:matches, game.matches + 1)
+              # Update the cards and increment the matches count by 1
+      Map.put(game, :cards, new_cards)
+      |> Map.put(:matches, game.matches + 1)
     # Else, don't do anything
     else
       game
@@ -62,34 +66,21 @@ defmodule Memory.Game do
 
   # Updates prev if the current card is the first guess in the turn
   defp set_prev(game, card) do
-    if(game.flipped == 0, do: card, else: game.prev)
+    if(game.flipped == 0, do: card.id, else: game.prev)
   end
 
-  defp unflip(game, card) do
-    # Update card and prev to match the state of card and prev in the deck
-    new_card = game.cards[card.id]
-    new_game = Map.put(game, :prev, game.cards[game.prev.id])
-    # Change the flipped flag of the two cards back to false; does not
-    # matter if they are a match because RenderCards() checks both flags
-    new_cards =
-      Map.put(new_game.cards,
-        new_card.id,
-        %{letter: new_card.letter,
-          id: new_card.id,
-          flipped: false,
-          matched: new_card.matched})
-      |> Map.put(new_game.prev.id,
-          %{letter: new_game.prev.letter,
-            id: new_game.prev.id,
-            flipped: false,
-            matched: new_game.prev.matched})
-      new_game
-      |> Map.put(:cards, new_cards)
-      # Reset the flipped count
-      |> Map.put(:flipped, 0)
-      # Change the ready flag back to true to indicate that the user can
-      # start a new turn
-      |> Map.put(:ready, true)
+  def unflip(game) do
+    # If this is the second guess in the turn, flip back the two cards after 1
+    # second and reset any other fields
+    if game.flipped == 2 do
+        Map.put(game, :flipped, 0)
+        # Change the ready flag back to true to indicate that the user can
+        # start a new turn
+        |> Map.put(:ready, true)
+      # Else, don't do anything
+      else
+        game
+      end
   end
 
   # Converts the map keys from strings to atoms;
@@ -101,22 +92,25 @@ defmodule Memory.Game do
 
   # Handles what happens when a card is clicked by the user
   def clicked(game, card) do
-    # Convert the map keys in card from strings to atoms;
+    # Convert the map keys in card from strings to atoms
     new_card = string_to_atom(card)
     # Only execute if the card has not been matched yet, another turn is not in
     # progress, and the card is the first card of the game or is different
     # from the previous card
     if not new_card.matched
       && game.ready
-      && (game.flipped == 0 || game.prev.id != new_card.id) do
-      # Save the old match count
-      old_count = game.matches
+      && (game.flipped == 0 || game.prev != new_card.id) do
       new_game = game
+        # Set the id to cur
+        |> Map.put(:cur, new_card.id)
         # Set the flipped flag of this card to true
         |> Map.put(:cards, flip_card(game.cards, new_card))
-        # Check if the card is a match and update the matched flags
-        # and matches count accordingly
-        |> update_matched(new_card)
+      # Update new_card so that any subsequent calls to it will have the
+      # updated flipped flag
+      new_card = new_game.cards[new_card.id]
+      # Check if the card is a match and update the matched flags
+      # and matches count accordingly
+      update_matched(new_game, new_card)
         # Update prev if applicable
         |> Map.put(:prev, set_prev(game, new_card))
         # Lock the next turn if this is the second guess so that the user
@@ -126,22 +120,6 @@ defmodule Memory.Game do
         |> Map.put(:clicks, game.clicks + 1)
         # Increment the flipped count by 1
         |> Map.put(:flipped, game.flipped + 1)
-      # If this is the second guess in the turn, flip back the two cards after 1
-      # second and reset any other fields
-      if new_game.flipped == 2 do
-        # If a match was found, let the user start the next turn immediately
-        if new_game.matches > old_count do
-          unflip(new_game, new_card)
-        # Else, set a 1-second delay so that the user has a chance to
-        # memorize the cards
-        else
-          # :timer.apply_after(1000, Memory.Game, unflip(), [new_game, new_card])
-          unflip(new_game, new_card)
-        end
-      # Else, don't do anything
-      else
-        new_game
-      end
     # Else, don't do anything
     else
       game
