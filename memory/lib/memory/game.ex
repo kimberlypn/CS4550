@@ -1,6 +1,25 @@
 defmodule Memory.Game do
   # Resets the state of the game
   def new do
+    cards =
+      %{
+        1 => %{letter: "A", id: 1, flipped: false, matched: false},
+        2 => %{letter: "A", id: 2, flipped: false, matched: false},
+        3 => %{letter: "B", id: 3, flipped: false, matched: false},
+        4 => %{letter: "B", id: 4, flipped: false, matched: false},
+        5 => %{letter: "C", id: 5, flipped: false, matched: false},
+        6 => %{letter: "C", id: 6, flipped: false, matched: false},
+        7 => %{letter: "D", id: 7, flipped: false, matched: false},
+        8 => %{letter: "D", id: 8, flipped: false, matched: false},
+        9 => %{letter: "E", id: 9, flipped: false, matched: false},
+        10 => %{letter: "E", id: 10, flipped: false, matched: false},
+        11 => %{letter: "F", id: 11, flipped: false, matched: false},
+        12 => %{letter: "F", id: 12, flipped: false, matched: false},
+        13 => %{letter: "G", id: 13, flipped: false, matched: false},
+        14 => %{letter: "G", id: 14, flipped: false, matched: false},
+        15 => %{letter: "H", id: 15, flipped: false, matched: false},
+        16 => %{letter: "H", id: 16, flipped: false, matched: false}
+      }
     %{
       matches: 0,
       clicks: 0,
@@ -8,7 +27,7 @@ defmodule Memory.Game do
       cur: nil,
       prev: nil,
       ready: true,
-      cards: shuffle(),
+      cards: shuffle(cards, 0, %{}),
     }
   end
 
@@ -28,7 +47,7 @@ defmodule Memory.Game do
   # Sets the flipped flag of the card to true
   defp flip_card(cards, card) do
     Map.put(cards,
-      card.id,
+      get_key(cards, card.id),
       %{letter: card.letter,
         id: card.id,
         flipped: true,
@@ -41,10 +60,10 @@ defmodule Memory.Game do
     # the previous card's letter
     if game.flipped != 0 && game.cards[game.prev].letter == card.letter do
       # Set the matched flag of both to true
-      prev = game.cards[game.prev]
+      prev = game.cards[get_key(game.cards, game.prev)]
       new_cards =
         Map.put(game.cards,
-          card.id,
+          get_key(game.cards, card.id),
           %{letter: card.letter,
             id: card.id,
             flipped: card.flipped,
@@ -72,8 +91,8 @@ defmodule Memory.Game do
     # If this is the second guess in the turn, flip back the two cards after 1
     # second and reset any other fields
     if game.flipped == 2 do
-      prev = game.cards[game.prev]
-      cur = game.cards[game.cur]
+      prev = game.cards[get_key(game.cards, game.prev)]
+      cur = game.cards[get_key(game.cards, game.cur)]
       new_cards =
         Map.put(game.cards,
           cur.id,
@@ -99,13 +118,6 @@ defmodule Memory.Game do
     end
   end
 
-  # Converts the map keys from strings to atoms;
-  # ATTRIBUTION:
-  # https://stackoverflow.com/questions/31990134/how-to-convert-map-keys-from-strings-to-atoms-in-elixir
-  def string_to_atom(m) do
-    for {key, val} <- m, into: %{}, do: {String.to_atom(key), val}
-  end
-
   # Handles what happens when a card is clicked by the user
   def clicked(game, card) do
     # Convert the map keys in card from strings to atoms
@@ -126,7 +138,7 @@ defmodule Memory.Game do
         |> Map.put(:cards, flip_card(game.cards, new_card))
       # Update new_card so that any subsequent calls to it will have the
       # updated flipped flag
-      new_card = new_game.cards[new_card.id]
+      new_card = new_game.cards[get_key(new_game.cards, new_card.id)]
       # Check if the card is a match and update the matched flags
       # and matches count accordingly
       new_game =
@@ -153,25 +165,32 @@ defmodule Memory.Game do
   end
 
   # Randomizes the order of the cards array
-  defp shuffle do
-    %{
-      0 => %{letter: "A", id: 0, flipped: false, matched: false},
-      1 => %{letter: "A", id: 1, flipped: false, matched: false},
-      2 => %{letter: "B", id: 2, flipped: false, matched: false},
-      3 => %{letter: "B", id: 3, flipped: false, matched: false},
-      4 => %{letter: "C", id: 4, flipped: false, matched: false},
-      5 => %{letter: "C", id: 5, flipped: false, matched: false},
-      6 => %{letter: "D", id: 6, flipped: false, matched: false},
-      7 => %{letter: "D", id: 7, flipped: false, matched: false},
-      8 => %{letter: "E", id: 8, flipped: false, matched: false},
-      9 => %{letter: "E", id: 9, flipped: false, matched: false},
-      10 => %{letter: "F", id: 10, flipped: false, matched: false},
-      11 => %{letter: "F", id: 11, flipped: false, matched: false},
-      12 => %{letter: "G", id: 12, flipped: false, matched: false},
-      13 => %{letter: "G", id: 13, flipped: false, matched: false},
-      14 => %{letter: "H", id: 14, flipped: false, matched: false},
-      15 => %{letter: "H", id: 15, flipped: false, matched: false}
-    }
-    #|> Enum.shuffle()
+  defp shuffle(cards, idx, acc) do
+    # Return the accumulator once all of the cards have been shuffled
+    if idx == 16 do
+      acc
+    else
+      # Get a random key from the map
+      random_key = Map.keys(cards) |> Enum.random()
+      # Add value of the random_key to the acc
+      new_acc = Map.put(acc, idx, cards[random_key])
+      # Delete the value from the deck of cards
+      new_cards = Map.delete(cards, random_key)
+      # Recurse
+      shuffle(new_cards, idx + 1, new_acc)
+    end
+  end
+
+  # Converts the map keys from strings to atoms;
+  # ATTRIBUTION:
+  # https://stackoverflow.com/questions/31990134/how-to-convert-map-keys-from-strings-to-atoms-in-elixir
+  def string_to_atom(m) do
+    for {key, val} <- m, into: %{}, do: {String.to_atom(key), val}
+  end
+
+  # Returns the key corresponding to the given card
+  defp get_key(map, id) do
+    Enum.find(map, fn {key, val} -> val.id == id end)
+    |> elem(0)
   end
 end
