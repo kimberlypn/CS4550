@@ -27,11 +27,7 @@ defmodule MemoryWeb.GamesChannel do
   def handle_in("clicked", %{"card" => c}, socket) do
     game = Game.clicked(socket.assigns[:game], c)
     socket = assign(socket, :game, game)
-    if game.flipped < 2 do
-      {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
-    else
-      {:reply, {:unflip, %{ "game" => Game.client_view(game)}}, socket}
-    end
+    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
 
   # Sends a request to unflip the two cards

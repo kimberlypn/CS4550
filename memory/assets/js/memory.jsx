@@ -30,8 +30,8 @@ class MemoryGame extends React.Component {
 
   sendCard(card) {
     this.channel.push("clicked", { card: card })
-    .receive("ok", this.gotView.bind(this))
-    .receive("unflip", this.sendUnflip.bind(this));
+    .receive("ok", this.gotView.bind(this));
+    // .receive("unflip", this.sendUnflip.bind(this));
   }
 
   sendUnflip() {

@@ -14,7 +14,6 @@ defmodule Memory.Game do
 
   # Returns the current state of the game
   def client_view(game) do
-    IO.puts("HELLOOOOOOOOOO")
     %{
       matches: game.matches,
       clicks: game.clicks,
@@ -55,7 +54,7 @@ defmodule Memory.Game do
               id: prev.id,
               flipped: prev.flipped,
               matched: true})
-              # Update the cards and increment the matches count by 1
+      # Update the cards and increment the matches count by 1
       Map.put(game, :cards, new_cards)
       |> Map.put(:matches, game.matches + 1)
     # Else, don't do anything
@@ -73,14 +72,31 @@ defmodule Memory.Game do
     # If this is the second guess in the turn, flip back the two cards after 1
     # second and reset any other fields
     if game.flipped == 2 do
-        Map.put(game, :flipped, 0)
+      prev = game.cards[game.prev]
+      cur = game.cards[game.cur]
+      new_cards =
+        Map.put(game.cards,
+          cur.id,
+          %{letter: cur.letter,
+            id: cur.id,
+            flipped: false,
+            matched: cur.matched})
+        |> Map.put(game.prev,
+            %{letter: prev.letter,
+              id: prev.id,
+              flipped: false,
+              matched: prev.matched})
+        # Update the cards
+        Map.put(game, :cards, new_cards)
+        # Reset the flipped count
+        |> Map.put(:flipped, 0)
         # Change the ready flag back to true to indicate that the user can
         # start a new turn
         |> Map.put(:ready, true)
-      # Else, don't do anything
-      else
-        game
-      end
+    # Else, don't do anything
+    else
+      game
+    end
   end
 
   # Converts the map keys from strings to atoms;
@@ -100,7 +116,10 @@ defmodule Memory.Game do
     if not new_card.matched
       && game.ready
       && (game.flipped == 0 || game.prev != new_card.id) do
-      new_game = game
+      # Save the old match count
+      old_count = game.matches
+      new_game =
+        game
         # Set the id to cur
         |> Map.put(:cur, new_card.id)
         # Set the flipped flag of this card to true
@@ -110,7 +129,8 @@ defmodule Memory.Game do
       new_card = new_game.cards[new_card.id]
       # Check if the card is a match and update the matched flags
       # and matches count accordingly
-      update_matched(new_game, new_card)
+      new_game =
+        update_matched(new_game, new_card)
         # Update prev if applicable
         |> Map.put(:prev, set_prev(game, new_card))
         # Lock the next turn if this is the second guess so that the user
@@ -120,6 +140,12 @@ defmodule Memory.Game do
         |> Map.put(:clicks, game.clicks + 1)
         # Increment the flipped count by 1
         |> Map.put(:flipped, game.flipped + 1)
+      if new_game.flipped == 2 do
+        unflip(new_game)
+      # Else, don't do anything
+      else
+        new_game
+      end
     # Else, don't do anything
     else
       game
