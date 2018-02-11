@@ -5,19 +5,14 @@ defmodule MemoryWeb.GamesChannel do
 
   # Handles what happens when a user joins a game
   def join("games:" <> name, payload, socket) do
-    if authorized?(payload) do
-      # Get initial game on join
-      game = Memory.GameBackup.load(name) || Game.new()
-      # Add the game and name to socket assigns
-      socket = socket
-      |> assign(:game, game)
-      |> assign(:name, name)
-      # Send an ok message
-      {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
-    else
-      # Send an unauthorized error message
-      {:error, %{reason: "unauthorized"}}
-    end
+    # Get initial game on join
+    game = Memory.GameBackup.load(name) || Game.new()
+    # Add the game and name to socket assigns
+    socket = socket
+    |> assign(:game, game)
+    |> assign(:name, name)
+    # Send an ok message
+    {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
   end
 
   # Channels can be used in a request/response fashion
@@ -62,10 +57,5 @@ defmodule MemoryWeb.GamesChannel do
     Memory.GameBackup.save(socket.assigns[:name], socket.assigns[:game])
     # Send an ok message
     {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
-  end
-
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
   end
 end
