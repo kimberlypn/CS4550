@@ -9,12 +9,17 @@
   <script>
     window.userToken = "TODO";
     function getLink() {
-      var game_name = document.getElementById('game_name').value;
+      // Get the game name
+      var game_name = document.getElementById('game-name').value;
+      // Append the game name to the link
       var link = "game/" + game_name;
+      // Display the error message if the user clicked 'Join' without entering
+      // a game name
       if (!game_name)
         document.getElementById('error').style.display = 'inline';
+      // Else, redirect the user to the game
       else
-        document.getElementById('join').href = link;
+        document.forms[0].action = link;
     }
   </script>
   <title>Memory Game</title>

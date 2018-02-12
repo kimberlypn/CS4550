@@ -4,16 +4,27 @@
       <h1 id="index-page">JOIN A GAME</h1>
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="welcome">
     <div class="col-6">
-      <label for="game_name">GAME NAME:</label>
-      <input class="form-control" id="game_name" type="text" required>
-      <p id="error">PLEASE ENTER A GAME NAME.</p>
-      <p>
-        <a href="#" id="join" onClick="getLink()">
-          JOIN
-        </a>
+      <h3 id="welcome-msg">WELCOME TO MEMORY GAME</h3>
+      <p id="rules">
+        THE RULES ARE SIMPLE: MATCH ALL EIGHT PAIRS IN AS FEW CLICKS AS
+        POSSIBLE.
       </p>
+      <p id="rules">
+        TO PLAY, ENTER A GAME NAME AND CLICK 'JOIN'. YOU CAN RETURN TO A SAVED
+        GAME BY ENTERING THE SAME GAME NAME.
+      </p>
+      <form action="#" id="game-form">
+        <label for="game-name">GAME NAME:</label>
+        <input class="form-control" id="game-name" type="text" required>
+        <p id="error">*** WHOOPS! YOU FORGOT A GAME NAME. ***</p>
+        <p>
+          <button class="btn btn-primary" id="join" onClick="getLink()" type="submit">
+            JOIN
+          </button>
+        </p>
+      </form>
     </div>
   </div>
 </div>

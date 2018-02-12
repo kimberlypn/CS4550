@@ -47,11 +47,33 @@ p {
 }
 
 label {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #error {
-  color: red;
-  font-size: 15px;
+  color: #4fc3c6;
+  font-size: 16px;
   display: none;
+}
+
+#welcome {
+  margin-top: 40px;
+}
+
+#rules {
+  font-size: 16px;
+}
+
+#welcome-msg {
+  color: white;
+  background: #8398a8;
+  text-align: center;
+}
+
+#join {
+  margin-top: 20px;
+}
+
+#game-form {
+  margin-top: 35px;
 }
