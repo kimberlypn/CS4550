@@ -12,13 +12,13 @@
         POSSIBLE.
       </p>
       <p id="rules">
-        TO PLAY, ENTER A GAME NAME AND CLICK 'JOIN'. YOU CAN RETURN TO A SAVED
+        TO PLAY, ENTER A GAME NAME, AND CLICK 'JOIN'. YOU CAN RETURN TO A SAVED
         GAME BY ENTERING THE SAME GAME NAME.
       </p>
       <form action="#" id="game-form">
         <label for="game-name">GAME NAME:</label>
         <input class="form-control" id="game-name" type="text" required>
-        <p id="error">*** WHOOPS! YOU FORGOT A GAME NAME. ***</p>
+        <p id="error">*** WHOOPS! YOU FORGOT TO ENTER A GAME NAME. ***</p>
         <p>
           <button class="btn btn-primary" id="join" onClick="getLink()" type="submit">
             JOIN
