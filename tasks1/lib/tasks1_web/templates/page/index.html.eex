@@ -1,0 +1,35 @@
+<div class="container">
+  <h1>TASK TRACKER</h1>
+  <div class="row">
+    <div class="col-6">
+      <div class="row" id="welcome">
+        <div class="col-12">
+          <h3 id="welcome-msg">WELCOME</h3>
+          <p id="description">
+            TASK TRACKER IS A TOOL THAT ALLOWS YOU TO MAINTAIN A HISTORY OF
+            VARIOUS TASKS. YOU CAN ASSIGN TASKS TO YOURSELF OR OTHERS, MARK
+            TASKS AS COMPLETED, AND LOG THE TIME SPENT.
+          </p>
+          <p id="description">
+            TO GET STARTED, CLICK 'REGISTER' TO CREATE A NEW ACCOUNT. IF YOU
+            ALREADY HAVE AN ACCOUNT, THEN CLICK 'LOGIN' TO RETURN TO YOUR TASKS.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" id="home-btns">
+          <a href="/users/new" class="btn btn-primary label">
+            REGISTER
+          </a>
+          <a href="/users/new" class="btn btn-primary label">
+            LOGIN
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-6" id="icon">
+      <!-- SOURCE: https://www.odoo.com/apps/modules/9.0/project_checklist/ -->
+      <img src="/images/checklist.png" />
+    </div>
+  </div>
+</div>
