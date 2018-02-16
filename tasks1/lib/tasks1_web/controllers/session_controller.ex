@@ -14,7 +14,7 @@ defmodule Tasks1Web.SessionController do
       |> redirect(to: task_path(conn, :index))
     else
       conn
-      |> put_flash(:error, "Unable to log in.")
+      |> put_flash(:error, "Unable to log in. Please try again.")
       |> redirect(to: page_path(conn, :index))
     end
   end
@@ -22,7 +22,7 @@ defmodule Tasks1Web.SessionController do
   def delete(conn, _params) do
     conn
     |> delete_session(:user_id)
-    |> put_flash(:info, "Logged out")
+    |> put_flash(:info, "Logged out.")
     |> redirect(to: page_path(conn, :index))
   end
 end

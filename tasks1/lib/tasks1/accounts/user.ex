@@ -16,7 +16,8 @@ defmodule Tasks1.Accounts.User do
     user
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :name])
-    |> validate_format(:email, ~r/@/)
+    # Regex taken from: https://gist.github.com/mgamini/4f3a8bc55bdcc96be2c6
+    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> unique_constraint(:email)
   end
 end

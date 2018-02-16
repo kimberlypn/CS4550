@@ -46,7 +46,7 @@
             <div class="form-group">
               <button class="btn btn-primary">LOG IN</button>
             </div>
-            <a href="#" onClick="history.go(-2);return true;">Cancel</a>
+            <%= link "Cancel", to: page_path(@conn, :index) %>
           <% end %>
         </div>
       </div>

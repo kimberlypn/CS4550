@@ -1,4 +1,4 @@
-<h2>Show Task</h2>
+<h2>Task Details</h2>
 
 <ul>
 
@@ -14,7 +14,7 @@
 
   <li>
     <strong>Completed:</strong>
-    <%= @task.completed %>
+    <%= if @task.completed, do: "Yes", else: "No" %>
   </li>
 
   <li>
