@@ -9,6 +9,13 @@
 
   <title>Task Tracker</title>
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  <script>
+    function displayLogin() {
+      document.getElementById('welcome').style.display = 'none';
+      document.getElementById('home-btns').style.display = 'none';
+      document.getElementById('login-form').style.display = 'inline';
+    }
+  </script>
 </head>
 
 <body>

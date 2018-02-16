@@ -9,5 +9,7 @@ defmodule Tasks1.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    # Make sure that the email is unique since it is used for logging in
+    create unique_index(:users, [:email])
   end
 end

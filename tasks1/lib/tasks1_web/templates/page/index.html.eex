@@ -16,15 +16,29 @@
           </p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12" id="home-btns">
+      <div class="row" id="home-btns">
+        <div class="col-12">
           <a href="/users/new" class="btn btn-primary label">
             REGISTER
           </a>
-          <a href="/users/new" class="btn btn-primary label">
+          <a href="#" class="btn btn-primary label" onclick="displayLogin()">
             LOGIN
           </a>
         </div>
+      </div>
+      <div class="row" id="login-form">
+      <h1>Log In</h1>
+        <!-- session_path(@conn, :create) -->
+        <%= form_tag("/session", method: :post) do %>
+          <div class="form-group">
+            Email
+            <input type="email" name="email" placeholder="user@example.com" >
+          </div>
+          <!-- passwords come later -->
+          <div class="form-group">
+            <button class="btn btn-primary">Log in</button>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="col-6" id="icon">
