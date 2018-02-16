@@ -12,7 +12,7 @@ config :tasks1,
 # Configures the endpoint
 config :tasks1, Tasks1Web.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "m4IcNB1ohbnaNwOIkPke5yCwrjUnJKKncVVXcfh91UtS6IEurNsG4DU7NXExcIO9",
+  secret_key_base: "BNhP8/KZ3h8fp67n+KSpBJ8yP94Lwb+gNw7oGyb0vt1rX44XXZOzSiEeJgBEZxhc",
   render_errors: [view: Tasks1Web.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Tasks1.PubSub,
            adapter: Phoenix.PubSub.PG2]

@@ -19,4 +19,4 @@
   </tbody>
 </table>
 
-<a href="#" onClick="history.go(-1);return true;">Back</a>
+<span><%= link "Back", to: task_path(@conn, :new) %></span>
