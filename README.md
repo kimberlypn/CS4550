@@ -7,3 +7,4 @@ This repository contains all of my assignments for CS4550 Web Development.
 - [HW03 - Memory Game (Browser Only)](https://github.com/kimberlypn/CS4550/tree/v1.0/memory)
 - [HW04 - Elixir Practice](https://github.com/kimberlypn/CS4550/tree/master/calc)
 - [HW05 - Server-Side Game Logic](http://memory.kimberlynguyen.solutions)
+- [HW06 - Task Tracker Pt. 1](http://tasks1.kimberlynguyen.solutions)
