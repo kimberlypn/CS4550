@@ -6,11 +6,11 @@ been created, the user is redirected to the home page, where she can then log in
 via her email. After logging in, the user is able to view all tasks that have
 been created. The user can create a new task by clicking the 'New Task' link in
 the bottom left of the table. By default, the task is assigned to the user, but
-she can use the dropdown to assign the task to someone else. The minutes spent
-must be in increments of 15. After filling in all of the fields and clicking
-the 'Submit' button, the user is redirected to the tasks index page, where she
-can choose to edit or view any tasks. Once done, the user can log out via the
-link in the top right.
+she can use the dropdown menu to choose a different user. The minutes spent must
+be in increments of 15. After filling in all of the fields and clicking the
+'Submit' button, the user is redirected to the tasks index page, where she can
+choose to edit or view any tasks. Once done, the user can log out via the link
+in the top right.
 
 ## How to Start Phoenix server:
   * Install dependencies with `mix deps.get`
