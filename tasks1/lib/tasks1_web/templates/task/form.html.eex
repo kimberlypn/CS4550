@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <label>Assignee ID</label>
-    <%= text_input f, :user_id, class: "form-control"%>
+    <%= text_input f, :user_id, class: "form-control", value: @current_user.id%>
     <%= error_tag f, :user_id %>
     <p><%= link "View All Users", to: user_path(@conn, :index) %></p>
   </div>
