@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
+    <%= text_input f, :email, class: "form-control", placeholder: "user@example.com" %>
     <%= error_tag f, :email %>
   </div>
 

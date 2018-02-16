@@ -1,10 +1,13 @@
 <div class="container">
   <h1>TASK TRACKER</h1>
+  <!-- Row corresponding to text and icon -->
   <div class="row">
+    <!-- Left side of the main row (text side) -->
     <div class="col-6">
+      <!-- Row corresponding to description -->
       <div class="row" id="welcome">
         <div class="col-12">
-          <h3 id="welcome-msg">WELCOME</h3>
+          <h3 id="banner">WELCOME</h3>
           <p id="description">
             TASK TRACKER IS A TOOL THAT ALLOWS YOU TO MAINTAIN A HISTORY OF
             VARIOUS TASKS. YOU CAN ASSIGN TASKS TO YOURSELF OR OTHERS, MARK
@@ -12,35 +15,43 @@
           </p>
           <p id="description">
             TO GET STARTED, CLICK 'REGISTER' TO CREATE A NEW ACCOUNT. IF YOU
-            ALREADY HAVE AN ACCOUNT, THEN CLICK 'LOGIN' TO RETURN TO YOUR TASKS.
+            ALREADY HAVE AN ACCOUNT, THEN CLICK 'LOG IN' TO RETURN TO YOUR TASKS.
           </p>
         </div>
       </div>
+      <!-- Row corresponding to buttons -->
       <div class="row" id="home-btns">
         <div class="col-12">
           <a href="/users/new" class="btn btn-primary label">
             REGISTER
           </a>
           <a href="#" class="btn btn-primary label" onclick="displayLogin()">
-            LOGIN
+            LOG IN
           </a>
         </div>
       </div>
-      <div class="row" id="login-form">
-      <h1>Log In</h1>
-        <!-- session_path(@conn, :create) -->
-        <%= form_tag("/session", method: :post) do %>
-          <div class="form-group">
-            Email
-            <input type="email" name="email" placeholder="user@example.com" >
-          </div>
-          <!-- passwords come later -->
-          <div class="form-group">
-            <button class="btn btn-primary">Log in</button>
-          </div>
-        <% end %>
+      <!-- Row corresponding to log in form -->
+      <div class="row">
+        <div class="col-12" id="login-form">
+          <h3 id="banner">LOG IN</h3>
+          <p id="description">
+            PLEASE ENTER YOUR EMAIL, AND CLICK 'LOG IN'.
+          </p>
+          <!-- session_path(@conn, :create) -->
+          <%= form_tag("/session", method: :post) do %>
+            <div class="form-group">
+              Email
+              <input type="email" name="email" placeholder="user@example.com">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">LOG IN</button>
+            </div>
+            <a href="#" onClick="history.go(-2);return true;">Cancel</a>
+          <% end %>
+        </div>
       </div>
     </div>
+    <!-- Right side of the main row (icon side) -->
     <div class="col-6" id="icon">
       <!-- SOURCE: https://www.odoo.com/apps/modules/9.0/project_checklist/ -->
       <img src="/images/checklist.png" />

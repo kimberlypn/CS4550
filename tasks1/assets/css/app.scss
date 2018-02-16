@@ -25,7 +25,7 @@ h3 {
   font-size: 16px;
 }
 
-#welcome-msg {
+#banner {
   color: white;
   background: #8398a8;
   text-align: center;
@@ -44,6 +44,10 @@ h3 {
   width: 50%;
 }
 
+input {
+  width: 50%;
+}
+
 #home-btns {
   text-align: center;
 }
@@ -55,4 +59,25 @@ h3 {
 
 #login-form {
   display: none;
+  margin-top: 40px;
+}
+
+/* Chrome/Opera/Safari */
+::-webkit-input-placeholder {
+  opacity: 0.5;
+}
+
+/* Firefox 19+ */
+::-moz-placeholder {
+  opacity: 0.5;
+}
+
+/* IE 10+ */
+:-ms-input-placeholder {
+  opacity: 0.5;
+}
+
+/* Firefox 18- */
+:-moz-placeholder {
+  opacity: 0.5;
 }
