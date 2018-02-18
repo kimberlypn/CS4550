@@ -7,13 +7,13 @@
       <!-- Row corresponding to description -->
       <div class="row" id="welcome">
         <div class="col-12">
-          <h3 id="banner">WELCOME</h3>
-          <p id="description">
+          <h3 class="banner">WELCOME</h3>
+          <p>
             TASK TRACKER IS A TOOL THAT ALLOWS YOU TO MAINTAIN A HISTORY OF
             VARIOUS TASKS. YOU CAN ASSIGN TASKS TO YOURSELF OR OTHERS, MARK
             TASKS AS COMPLETED, AND LOG THE TIME SPENT.
           </p>
-          <p id="description">
+          <p>
             TO GET STARTED, CLICK 'REGISTER' TO CREATE A NEW ACCOUNT. IF YOU
             ALREADY HAVE AN ACCOUNT, THEN CLICK 'LOG IN' TO RETURN TO YOUR TASKS.
           </p>
@@ -33,8 +33,8 @@
       <!-- Row corresponding to log in form -->
       <div class="row">
         <div class="col-12" id="login-form">
-          <h3 id="banner">LOG IN</h3>
-          <p id="description">
+          <h3 class="banner">LOG IN</h3>
+          <p>
             PLEASE ENTER YOUR EMAIL, AND CLICK 'LOG IN'.
           </p>
           <!-- session_path(@conn, :create) -->
@@ -54,7 +54,7 @@
     <!-- Right side of the main row (icon side) -->
     <div class="col-6" id="icon">
       <!-- SOURCE: https://www.odoo.com/apps/modules/9.0/project_checklist/ -->
-      <img src="/images/checklist.png" />
+      <img src="/images/checklist.png" alt="Clipboard"/>
     </div>
   </div>
 </div>

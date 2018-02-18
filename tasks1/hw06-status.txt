@@ -9,8 +9,7 @@ Kimberly Nguyen
 
 
 2. What's the URL of the github repo with your work for this HW?
-https://github.com/kimberlypn/CS4550
-My work for this HW is in the 'tasks1' directory.
+https://github.com/kimberlypn/CS4550/tree/tasks-v1.0/tasks1
 
 
 3. What's the version number of your github release?
