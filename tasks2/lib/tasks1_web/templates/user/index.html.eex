@@ -1,42 +1,100 @@
-<h3>Manager</h3>
+<script>
+   window.manage_path = "<%= manage_path(@conn, :index) %>";
+   window.current_user_id = "<%= @current_user.id %>";
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-<br>
-<br>
-<h3>People You Manage</h3>
+  // Toggles between the profile view and the edit management view
+  function toggle_profile() {
+    var profile = document.getElementById('profile');
+    var manage = document.getElementById('manage');
+    var btn = document.getElementById('profile-btn');
+    if (profile.style.display == 'none') {
+      profile.style.display = 'inline';
+      manage.style.display = 'none';
+      btn.text = 'Edit';
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+    }
+    else {
+      manage.style.display = 'inline';
+      profile.style.display = 'none';
+      btn.text = 'Back';
+    }
+  }
+</script>
+
+<!-- Displays the manager and underlings -->
+<div id="profile">
+  <h3>Your Manager</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= IO.inspect(get_manager(@current_user.id)) %>
+      <tr>
+        <td><%= @current_user.id %></td>
+        <td><%= @current_user.name %></td>
+        <td><%= @current_user.email %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+  <br>
+
+  <h3>Your Employees</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for user <- @users do %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Displays all employees so that the user can edit the management -->
+<div id="manage">
+  <h3>Manage Employees</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for user <- @users do %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <button class="manage-button btn btn-primary"
+                  data-user-id="<%= user.id %>"
+                  >
+            Manage
+          </button>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
+
+<a href="#" id="profile-btn" onclick="toggle_profile()">Edit</a>

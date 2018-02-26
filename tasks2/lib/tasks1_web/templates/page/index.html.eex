@@ -1,3 +1,12 @@
+<script>
+  // Displays the login form when the login button is clicked
+  function displayLogin() {
+    document.getElementById('welcome').style.display = 'none';
+    document.getElementById('home-btns').style.display = 'none';
+    document.getElementById('login-form').style.display = 'inline';
+  }
+</script>
+
 <div class="container">
   <h1>TASK TRACKER</h1>
   <!-- Row corresponding to text and icon -->

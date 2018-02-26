@@ -201,4 +201,12 @@ defmodule Tasks1.Assignments do
   def change_manage(%Manage{} = manage) do
     Manage.changeset(manage, %{})
   end
+
+  # Taken and adapted from Nat's lecture notes
+  def follows_map_for(user_id) do
+    Repo.all(from m in Manage,
+      where: m.manager_id == ^user_id)
+    |> Enum.map(&({&1.underling_id, &1.id}))
+    |> Enum.into(%{})
+  end
 end
