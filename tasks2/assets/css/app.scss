@@ -1,0 +1,84 @@
+/* This file is for your main application css. */
+
+@import "bootstrap";
+
+body {
+    font-family: Courier;
+    color: #7c91af;
+}
+
+h1 {
+  text-align: center;
+  letter-spacing: 5px;
+  font-size: 45px;
+}
+
+#welcome {
+  margin-top: 40px;
+}
+
+#rules {
+  font-size: 16px;
+}
+
+.banner {
+  color: white;
+  background: #8398a8;
+  text-align: center;
+}
+
+.label {
+  margin-top: 40px;
+  border-radius: 5px;
+  font-size: 19px;
+  width: 150px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.form-control {
+  width: 50%;
+}
+
+input {
+  width: 50%;
+}
+
+#home-btns {
+  text-align: center;
+}
+
+#icon {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#login-form {
+  display: none;
+  margin-top: 40px;
+}
+
+.toolbar {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Chrome/Opera/Safari */
+::-webkit-input-placeholder {
+  opacity: 0.5;
+}
+
+/* Firefox 19+ */
+::-moz-placeholder {
+  opacity: 0.5;
+}
+
+/* IE 10+ */
+:-ms-input-placeholder {
+  opacity: 0.5;
+}
+
+/* Firefox 18- */
+:-moz-placeholder {
+  opacity: 0.5;
+}

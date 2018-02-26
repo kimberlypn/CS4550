@@ -1,0 +1,5 @@
+<h2>Registering a New Account</h2>
+
+<%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>
+
+<span><%= link "Cancel", to: page_path(@conn, :index) %></span>
