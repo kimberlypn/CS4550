@@ -111,11 +111,13 @@ defmodule Tasks1.Accounts do
     User.changeset(user, %{})
   end
 
-  # Returns the id of the manager of the given user
+  # Returns the current user's manager
   def get_manager(user_id) do
-    Repo.all(from m in Manage,
+    Repo.all(from u in User,
+      join: m in Manage,
+      where: u.id == m.manager_id,
       where: m.underling_id == ^user_id,
-      select: m.manager_id)
+      select: {u.id, u.name, u.email})
   end
 
   # Returns the given user's underlings

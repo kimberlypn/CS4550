@@ -35,11 +35,13 @@
       </tr>
     </thead>
     <tbody>
+    <%= Enum.map @manager, fn manager -> %>
       <tr>
-        <td><%= if @manager == nil, do: "", else: @manager.id %></td>
-        <td><%= if @manager == nil, do: "", else: @manager.name %></td>
-        <td><%= if @manager == nil, do: "", else: @manager.email %></td>
+        <td><%= elem(manager, 0) %></td>
+        <td><%= elem(manager, 1) %></td>
+        <td><%= elem(manager, 2) %></td>
       </tr>
+    <% end %>
     </tbody>
   </table>
 

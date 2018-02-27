@@ -9,16 +9,17 @@ defmodule Tasks1Web.UserController do
     current_user = conn.assigns[:current_user]
     # Get all of the users
     users = Accounts.list_users()
-    manages = Tasks1.Assignments.follows_map_for(current_user.id)
-    # Get the id of the manager of the current user
-    manager_id = Tasks1.Accounts.get_manager(current_user.id)
-    # Get the User corresponding to the manager id or nil if there is none
-    manager =
-      if Enum.empty?(manager_id),
-      do: nil,
-      else: Tasks1.Accounts.get_user!(Enum.at(manager_id, 0))
+    manages = Tasks1.Assignments.manages_map_for(current_user.id)
+    # Get the manager of the current user
+    manager = Tasks1.Accounts.get_manager(current_user.id)
+    # Get the underlings of the current user
     underlings = Tasks1.Accounts.get_underlings(current_user.id)
-    render(conn, "index.html", users: users, manages: manages, manager: manager, underlings: underlings)
+    render(conn,
+      "index.html",
+      users: users,
+      manages: manages,
+      manager: manager,
+      underlings: underlings)
   end
 
   def new(conn, _params) do
