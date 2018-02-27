@@ -9,8 +9,8 @@ defmodule Tasks1.Accounts.User do
     field :name, :string
     has_one :manager_manages, Manage, foreign_key: :manager_id
     has_many :underling_manages, Manage, foreign_key: :underling_id
-    has_one :managers, through: [:manager_manages, :manager]
-    has_many :underlings, through: [:underling_manages, :underling]
+    has_one :managers, through: [:underling_manages, :manager]
+    has_many :underlings, through: [:manager_manages, :underling]
 
     timestamps()
   end

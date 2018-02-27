@@ -33,7 +33,6 @@
       </tr>
     </thead>
     <tbody>
-      <%= IO.inspect(get_manager(@current_user.id)) %>
       <tr>
         <td><%= @current_user.id %></td>
         <td><%= @current_user.name %></td>
@@ -87,7 +86,7 @@
         <td>
           <button class="manage-button btn btn-primary"
                   data-user-id="<%= user.id %>"
-                  >
+                  data-manage="<%= @manages[user.id] %>">
             Manage
           </button>
         </td>
