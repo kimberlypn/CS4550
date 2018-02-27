@@ -7,12 +7,14 @@
     var profile = document.getElementById('profile');
     var manage = document.getElementById('manage');
     var btn = document.getElementById('profile-btn');
+    // Switch to profile view
     if (profile.style.display == 'none') {
       profile.style.display = 'inline';
       manage.style.display = 'none';
       btn.text = 'Edit';
-
+      location.reload();
     }
+    // Switch to edit management view
     else {
       manage.style.display = 'inline';
       profile.style.display = 'none';
@@ -34,9 +36,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><%= @current_user.id %></td>
-        <td><%= @current_user.name %></td>
-        <td><%= @current_user.email %></td>
+        <td><%= if @manager == nil, do: "", else: @manager.id %></td>
+        <td><%= if @manager == nil, do: "", else: @manager.name %></td>
+        <td><%= if @manager == nil, do: "", else: @manager.email %></td>
       </tr>
     </tbody>
   </table>

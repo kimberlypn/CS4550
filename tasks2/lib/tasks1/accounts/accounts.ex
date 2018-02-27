@@ -7,6 +7,7 @@ defmodule Tasks1.Accounts do
   alias Tasks1.Repo
 
   alias Tasks1.Accounts.User
+  alias Tasks1.Assignments.Manage
 
   @doc """
   Returns the list of users.
@@ -108,5 +109,12 @@ defmodule Tasks1.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  # Returns the manager of the given user
+  def get_manager(user_id) do
+    Repo.all(from m in Manage,
+      where: m.underling_id == ^user_id,
+      select: m.manager_id)
   end
 end

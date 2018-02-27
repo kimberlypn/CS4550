@@ -8,7 +8,12 @@ defmodule Tasks1Web.UserController do
     current_user = conn.assigns[:current_user]
     users = Accounts.list_users()
     manages = Tasks1.Assignments.follows_map_for(current_user.id)
-    render(conn, "index.html", users: users, manages: manages)
+    manager_id = Tasks1.Accounts.get_manager(current_user.id)
+    manager =
+      if Enum.empty?(manager_id),
+      do: nil,
+      else: Tasks1.Accounts.get_user!(Enum.at(manager_id, 0))
+    render(conn, "index.html", users: users, manages: manages, manager: manager)
   end
 
   def new(conn, _params) do
