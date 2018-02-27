@@ -56,11 +56,11 @@
       </tr>
     </thead>
     <tbody>
-  <%= for user <- @users do %>
+  <%= Enum.map @underlings, fn underling -> %>
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
+        <td><%= elem(underling, 0) %></td>
+        <td><%= elem(underling, 1) %></td>
+        <td><%= elem(underling, 2) %></td>
       </tr>
   <% end %>
     </tbody>
