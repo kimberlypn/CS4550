@@ -34,7 +34,8 @@ defmodule Tasks1Web.TaskController do
   def edit(conn, %{"id" => id}) do
     task = Assignments.get_task!(id)
     changeset = Assignments.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    current_user = conn.assigns[:current_user]
+    render(conn, "edit.html", task: task, changeset: changeset, current_user: current_user)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do

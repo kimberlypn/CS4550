@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label f, :user_id, "Assignee", class: "control-label" %>
-    <%= select f, :user_id, get_names(), class: "form-control", selected: @current_user.id %>
+    <%= select f, :user_id, get_names(@current_user.id), class: "form-control", selected: @current_user.id %>
     <%= error_tag f, :user_id %>
   </div>
 
