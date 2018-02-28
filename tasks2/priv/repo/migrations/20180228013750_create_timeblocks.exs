@@ -3,8 +3,8 @@ defmodule Tasks1.Repo.Migrations.CreateTimeblocks do
 
   def change do
     create table(:timeblocks) do
-      add :start, :naive_datetime, null: false
-      add :end, :naive_datetime
+      add :start, :utc_datetime, null: false
+      add :end, :utc_datetime
       add :task_id, references(:tasks, on_delete: :delete_all), null: false
 
       timestamps()

@@ -5,8 +5,8 @@ defmodule Tasks1.Assignments.TimeBlock do
 
 
   schema "timeblocks" do
-    field :end, :time
-    field :start, :time
+    field :end, :utc_datetime
+    field :start, :utc_datetime
     belongs_to :task, Tasks1.Assignments.Task
 
     timestamps()
@@ -15,7 +15,7 @@ defmodule Tasks1.Assignments.TimeBlock do
   @doc false
   def changeset(%TimeBlock{} = time_block, attrs) do
     time_block
-    |> cast(attrs, [:start, :end, :task_id])
+    |> cast(attrs, [:end, :start, :task_id])
     |> validate_required([:start, :end, :task_id])
   end
 end

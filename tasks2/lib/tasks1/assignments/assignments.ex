@@ -55,9 +55,16 @@ defmodule Tasks1.Assignments do
 
   """
   def create_task(attrs \\ %{}) do
-    %Task{}
+    t = %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()
+
+    id = elem(t, 1).id
+    time_block = %{}
+      |> Map.put("start", attrs["start"])
+      |> Map.put("end", attrs["end"])
+      |> Map.put("task_id", id)
+    create_time_block(time_block)
   end
 
   @doc """

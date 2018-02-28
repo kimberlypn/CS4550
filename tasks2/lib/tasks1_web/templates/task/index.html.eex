@@ -28,12 +28,14 @@
         <%= if @current_user.id == task.user.id do %>
         <a href=# class="time-button btn btn-default btn-xs"
            data-type="Start"
-           data-task-id="<%= task.id %>">
+           data-task-id="<%= task.id %>"
+           data-time="<%= DateTime.utc_now %>">
           Start
         </a>
         <a href=# class="time-button btn btn-default btn-xs"
            data-type="End"
-           data-task-id="<%= task.id %>">
+           data-task-id="<%= task.id %>"
+           data-time="<%= DateTime.utc_now %>">
           End
         </a>
         <% end %>

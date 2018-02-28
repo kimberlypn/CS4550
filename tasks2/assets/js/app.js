@@ -59,7 +59,8 @@ function manage(user_id) {
     dataType: "json",
     contentType: "application/json; charset=UTF-8",
     data: text,
-    success: (resp) => { set_button(user_id, resp.data.id); },
+    success: (resp) => { set_button(user_id, resp.data.id);
+    console.log(resp) },
   });
 }
 
@@ -96,11 +97,10 @@ function init_manage() {
   update_buttons();
 }
 
-function start(task_id) {
-  let today = new Date();
+function start(task_id, time) {
   let text = JSON.stringify({
     time_block: {
-        start: today,
+        start: '12:00:00Z',
         end: null,
         task_id: task_id
       },
@@ -111,8 +111,8 @@ function start(task_id) {
     dataType: "json",
     contentType: "application/json; charset=UTF-8",
     data: text,
-    success: (resp) => { console.log(resp); },
-    error: (resp) => { console.log(resp); },
+    success: (resp) => { console.log(resp) },
+    error: (resp) => { console.log(resp) },
   });
 }
 
@@ -130,8 +130,9 @@ function time_click(ev) {
   let btn = $(ev.target);
   let type = btn.data('type');
   let task_id = btn.data('task-id');
+  let time = btn.data('time');
   if (type === "Start") {
-    start(task_id);
+    start(task_id, time);
   }
   else {
     end(task_id);
