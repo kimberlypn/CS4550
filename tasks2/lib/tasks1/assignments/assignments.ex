@@ -217,12 +217,19 @@ defmodule Tasks1.Assignments do
       select: m.manager_id)
   end
 
-  # Get the tasks for the current user's underlings
+  # Get the tasks for the current user's underlings and herself
   def get_underling_tasks(user_id) do
-    Repo.all(from t in Task,
+    underlings = Repo.all(from t in Task,
       join: m in Manage,
       where: t.user_id == m.underling_id,
       where: m.manager_id == ^user_id)
-    |> Repo.preload(:user)
+      |> Repo.preload(:user)
+
+    own = Repo.all(from t in Task,
+      where: t.user_id == ^user_id)
+      |> Repo.preload(:user)
+
+    Enum.concat(underlings, own)
+    |> Enum.uniq()
   end
 end

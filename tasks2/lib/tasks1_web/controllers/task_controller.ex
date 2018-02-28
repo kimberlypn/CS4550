@@ -29,7 +29,8 @@ defmodule Tasks1Web.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Assignments.get_task!(id)
-    render(conn, "show.html", task: task)
+    managers = Assignments.get_manager_ids()
+    render(conn, "show.html", task: task, managers: managers)
   end
 
   def edit(conn, %{"id" => id}) do

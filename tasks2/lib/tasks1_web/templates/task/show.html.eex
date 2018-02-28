@@ -29,5 +29,7 @@
 
 </ul>
 
+<%= if @current_user.id in @managers do %>
 <span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
+<% end %>
 <span><%= link "Back", to: task_path(@conn, :index) %></span>
