@@ -9,7 +9,6 @@
       <th>Title</th>
       <th>Description</th>
       <th>Completed</th>
-      <th>Minutes spent</th>
       <th>Assignee</th>
 
       <th></th>
@@ -21,7 +20,6 @@
       <td><%= task.title %></td>
       <td><%= task.description %></td>
       <td><%= if task.completed, do: "Yes", else: "No" %></td>
-      <td><%= task.time_spent %></td>
       <td><%= task.user.name %></td>
 
       <td class="text-right">
@@ -40,6 +38,7 @@
         </a>
         <% end %>
         <%= if @current_user.id in @managers do %>
+        <span><%= link "View Log", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
         <% end %>

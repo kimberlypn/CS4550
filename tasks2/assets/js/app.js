@@ -100,9 +100,10 @@ function init_manage() {
 function start(task_id, time) {
   let text = JSON.stringify({
     time_block: {
-        start: '12:00:00Z',
+        start: time,
         end: null,
-        task_id: task_id
+        task_id: task_id,
+        convert: true
       },
   });
 
@@ -112,7 +113,7 @@ function start(task_id, time) {
     contentType: "application/json; charset=UTF-8",
     data: text,
     success: (resp) => { console.log(resp) },
-    error: (resp) => { console.log(resp) },
+    error: (resp) => { alert("wtf") },
   });
 }
 
@@ -126,16 +127,24 @@ function end(task_id) {
   // });
 }
 
+function update_time(time_id) {
+
+}
+
 function time_click(ev) {
   let btn = $(ev.target);
   let type = btn.data('type');
   let task_id = btn.data('task-id');
   let time = btn.data('time');
+  let time_id = btn.data('time-id')
   if (type === "Start") {
     start(task_id, time);
   }
-  else {
+  else if (type === "End") {
     end(task_id);
+  }
+  else {
+    update_time(time_id);
   }
 }
 

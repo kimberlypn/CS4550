@@ -30,7 +30,8 @@ defmodule Tasks1Web.TaskController do
   def show(conn, %{"id" => id}) do
     task = Assignments.get_task!(id)
     managers = Assignments.get_manager_ids()
-    render(conn, "show.html", task: task, managers: managers)
+    timeblocks = Assignments.get_time_log(task.id)
+    render(conn, "show.html", task: task, managers: managers, timeblocks: timeblocks)
   end
 
   def edit(conn, %{"id" => id}) do

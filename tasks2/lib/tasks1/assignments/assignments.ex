@@ -64,6 +64,7 @@ defmodule Tasks1.Assignments do
       |> Map.put("start", attrs["start"])
       |> Map.put("end", attrs["end"])
       |> Map.put("task_id", id)
+      |> Map.put("convert", false)
     create_time_block(time_block)
   end
 
@@ -80,6 +81,13 @@ defmodule Tasks1.Assignments do
 
   """
   def update_task(%Task{} = task, attrs) do
+    id = task.id
+    time_block = %{}
+      |> Map.put("start", attrs["start"])
+      |> Map.put("end", attrs["end"])
+      |> Map.put("task_id", id)
+    create_time_block(time_block)
+
     task
     |> Task.changeset(attrs)
     |> Repo.update()
@@ -253,6 +261,7 @@ defmodule Tasks1.Assignments do
   """
   def list_timeblocks do
     Repo.all(TimeBlock)
+    |> Repo.preload(:task)
   end
 
   @doc """
@@ -284,9 +293,25 @@ defmodule Tasks1.Assignments do
 
   """
   def create_time_block(attrs \\ %{}) do
+    time = if (attrs["convert"]),
+      do: convert_time(attrs["start"]),
+      else: attrs["start"]
+    attrs = Map.put(attrs, "start", time)
+    IO.inspect(attrs)
+
     %TimeBlock{}
     |> TimeBlock.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def convert_time(time) do
+    time = String.split(time, ["-", " ", ":", "."])
+    new_time = %{}
+      |> Map.put("day", Enum.at(time, 2))
+      |> Map.put("hour", Enum.at(time, 3))
+      |> Map.put("minute", Enum.at(time, 4))
+      |> Map.put("month", Enum.at(time, 1))
+      |> Map.put("year", Enum.at(time, 0))
   end
 
   @doc """
@@ -334,5 +359,17 @@ defmodule Tasks1.Assignments do
   """
   def change_time_block(%TimeBlock{} = time_block) do
     TimeBlock.changeset(time_block, %{})
+  end
+
+  def get_time_log(task_id) do
+    # SELECT * FROM timeblocks
+    # INNER JOIN tasks ON timeblocks.task_id = tasks.id
+    # WHERE timeblocks.task_id = task_id
+
+    Repo.all(from tb in TimeBlock,
+      join: t in Task,
+      where: tb.task_id == t.id,
+      where: tb.task_id == ^task_id,
+      select: {tb.start, tb.end, tb.id})
   end
 end
