@@ -29,7 +29,8 @@ Report' and 'Profile'. On the Task Report page, the user can see a table of
 tasks assigned to herself and her underlings and the status of those tasks. If 
 the user has at least one underling, then she will be able to add a new task via 
 the link at the bottom left. Users who are not managers are not able to create 
-tasks, but they can still view tasks assigned to them.
+tasks, but they can still view tasks assigned to them. However, only managers 
+can edit or delete tasks.
  
 On the Profile page, the user can see her manager and underling details. The 
 user can add more users to manage or unmanage current underlings by clicking the 
