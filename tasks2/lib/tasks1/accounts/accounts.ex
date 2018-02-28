@@ -113,6 +113,11 @@ defmodule Tasks1.Accounts do
 
   # Returns the current user's manager
   def get_manager(user_id) do
+    # SELECT users.id, users.name, users.email
+    # FROM users
+    # INNER JOIN manages ON users.id = manages.manager_id
+    # WERE manages.underling_id = user_id
+
     Repo.all(from u in User,
       join: m in Manage,
       where: u.id == m.manager_id,
@@ -122,10 +127,28 @@ defmodule Tasks1.Accounts do
 
   # Returns the given user's underlings
   def get_underlings(user_id) do
+    # SELECT users.id, users.name, users.email
+    # FROM manages
+    # INNER JOIN users ON manages.underling_id = users.id
+    # WHERE manages.manager_id == user_id
+
     Repo.all(from m in Manage,
       join: u in User,
       where: m.underling_id == u.id,
       where: m.manager_id == ^user_id,
       select: {u.id, u.name, u.email})
+  end
+
+  # Returns the users who do not have a manager yet and the current user's
+  # underlings
+  def get_unmanaged(user_id) do
+    # Get all of the ids from the Manage table
+    ids = Repo.all(from m in Manage,
+      select: m.manager_id)
+    unmanaged = Repo.all(from u in User,
+      where: not u.id in ^ids,
+      select: {u.id, u.name, u.email})
+    underlings = get_underlings(user_id)
+    Enum.concat(unmanaged, underlings)
   end
 end

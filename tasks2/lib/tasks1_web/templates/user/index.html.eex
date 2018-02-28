@@ -82,15 +82,15 @@
       </tr>
     </thead>
     <tbody>
-  <%= for user <- @users do %>
+  <%= Enum.map @unmanaged, fn user -> %>
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
+        <td><%= elem(user, 0) %></td>
+        <td><%= elem(user, 1) %></td>
+        <td><%= elem(user, 2) %></td>
         <td>
           <button class="manage-button btn btn-primary"
-                  data-user-id="<%= user.id %>"
-                  data-manage="<%= @manages[user.id] %>">
+                  data-user-id="<%= elem(user, 0) %>"
+                  data-manage="<%= @manages[elem(user, 0)] %>">
             Manage
           </button>
         </td>

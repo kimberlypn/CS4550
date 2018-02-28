@@ -14,12 +14,15 @@ defmodule Tasks1Web.UserController do
     manager = Tasks1.Accounts.get_manager(current_user.id)
     # Get the underlings of the current user
     underlings = Tasks1.Accounts.get_underlings(current_user.id)
+    # Get the users who do not have a manager
+    unmanaged = Tasks1.Accounts.get_unmanaged(current_user.id)
     render(conn,
       "index.html",
       users: users,
       manages: manages,
       manager: manager,
-      underlings: underlings)
+      underlings: underlings,
+      unmanaged: unmanaged)
   end
 
   def new(conn, _params) do
