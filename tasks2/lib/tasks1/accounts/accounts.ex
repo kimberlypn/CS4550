@@ -143,7 +143,7 @@ defmodule Tasks1.Accounts do
   def get_unmanaged(user_id) do
     # Get all of the ids from the Manage table
     ids = Repo.all(from m in Manage,
-      select: m.manager_id)
+      select: m.underling_id)
     unmanaged = Repo.all(from u in User,
       where: not u.id in ^ids,
       select: {u.id, u.name, u.email})

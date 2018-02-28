@@ -26,9 +26,14 @@
 <!-- Displays the manager and underlings -->
 <div id="profile">
   <h3>Your Manager</h3>
+
+  <%= if (Enum.empty?(@manager)) do %>
+  <p><b>None</b></p>
+  <% else %>
   <%= Enum.map @manager, fn manager -> %>
       <p><b>Name:</b> <%= elem(manager, 1) %></p>
       <p><b>Email:</b> <%= elem(manager, 2) %></p>
+  <% end %>
   <% end %>
 
   <br>
