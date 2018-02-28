@@ -26,24 +26,10 @@
 <!-- Displays the manager and underlings -->
 <div id="profile">
   <h3>Your Manager</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-    <%= Enum.map @manager, fn manager -> %>
-      <tr>
-        <td><%= elem(manager, 0) %></td>
-        <td><%= elem(manager, 1) %></td>
-        <td><%= elem(manager, 2) %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+  <%= Enum.map @manager, fn manager -> %>
+      <p><b>Name:</b> <%= elem(manager, 1) %></p>
+      <p><b>Email:</b> <%= elem(manager, 2) %></p>
+  <% end %>
 
   <br>
   <br>
