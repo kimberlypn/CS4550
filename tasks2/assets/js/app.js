@@ -96,4 +96,55 @@ function init_manage() {
   update_buttons();
 }
 
+function start(task_id) {
+  let today = new Date();
+  let text = JSON.stringify({
+    time_block: {
+        start: today,
+        end: null,
+        task_id: task_id
+      },
+  });
+
+  $.ajax(time_block_path, {
+    method: "post",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: text,
+    success: (resp) => { console.log(resp); },
+    error: (resp) => { console.log(resp); },
+  });
+}
+
+function end(task_id) {
+  // $.ajax(time_block_path + "/" + task_id, {
+  //   method: "delete",
+  //   dataType: "json",
+  //   contentType: "application/json; charset=UTF-8",
+  //   data: "",
+  //   success: () => { set_button(user_id, ""); },
+  // });
+}
+
+function time_click(ev) {
+  let btn = $(ev.target);
+  let type = btn.data('type');
+  let task_id = btn.data('task-id');
+  if (type === "Start") {
+    start(task_id);
+  }
+  else {
+    end(task_id);
+  }
+}
+
+function init_time() {
+  if (!$('.time-button')) {
+    return;
+  }
+
+  $(".time-button").click(time_click);
+}
+
 $(init_manage);
+$(init_time);

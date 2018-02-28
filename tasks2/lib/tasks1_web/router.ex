@@ -36,5 +36,6 @@ defmodule Tasks1Web.Router do
   scope "/api/v1", Tasks1Web do
     pipe_through :api
     resources "/manages", ManageController, except: [:new, :edit]
+    resources "/timeblocks", TimeBlockController, except: [:new, :edit]
   end
 end
