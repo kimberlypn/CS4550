@@ -6,7 +6,8 @@ defmodule Tasks1Web.TaskController do
 
   def index(conn, _params) do
     tasks = Assignments.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+    managers = Assignments.get_manager_ids()
+    render(conn, "index.html", tasks: tasks, managers: managers)
   end
 
   def new(conn, _params) do

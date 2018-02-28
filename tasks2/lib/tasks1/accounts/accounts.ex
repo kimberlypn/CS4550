@@ -5,7 +5,6 @@ defmodule Tasks1.Accounts do
 
   import Ecto.Query, warn: false
   alias Tasks1.Repo
-
   alias Tasks1.Accounts.User
   alias Tasks1.Assignments.Manage
 
@@ -150,5 +149,6 @@ defmodule Tasks1.Accounts do
       select: {u.id, u.name, u.email})
     underlings = get_underlings(user_id)
     Enum.concat(unmanaged, underlings)
+    |> Enum.uniq()
   end
 end

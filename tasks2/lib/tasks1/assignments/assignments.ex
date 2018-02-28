@@ -5,8 +5,9 @@ defmodule Tasks1.Assignments do
 
   import Ecto.Query, warn: false
   alias Tasks1.Repo
-
   alias Tasks1.Assignments.Task
+  alias Tasks1.Assignments.Manage
+  alias Tasks1.Accounts.User
 
   @doc """
   Returns the list of tasks.
@@ -208,5 +209,11 @@ defmodule Tasks1.Assignments do
       where: m.manager_id == ^user_id)
     |> Enum.map(&({&1.underling_id, &1.id}))
     |> Enum.into(%{})
+  end
+
+  # Get all of the manager ids
+  def get_manager_ids do
+    Repo.all(from m in Manage,
+      select: m.manager_id)
   end
 end

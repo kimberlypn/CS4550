@@ -3,7 +3,6 @@ defmodule Tasks1Web.SessionController do
   use Tasks1Web, :controller
 
   alias Tasks1.Accounts
-  alias Tasks1.Accounts.User
 
   def create(conn, %{"email" => email}) do
     user = Accounts.get_user_by_email(email)

@@ -30,4 +30,7 @@
   </tbody>
 </table>
 
-<span><%= link "New Task", to: task_path(@conn, :new) %></span>
+<!-- Only allow managers to create new tasks -->
+<%= if @current_user.id in @managers do %>
+  <span><%= link "New Task", to: task_path(@conn, :new) %></span>
+<% end %>

@@ -3,7 +3,6 @@ defmodule Tasks1.Assignments.Task do
   import Ecto.Changeset
   alias Tasks1.Assignments.Task
 
-
   schema "tasks" do
     field :completed, :boolean, default: false
     field :description, :string
