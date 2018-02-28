@@ -216,4 +216,13 @@ defmodule Tasks1.Assignments do
     Repo.all(from m in Manage,
       select: m.manager_id)
   end
+
+  # Get the tasks for the current user's underlings
+  def get_underling_tasks(user_id) do
+    Repo.all(from t in Task,
+      join: m in Manage,
+      where: t.user_id == m.underling_id,
+      where: m.manager_id == ^user_id)
+    |> Repo.preload(:user)
+  end
 end

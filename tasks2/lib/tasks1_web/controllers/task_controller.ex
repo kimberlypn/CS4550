@@ -5,7 +5,8 @@ defmodule Tasks1Web.TaskController do
   alias Tasks1.Assignments.Task
 
   def index(conn, _params) do
-    tasks = Assignments.list_tasks()
+    current_user = conn.assigns[:current_user]
+    tasks = Assignments.get_underling_tasks(current_user.id)
     managers = Assignments.get_manager_ids()
     render(conn, "index.html", tasks: tasks, managers: managers)
   end
