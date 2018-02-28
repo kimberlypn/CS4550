@@ -28,16 +28,14 @@
            data-type="Start"
            data-task-id="<%= task.id %>"
            data-time="<%= DateTime.utc_now %>"
-           data-clicked="No"
-           data-time-id="">
+           data-clicked="No">
           Start
         </a>
         <a href=# class="time-button btn btn-default btn-xs"
            data-type="End"
            data-task-id="<%= task.id %>"
            data-time="<%= DateTime.utc_now %>"
-           data-clicked="No"
-           data-time-id="">
+           data-clicked="No">
           End
         </a>
         <% end %>

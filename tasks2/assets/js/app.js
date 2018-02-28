@@ -26,6 +26,7 @@ import $ from "jquery";
 */
 
 var start_time = "";
+var time_id = "";
 
 // Toggle the button text
 function update_buttons() {
@@ -119,6 +120,8 @@ function update_time_links() {
     }
     else if (type === "Start" && clicked === "No") {
       $(bb).text('Start');
+      $(bb).css('color', '#007bff');
+      $(bb).css('cursor', 'pointer');
     }
     else {
       $(bb).text('End');
@@ -127,13 +130,17 @@ function update_time_links() {
 }
 
 // Update the data so that the text is toggled properly
-function set_time_link(task_id, time_id) {
+function set_time_link(task_id, type) {
   $('.time-button').each( (_, bb) => {
-    if (task_id == $(bb).data('task-id') && $(bb).data('type') === "Start") {
-      $(bb).data('clicked', "Yes");
+    if (type === "Start") {
+      if (task_id == $(bb).data('task-id') && $(bb).data('type') === "Start") {
+        $(bb).data('clicked', "Yes");
+      }
     }
-    if (task_id == $(bb).data('task-id') && $(bb).data('type') === "End") {
-      $(bb).data('time-id', time_id);
+    else {
+      if (task_id == $(bb).data('task-id') && $(bb).data('type') === "Start") {
+        $(bb).data('clicked', "No");
+      }
     }
   });
   update_time_links();
@@ -156,14 +163,14 @@ function start(task_id, time, btn) {
     contentType: "application/json; charset=UTF-8",
     data: text,
     success: (resp) => {
-      let time_id = resp.data.id;
-      set_time_link(task_id, time_id); },
+      time_id = resp.data.id;
+      set_time_link(task_id, "Start"); },
     error: (resp) => { console.log(resp); }
   });
 }
 
 // Update a time block
-function update_time(task_id, time_id, time) {
+function update_time(task_id, time) {
   if (time_id == "") {
     alert("You haven't started the task yet.");
   }
@@ -182,7 +189,7 @@ function update_time(task_id, time_id, time) {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: text,
-      success: (resp) => { console.log(resp); },
+      success: (resp) => { set_time_link(task_id, "End"); },
       error: (resp) => { console.log(resp); }
     });
   }
@@ -193,13 +200,12 @@ function time_click(ev) {
   let type = btn.data('type');
   let task_id = btn.data('task-id');
   let time = btn.data('time');
-  let time_id = btn.data('time-id');
   if (type === "Start") {
     start_time = time;
     start(task_id, time, btn);
   }
   else {
-    update_time(task_id, time_id, time);
+    update_time(task_id, time);
   }
 }
 
