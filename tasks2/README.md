@@ -30,7 +30,24 @@ tasks assigned to herself and her underlings and the status of those tasks. If
 the user has at least one underling, then she will be able to add a new task via 
 the link at the bottom left. Users who are not managers are not able to create 
 tasks, but they can still view tasks assigned to them. However, only managers 
-can edit or delete tasks.
+can edit or delete tasks. For each task assigned to the current user, the user 
+will also see a 'Start' and 'End' button. When the user clicks 'Start', the 
+link will change to 'In Progress' to let the user know that the button has been 
+clicked. This will create a new TimeBlock record, where the start time is the 
+time at which the user clicked 'Start', and the end time is null. Once the user 
+clicks 'End', the record will get updated with the end time, and the 'In 
+Progress' text will turn back to 'Start' so that the user can track another 
+block. If the user tries to press 'End' before pressing 'Start', she will be 
+prompted with a message informing her that she has to start the task first. 
+For now, if the user clicks 'Start', then she must stay on the page in order to 
+'End' that task; otherwise, the timer will restart. This is something that needs 
+to be fixed, but the required functionality is there so long as the user stays 
+on the page.
+
+The user will also be able to view the time logs for any task by clicking the 
+'View Log' link. This will redirect the user to a new page that has a table of 
+all of the start and end times for that task. The user can click the 'Edit' link 
+beside each time if she needs to change any of the values.
  
 On the Profile page, the user can see her manager and underling details. The 
 user can add more users to manage or unmanage current underlings by clicking the 

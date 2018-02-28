@@ -107,7 +107,7 @@ function init_manage() {
 }
 
 // Toggle the link text
-function update_time_links() {
+function end_links() {
   $('.time-button').each( (_, bb) => {
     let task_id = $(bb).data('task-id');
     let type = $(bb).data('type');
@@ -123,8 +123,11 @@ function update_time_links() {
       $(bb).css('color', '#007bff');
       $(bb).css('cursor', 'pointer');
     }
-    else {
+    else if (type === "End") {
       $(bb).text('End');
+    }
+    else {
+      $(bb).text('Edit');
     }
   });
 }
@@ -143,7 +146,7 @@ function set_time_link(task_id, type) {
       }
     }
   });
-  update_time_links();
+  end_links();
 }
 
 // Create a TimeBlock record
@@ -170,7 +173,7 @@ function start(task_id, time, btn) {
 }
 
 // Update a time block
-function update_time(task_id, time) {
+function end(task_id, time) {
   if (time_id == "") {
     alert("You haven't started the task yet.");
   }
@@ -195,6 +198,10 @@ function update_time(task_id, time) {
   }
 }
 
+function edit_time() {
+  alert("hi");
+}
+
 function time_click(ev) {
   let btn = $(ev.target);
   let type = btn.data('type');
@@ -204,8 +211,11 @@ function time_click(ev) {
     start_time = time;
     start(task_id, time, btn);
   }
+  else if (type == "End") {
+    end(task_id, time);
+  }
   else {
-    update_time(task_id, time);
+    edit_time();
   }
 }
 
@@ -214,7 +224,7 @@ function init_time() {
     return;
   }
   $(".time-button").click(time_click);
-  update_time_links();
+  end_links();
 }
 
 $(init_manage);
