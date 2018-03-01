@@ -59,13 +59,19 @@ defmodule Tasks1.Assignments do
     |> Task.changeset(attrs)
     |> Repo.insert()
 
-    id = elem(t, 1).id
-    time_block = %{}
-      |> Map.put("start", attrs["start"])
-      |> Map.put("end", attrs["end"])
-      |> Map.put("task_id", id)
-      |> Map.put("convert", false)
-    create_time_block(time_block)
+    # Create the timeblock
+    if (elem(t, 0) != :error) do
+      id = elem(t, 1).id
+      time_block = %{}
+        |> Map.put("start", attrs["start"])
+        |> Map.put("end", attrs["end"])
+        |> Map.put("task_id", id)
+        |> Map.put("convert", false)
+      create_time_block(time_block)
+    end
+    
+    # Return the task
+    t
   end
 
   @doc """
@@ -293,10 +299,14 @@ defmodule Tasks1.Assignments do
 
   """
   def create_time_block(attrs \\ %{}) do
-    time = if (attrs["convert"]),
+    start_time = if (attrs["convert"] and attrs["start"] != nil),
       do: convert_time(attrs["start"]),
       else: attrs["start"]
-    attrs = Map.put(attrs, "start", time)
+    end_time = if (attrs["convert"] and attrs["end"] != nil),
+      do: convert_time(attrs["end"]),
+      else: attrs["end"]
+    attrs = Map.put(attrs, "start", start_time)
+    |> Map.put("end", end_time)
 
     %TimeBlock{}
     |> TimeBlock.changeset(attrs)

@@ -11,7 +11,6 @@ defmodule Tasks1.Repo.Migrations.CreateTimeblocks do
     end
 
     create index(:timeblocks, [:task_id])
-    create constraint("timeblocks", "start_before_end", check: "end_time > start_time")
 
   end
 end
