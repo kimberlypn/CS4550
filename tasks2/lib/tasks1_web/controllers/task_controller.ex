@@ -13,7 +13,7 @@ defmodule Tasks1Web.TaskController do
 
   def new(conn, _params) do
     changeset = Assignments.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, form_type: "Create")
   end
 
   def create(conn, %{"task" => task_params}) do
@@ -23,7 +23,7 @@ defmodule Tasks1Web.TaskController do
         |> put_flash(:info, "Task created successfully.")
         |> redirect(to: task_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, form_type: "Create")
     end
   end
 
@@ -38,7 +38,7 @@ defmodule Tasks1Web.TaskController do
     task = Assignments.get_task!(id)
     changeset = Assignments.change_task(task)
     current_user = conn.assigns[:current_user]
-    render(conn, "edit.html", task: task, changeset: changeset, current_user: current_user)
+    render(conn, "edit.html", task: task, changeset: changeset, current_user: current_user, form_type: "Edit")
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do

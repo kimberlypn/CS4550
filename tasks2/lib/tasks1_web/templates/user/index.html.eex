@@ -8,7 +8,7 @@
     var manage = document.getElementById('manage');
     var btn = document.getElementById('profile-btn');
     // Switch to profile view
-    if (profile.style.display == 'none') {
+    if (profile.style.display == 'none' || profile.style.display) {
       profile.style.display = 'inline';
       manage.style.display = 'none';
       btn.text = 'Edit';
@@ -91,4 +91,4 @@
   </table>
 </div>
 
-<a href="#" id="profile-btn" onclick="toggle_profile()">Edit</a>
+<a href="javascript:void(0);" id="profile-btn" onclick="toggle_profile()">Edit</a>

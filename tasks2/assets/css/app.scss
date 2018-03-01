@@ -67,6 +67,10 @@ input {
   margin-bottom: 30px;
 }
 
+#edit-form {
+  display: none;
+}
+
 /* Chrome/Opera/Safari */
 ::-webkit-input-placeholder {
   opacity: 0.5;

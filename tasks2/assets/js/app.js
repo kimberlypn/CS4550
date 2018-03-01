@@ -25,8 +25,8 @@ import $ from "jquery";
   Functions were taken and adapted from Nat's lecture notes
 */
 
-var start_time = "";
-var time_id = "";
+var START_TIME = "";
+var TIME_ID = "";
 
 // Toggle the button text
 function update_buttons() {
@@ -112,12 +112,14 @@ function end_links() {
     let task_id = $(bb).data('task-id');
     let type = $(bb).data('type');
     let clicked = $(bb).data('clicked');
+    // Change the 'Start' link to a text-like 'In Progress'
     if (type === "Start" && clicked === "Yes") {
       $(bb).text('In Progress');
       $(bb).click(function() { return false; });
       $(bb).css('color', '#7c91af');
       $(bb).css('cursor', 'default');
     }
+    // Change the 'In Progress' message back to a 'Start' link
     else if (type === "Start" && clicked === "No") {
       $(bb).text('Start');
       $(bb).css('color', '#007bff');
@@ -126,8 +128,12 @@ function end_links() {
     else if (type === "End") {
       $(bb).text('End');
     }
+    else if (type === "Edit") {
+      // Submit button for the edit form
+      $(bb).text('Submit');
+    }
     else {
-      $(bb).text('Edit');
+      $(bb).text('Delete');
     }
   });
 }
@@ -141,8 +147,13 @@ function set_time_link(task_id, type) {
       }
     }
     else {
+      // Change the clicked flag of the Start button back to "No" so that it
+      // will render as a 'Start' link again
       if (task_id == $(bb).data('task-id') && $(bb).data('type') === "Start") {
         $(bb).data('clicked', "No");
+        // Cleat the time id so that the user cannot click 'End' before
+        // clicking 'Start'
+        TIME_ID = "";
       }
     }
   });
@@ -166,7 +177,7 @@ function start(task_id, time, btn) {
     contentType: "application/json; charset=UTF-8",
     data: text,
     success: (resp) => {
-      time_id = resp.data.id;
+      TIME_ID = resp.data.id;
       set_time_link(task_id, "Start"); },
     error: (resp) => { console.log(resp); }
   });
@@ -174,20 +185,20 @@ function start(task_id, time, btn) {
 
 // Update a time block
 function end(task_id, time) {
-  if (time_id == "") {
+  if (TIME_ID == "") {
     alert("You haven't started the task yet.");
   }
 
   else {
     let text = JSON.stringify({
       time_block: {
-        start: start_time,
+        start: START_TIME,
         end: time,
         convert: true
       },
     });
 
-    $.ajax(time_block_path + "/" + time_id, {
+    $.ajax(time_block_path + "/" + TIME_ID, {
       method: "put",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
@@ -202,20 +213,34 @@ function edit_time() {
   alert("hi");
 }
 
+function delete_time(time_id) {
+  $.ajax(time_block_path + "/" + time_id, {
+    method: "delete",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: "",
+    success: () => { set_button(task_id, "Delete"); },
+  });
+  location.reload();
+}
+
 function time_click(ev) {
   let btn = $(ev.target);
   let type = btn.data('type');
   let task_id = btn.data('task-id');
   let time = btn.data('time');
   if (type === "Start") {
-    start_time = time;
+    START_TIME = time;
     start(task_id, time, btn);
   }
   else if (type == "End") {
     end(task_id, time);
   }
-  else {
+  else if (type == "Edit") {
     edit_time();
+  }
+  else {
+    delete_time(btn.data('time-id'), task_id);
   }
 }
 

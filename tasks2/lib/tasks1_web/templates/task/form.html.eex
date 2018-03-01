@@ -29,6 +29,7 @@
     <%= error_tag f, :completed %>
   </div>
 
+  <%= if @form_type == "Create" do %>
   <div class="form-group">
     <%= label f, :start, "Start Time", class: "control-label" %>
     <br>
@@ -42,8 +43,8 @@
     <%= datetime_select f, :end, class: "form-control" %>
     <%= error_tag f, :end %>
   </div>
+  <% end %>
 
-  <br>
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>

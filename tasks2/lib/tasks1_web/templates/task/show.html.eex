@@ -1,34 +1,83 @@
+<script>
+   window.time_block_path = "<%= time_block_path(@conn, :index) %>";
+
+   // Hides/shows the edit form
+   function toggle_form() {
+     var form = document.getElementById('edit-form');
+     var table = document.getElementById('time-log');
+     // Show the form and hide the table
+     if (form.style.display == 'none' || !form.style.display) {
+       form.style.display = 'inline';
+       table.style.display = 'none';
+     }
+     // Hide the form and show the table
+     else {
+       table.style.display = 'inline';
+       form.style.display = 'none';
+     }
+   }
+</script>
+
 <h2>Time Log</h2>
-<p><b>Task Title: </b><%= @task.title %></p>
-<p><b>Task Description: </b><%= @task.description %></p>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Start Time</th>
-      <th>End Time</th>
+<form id="edit-form">
+  <div class="form-group">
+    <label class="control-label">Start Time:</label>
+    <br>
+    <%= datetime_select :edit, :start, class: "form-control" %>
+  </div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= Enum.map @timeblocks, fn timeblock -> %>
-    <tr>
-      <td><%= elem(timeblock, 0) %></td>
-      <td><%= elem(timeblock, 1) %></td>
+  <div class="form-group">
+    <label class="control-label">End Time:</label>
+    <br>
+    <%= datetime_select :edit, :end, class: "form-control" %>
+  </div>
 
-      <td class="text-right">
-        <%= if @current_user.id in @managers do %>
-        <a href=# class="time-button btn btn-default btn-xs"
-           data-type="Edit"
-           data-task-id="<%= @task.id %>"
-           data-time-id="<%= elem(timeblock, 2) %>">
-          Edit
-        </a>
-        <% end %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+  <button class="time-button btn btn-primary btn-xs"
+    data-type="Edit"
+    data-task-id=""
+    data-time-id="">
+    Submit
+  </button>
+  <br>
+  <br>
+  <a href="javascript:void(0);" onclick="toggle_form()">
+    Cancel
+  </a>
+</form>
+<div id="time-log">
+  <p><b>Task Title: </b><%= @task.title %></p>
+  <p><b>Task Description: </b><%= @task.description %></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
 
-<span><%= link "Back", to: task_path(@conn, :index) %></span>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= Enum.map @timeblocks, fn timeblock -> %>
+      <tr>
+        <td><%= elem(timeblock, 0) %></td>
+        <td><%= elem(timeblock, 1) %></td>
+
+        <td class="text-right">
+          <%= if @current_user.id in @managers do %>
+          <a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="toggle_form()">
+            Edit
+          </a>
+          <button class="time-button btn btn-danger btn-xs"
+            data-type="Delete"
+            data-time-id="<%= elem(timeblock, 2)%>">
+            Delete
+          </button>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <span><%= link "Back", to: task_path(@conn, :index) %></span>
+</div>
