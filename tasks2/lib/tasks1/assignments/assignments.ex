@@ -69,7 +69,7 @@ defmodule Tasks1.Assignments do
         |> Map.put("convert", false)
       create_time_block(time_block)
     end
-    
+
     # Return the task
     t
   end
@@ -307,7 +307,7 @@ defmodule Tasks1.Assignments do
       else: attrs["end"]
     attrs = Map.put(attrs, "start", start_time)
     |> Map.put("end", end_time)
-
+    
     %TimeBlock{}
     |> TimeBlock.changeset(attrs)
     |> Repo.insert()

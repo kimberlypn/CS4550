@@ -17,14 +17,16 @@ defmodule Tasks1.Assignments.TimeBlock do
     time_block
     |> cast(attrs, [:end, :start, :task_id])
     |> validate_required([:start, :task_id])
-    |> validate_time
   end
 
   # Checks if the start time is before the end time
   defp validate_time(changeset) do
     start_time = get_field(changeset, :start)
     end_time = get_field(changeset, :end)
-    if (DateTime.compare(start_time, end_time) == :gt) do
+    IO.inspect(start_time)
+    IO.inspect(end_time)
+    val = DateTime.compare(start_time, end_time)
+    if (val == :lt or end_time == nil) do
       changeset
     else
       add_error(changeset, :time_violation, "Start must be before end")

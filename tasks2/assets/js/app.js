@@ -223,8 +223,8 @@ function edit_time(start_time, end_time, time_id, task_id) {
     dataType: "json",
     contentType: "application/json; charset=UTF-8",
     data: text,
-    success: (resp) => { set_time_link(task_id, "Edit"); alert("yay"); },
-    error: (resp) => { console.log(resp); alert("wtf"); }
+    success: (resp) => { set_time_link(task_id, "Edit"); },
+    error: (resp) => { console.log(resp); }
   });
 }
 
