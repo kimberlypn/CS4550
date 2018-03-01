@@ -297,7 +297,6 @@ defmodule Tasks1.Assignments do
       do: convert_time(attrs["start"]),
       else: attrs["start"]
     attrs = Map.put(attrs, "start", time)
-    IO.inspect(attrs)
 
     %TimeBlock{}
     |> TimeBlock.changeset(attrs)
@@ -305,7 +304,7 @@ defmodule Tasks1.Assignments do
   end
 
   def convert_time(time) do
-    time = String.split(time, ["-", " ", ":", "."])
+    time = String.split(time, ["-", " ", ":", ".", "T"])
     new_time = %{}
       |> Map.put("day", Enum.at(time, 2))
       |> Map.put("hour", Enum.at(time, 3))
@@ -327,6 +326,15 @@ defmodule Tasks1.Assignments do
 
   """
   def update_time_block(%TimeBlock{} = time_block, attrs) do
+    start_time = if (attrs["convert"] and attrs["start"] != nil),
+      do: convert_time(attrs["start"]),
+      else: attrs["start"]
+    end_time = if (attrs["convert"] and attrs["end"] != nil),
+      do: convert_time(attrs["end"]),
+      else: attrs["end"]
+    attrs = Map.put(attrs, "start", start_time)
+    |> Map.put("end", end_time)
+
     time_block
     |> TimeBlock.changeset(attrs)
     |> Repo.update()

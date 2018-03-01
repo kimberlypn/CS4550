@@ -2,7 +2,12 @@
    window.time_block_path = "<%= time_block_path(@conn, :index) %>";
 
    // Hides/shows the edit form
-   function toggle_form() {
+   function toggle_form(task_id, time_id) {
+     // Populate the task_id and time_id data values; needed for the update
+     submit_btn = document.getElementById('time-submit');
+     submit_btn.setAttribute('data-task-id', task_id);
+     submit_btn.setAttribute('data-time-id', time_id);
+
      var form = document.getElementById('edit-form');
      var table = document.getElementById('time-log');
      // Show the form and hide the table
@@ -16,6 +21,15 @@
        form.style.display = 'none';
      }
    }
+
+   // Gets the inputted start and end times
+   function get_new_times() {
+     start_input = document.getElementById('new-start');
+     end_input = document.getElementById('new-end');
+     submit_btn = document.getElementById('time-submit');
+     submit_btn.setAttribute('data-start-time', start_input.value);
+     submit_btn.setAttribute('data-end-time', end_input.value);
+   }
 </script>
 
 <h2>Time Log</h2>
@@ -23,19 +37,21 @@
   <div class="form-group">
     <label class="control-label">Start Time:</label>
     <br>
-    <%= datetime_select :edit, :start, class: "form-control" %>
+    <input type="datetime-local" class="form-control" id="new-start">
   </div>
 
   <div class="form-group">
     <label class="control-label">End Time:</label>
     <br>
-    <%= datetime_select :edit, :end, class: "form-control" %>
+    <input type="datetime-local" class="form-control" id="new-end">
   </div>
 
-  <button class="time-button btn btn-primary btn-xs"
+  <button class="time-button btn btn-primary btn-xs" id="time-submit" onclick="get_new_times()"
     data-type="Edit"
     data-task-id=""
-    data-time-id="">
+    data-time-id=""
+    data-start-time=""
+    data-end-time="">
     Submit
   </button>
   <br>
@@ -64,7 +80,9 @@
 
         <td class="text-right">
           <%= if @current_user.id in @managers do %>
-          <a href="javascript:void(0);" class="btn btn-default btn-xs" onclick="toggle_form()">
+          <a href="javascript:void(0);"
+            class="btn btn-default btn-xs"
+            onclick="toggle_form(<%= @task.id %>, <%= elem(timeblock, 2) %>)">
             Edit
           </a>
           <button class="time-button btn btn-danger btn-xs"

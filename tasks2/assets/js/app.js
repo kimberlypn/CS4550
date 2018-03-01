@@ -209,8 +209,23 @@ function end(task_id, time) {
   }
 }
 
-function edit_time() {
-  alert("hi");
+function edit_time(start_time, end_time, time_id, task_id) {
+  let text = JSON.stringify({
+    time_block: {
+      start: start_time,
+      end: end_time,
+      convert: true
+    },
+  });
+
+  $.ajax(time_block_path + "/" + time_id, {
+    method: "put",
+    dataType: "json",
+    contentType: "application/json; charset=UTF-8",
+    data: text,
+    success: (resp) => { set_time_link(task_id, "Edit"); alert("yay"); },
+    error: (resp) => { console.log(resp); alert("wtf"); }
+  });
 }
 
 function delete_time(time_id) {
@@ -229,18 +244,25 @@ function time_click(ev) {
   let type = btn.data('type');
   let task_id = btn.data('task-id');
   let time = btn.data('time');
+  let time_id = btn.data('time-id');
+  // Start button from Task index
   if (type === "Start") {
     START_TIME = time;
     start(task_id, time, btn);
   }
+  // End button from Task index
   else if (type == "End") {
     end(task_id, time);
   }
+  // Edit button from Task show (which is used to display the timeblocks)
   else if (type == "Edit") {
-    edit_time();
+    let start_time = btn.data('start-time');
+    let end_time = btn.data('end-time');
+    edit_time(start_time, end_time, time_id, task_id);
   }
+  // Delete button from Task show (which is used to display the timeblocks)
   else {
-    delete_time(btn.data('time-id'), task_id);
+    delete_time(time_id);
   }
 }
 
