@@ -24,8 +24,7 @@ defmodule Tasks1.Assignments.TimeBlock do
   defp validate_time(changeset) do
     start_time = get_field(changeset, :start)
     end_time = get_field(changeset, :end)
-    lteq = DateTime.compare(start_time, end_time)
-    if (lteq == :lt or lteq == :eq) do
+    if (DateTime.compare(start_time, end_time) == :gt) do
       changeset
     else
       add_error(changeset, :time_violation, "Start must be before end")
