@@ -71,6 +71,8 @@ user to respectively manage or unmanage that user.
 
 I have added myself, all of the TAs, and the professor to the production
 database already so that there are available users to test on when grading.
+Also, side note: the datetime input is, unfortunately, not supported on Firefox,
+so it would be easier to create timeblocks on Google Chrome.
 
 ## How to Start Phoenix server:
   * Install dependencies with `mix deps.get`
