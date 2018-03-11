@@ -2,7 +2,8 @@
 Main Website: www.kimberlynguyen.solutions 
 
 Course Website: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/ 
-
+ 
+ 
 This repository contains all of my assignments for CS4550 Web Development.
 - [HW01 - Getting Set Up](http://hw01.kimberlynguyen.solutions/)  
 - [HW02 - HTML, CSS, and JS](http://hw02.kimberlynguyen.solutions/)
