@@ -15,12 +15,31 @@ defmodule Seeds do
   alias Tasks3.Users.User
   alias Tasks3.Tasks.Task
 
+  # Taken from Nat's lecture notes
   def run do
+    p = Comeonin.Argon2.hashpwsalt("password1")
+
     Repo.delete_all(User)
-    a = Repo.insert!(%User{ email: "alice@test.com", name: "alice" })
-    b = Repo.insert!(%User{ email: "bob@test.com", name: "bob" })
-    c = Repo.insert!(%User{ email: "carol@test.com", name: "carol" })
-    d = Repo.insert!(%User{ email: "dave@test.com", name: "dave" })
+    a = Repo.insert!(%User{
+      email: "alice@test.com",
+      name: "Alice",
+      password_hash: p
+    })
+    b = Repo.insert!(%User{
+      email: "bob@test.com",
+      name: "Bob",
+      password_hash: p
+    })
+    c = Repo.insert!(%User{
+      email: "carol@test.com",
+      name: "Carol",
+      password_hash: p
+    })
+    d = Repo.insert!(%User{
+      email: "dave@test.com",
+      name: "Dave",
+      password_hash: p
+    })
 
     Repo.delete_all(Task)
     Repo.insert!(%Task{

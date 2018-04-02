@@ -54,9 +54,10 @@ defmodule Tasks3.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
-    %Task{}
+    {:ok, task} = %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()
+    {:ok, Repo.preload(task, :user)}
   end
 
   @doc """
