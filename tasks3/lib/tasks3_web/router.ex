@@ -27,5 +27,6 @@ defmodule Tasks3Web.Router do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
+    post "/token", TokenController, :create
   end
 end
