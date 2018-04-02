@@ -15,11 +15,11 @@ defmodule Tasks3Web.TaskController do
   def create(conn, %{"task" => task_params, "token" => token}) do
     {:ok, user_id} = Phoenix.Token.verify(conn, "auth token", token,
       max_age: 86400)
-    if post_params["user_id"] != user_id do
+    if task_params["user_id"] != user_id do
       raise "You are not allowed to create a task as someone else."
     end
 
-    with {:ok, %Task{} = task} <- Tasks.create_post(task_params) do
+    with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", task_path(conn, :show, task))
