@@ -14,6 +14,7 @@ This repository contains all of my assignments for CS4550 Web Development.
 - [HW05 - Server-Side Game Logic](http://memory.kimberlynguyen.solutions)
 - [HW06 - Task Tracker Pt. 1](http://tasks1.kimberlynguyen.solutions)
 - [HW07 - Task Tracker Pt. 2](http://tasks2.kimberlynguyen.solutions)
+- [HW08 - Task Tracker Pt. 3](http://tasks3.kimberlynguyen.solutions)
 
 ## Projects
 - [Project 1 - Web Game](http://shambomon.kimberlynguyen.solutions/)  
