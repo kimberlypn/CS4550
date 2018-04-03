@@ -1,4 +1,4 @@
-# Calc
+# HW04 - Elixir Practice
 
 ## To Do
 - Calc.eval (String -> Number) # Should parse and evaluate an arithmetic 
