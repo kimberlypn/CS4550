@@ -9,9 +9,9 @@ For the first task, I had to create a page with the name of an animal as a heade
 ![task 1](screenshots/task-1.png) 
 
 ## Task 2 
-For the second task, I had to create a page with a header starting at the number ten and three buttons. One button alerts the user of the current value, another button increments the number by one, and the last button appends a new paragraph containing the number to the bottom of the page. 
+For the second task, I had to create a page with a header starting at the number ten and three buttons. One button alerts the user of the current number, another button increments the number by one, and the last button appends a new paragraph containing the number to the bottom of the page. 
 ![task 2](screenshots/task-2.png) 
 
 ## Task 3
-For the third task, practice floats by creating a table. Each link in the left column toggles some text in the right column. 
+For the third task, I had to practice floats by creating a table. Each link in the left column toggles some text in the right column. 
 ![task 3](screenshots/task-3.png) 
