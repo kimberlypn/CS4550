@@ -1,4 +1,4 @@
-# HW03/HW05 Memory Game
+# Memory Game
 
 ## Creating a Game
 When users first visit the home page, they will be prompted for a game name. 
