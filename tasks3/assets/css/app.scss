@@ -9,6 +9,23 @@
   color: white;
 }
 
+.card-header button {
+  width: 75px;
+  margin-left: 10px;
+  background-color: #c0ede2;
+  color: #2d2d2d;
+  border-color: #c0ede2;
+}
+
+.card-header button:hover {
+  background-color: #629e8f;
+  border-color: #629e8f;
+}
+
+.card-header .col-md-5 {
+  text-align: right;
+}
+
 #no-session p {
   text-align: center;
   margin-top: 20%;

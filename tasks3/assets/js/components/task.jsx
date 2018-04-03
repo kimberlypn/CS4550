@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody, CardHeader, Col } from 'reactstrap';
+import ReactDOM from 'react-dom';
+import { Card, CardBody, CardHeader, Row, Col, Button } from 'reactstrap';
 
 // Adapted from Nat's lecture notes
 export default function Task(props) {
@@ -7,9 +8,19 @@ export default function Task(props) {
 
   // Returns the task details as a Bootstrap card element
   return (
-    <Col sm="6">
+    <Col md="6">
       <Card>
-        <CardHeader>{task.title}</CardHeader>
+        <CardHeader>
+          <Row>
+            <Col md="7">
+              {task.title}
+            </Col>
+            <Col md="5">
+              <Button type="button" class="btn btn-primary">Edit</Button>
+              <Button type="button" class="btn btn-danger">Delete</Button>
+            </Col>
+          </Row>
+        </CardHeader>
         <CardBody>
           <div>
             <p><b>Assignee: </b>{task.user.name}</p>
