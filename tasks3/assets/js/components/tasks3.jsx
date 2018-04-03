@@ -8,6 +8,7 @@ import Dashboard from './dashboard';
 import Users from './users';
 import TaskForm from './task-form';
 
+// Adapted from Nat's lecture notes
 export default function tasks3_init(store) {
   ReactDOM.render(
     <Provider store={store}>

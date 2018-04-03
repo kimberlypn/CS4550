@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 
+// Adapted from Nat's lecture notes
 function TaskForm(props) {
   function update(ev) {
     let tgt = $(ev.target);
@@ -32,18 +33,35 @@ function TaskForm(props) {
     <div style={{padding: "4ex"}}>
       <h2>New Task</h2>
       <FormGroup>
-        <Label for="user_id">User</Label>
+        <Label for="user_id">Assignee</Label>
         <Input type="select" name="user_id" value={props.form.user_id}
-          onChange={update}>
+          onChange={update} />
           { users }
-        </Input>
       </FormGroup>
       <FormGroup>
-        <Label for="body">Body</Label>
-        <Input type="textarea" name="body" value={props.form.body}
+        <Label for="title">Title</Label>
+        <Input type="text" name="title" value={props.form.title}
           onChange={update} />
       </FormGroup>
-      <Button onClick={submit} color="primary">Task</Button> &nbsp;
+      <FormGroup>
+        <Label for="description">Description</Label>
+        <Input type="textarea" name="description" value={props.form.description}
+          onChange={update} />
+      </FormGroup>
+      <FormGroup>
+        <Label for="time_spent">Minutes Spent (in increments of 15)</Label>
+        <Input type="number" name="time_spent" step="15" placeholder="0"
+          value={props.form.time_spent} onChange={update} />
+      </FormGroup>
+      <FormGroup check>
+        <Label check>
+          <Input type="checkbox" name="completed" value={props.form.completed}
+            onChange={update} />
+            Completed
+        </Label>
+      </FormGroup>
+      <br />
+      <Button onClick={submit} color="primary">Submit</Button> &nbsp;
       <Button onClick={clear}>Clear</Button>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Adapted from Nat's lecture notes
 function User(params) {
   return <p>{params.user.name} -
     <Link to={"/users/" + params.user.id}>tasks</Link></p>;

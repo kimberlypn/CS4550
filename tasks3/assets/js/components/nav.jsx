@@ -4,7 +4,7 @@ import { Form, FormGroup, NavItem, Input, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import api from '../api';
 
-// Taken from Nat's lecture notes
+// Adapted from Nat's lecture notes
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   function update(ev) {
     let tgt = $(ev.target);
@@ -24,7 +24,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     <div className="navbar-text">
       <Form inline>
         <FormGroup>
-          <Input type="text" name="name" placeholder="name"
+          <Input type="text" name="name" placeholder="user@example.com"
             value={props.login.name} onChange={update} />
         </FormGroup>
         <FormGroup>
@@ -65,11 +65,8 @@ function Nav(props) {
           <NavLink to="/" exact={true} activeClassName="active"
             className="nav-link">Dashboard</NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink to="/users" href="#" className="nav-link">All Users</NavLink>
-        </NavItem>
       </ul>
-      { session_info }
+      {session_info}
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 
+// Adapted from Nat's lecture notes
 export default function Task(params) {
   let task = params.task;
   return <Card>
