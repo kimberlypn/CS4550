@@ -1,4 +1,4 @@
-# Tasks1
+# Task Tracker
 ## Part 1
 On the home page, there is a button to register an account. As of now, the user
 only needs to input a name and a unique email. The email needs to be unique
@@ -73,20 +73,3 @@ I have added myself, all of the TAs, and the professor to the production
 database already so that there are available users to test on when grading.
 Also, side note: the datetime input is, unfortunately, not supported on Firefox,
 so it would be easier to create timeblocks on Google Chrome.
-
-## How to Start Phoenix server:
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
