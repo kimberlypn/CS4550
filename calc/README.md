@@ -1,23 +1,9 @@
 # Calc
 
-**TODO:**
+## To Do
 - Calc.eval (String -> Number) # Should parse and evaluate an arithmetic expression  
 - Calc.main # Should repeatedly print a prompt, read one line, eval it, and print the result
 - Write tests for the public functions in the calc module
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `calc` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:calc, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/calc](https://hexdocs.pm/calc).
+Below is an example screenshot of the console when the calculator is run. 
+![calc](screenshots/calc.png)
