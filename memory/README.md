@@ -13,8 +13,8 @@ match all eight pairs in as few clicks as possible.
 ![new game](screenshots/new-game.png)
 
 When users get a match, they will see a thumbs-up icon on both cards. The 
-current number of clicks is tracked in the top-left. Clicking a card that has 
-already been matched does not increment the click count. 
+number of cards that the user has clicked is tracked in the top-left. Clicking 
+a card that has already been matched does not increment the click count. 
 ![mid game](screenshots/mid-game.png)
 
 Once users have matched all eight pairs, they will see a "You Won!" message 
