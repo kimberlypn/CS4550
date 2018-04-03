@@ -18,3 +18,4 @@ This repository contains all of my assignments for CS4550 Web Development.
 
 ## Projects
 - [Project 1 - Web Game](http://shambomon.kimberlynguyen.solutions/)  
+- [Project 2 - Web App](http://travelpal.kimberlynguyen.solutions/)  
