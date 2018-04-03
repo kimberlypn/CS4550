@@ -1,6 +1,9 @@
 import React from 'react';
 import Task from './task';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Row } from 'reactstrap';
+
+import EditTaskForm from './edit-task-form';
 
 // Adapted from Nat's lecture notes
 export default function Dashboard(props) {
@@ -12,8 +15,11 @@ export default function Dashboard(props) {
   });
 
   return (
-    <Row>
-      {tasks}
-    </Row>
+    <div>
+      <Route path="/" exact={true} render={() =>
+        <EditTaskForm />
+      } />
+      <Row>{tasks}</Row>
+    </div>
   );
 }

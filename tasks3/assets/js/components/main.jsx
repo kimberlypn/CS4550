@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Dashboard from './dashboard';
-import TaskForm from './task-form';
+import NewTaskForm from './new-task-form';
 
 // Renders the dashboard and new task form
 export default function Main(props) {
@@ -12,7 +12,7 @@ export default function Main(props) {
         <Dashboard tasks={props.tasks} user={props.user} />
       } />
       <Route path="/tasks" exact={true} render={() =>
-        <TaskForm />
+        <NewTaskForm />
       } />
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card, CardBody, CardHeader, Row, Col, Button } from 'reactstrap';
+
 import api from '../api';
 
 // Adapted from Nat's lecture notes
@@ -9,6 +10,10 @@ export default function Task(props) {
 
   function delete_task() {
     api.delete_task(task.id);
+  }
+
+  function edit_task() {
+    $("#edit-form").toggle();
   }
 
   // Returns the task details as a Bootstrap card element
@@ -21,7 +26,7 @@ export default function Task(props) {
               {task.title}
             </Col>
             <Col md="5">
-              <Button type="button">Edit</Button>
+              <Button type="button" onClick={edit_task}>Edit</Button>
               <Button type="button" onClick={delete_task}>Delete</Button>
             </Col>
           </Row>
