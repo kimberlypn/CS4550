@@ -1,46 +1,11 @@
 # Memory
 
-## Development Instructions
+## Creating a Game
+When users first visit the home page, they will be prompted for a game name. Users can return to a saved game at any point by entering in the same game name. 
 
-Prerequisites:
+## Gameplay
+After entering a game name, the game will start. There is a 4x4 grid of cards, and behind each card is a letter in the range A-H. The goal of the game is to match all eight pairs in as few clicks as possible. 
 
- * Erlang / OTP ~ 20.2
- * Elixir ~ 1.5
- * NodeJS ~ 9.4
+When users get a match, they will see a thumbs-up icon on both cards. The current number of clicks is tracked in the top-left. Clicking a card that has already been matched does not increment the click count. 
 
-To start your Phoenix server:
-
- * Install dependencies with `mix deps.get`
- * Install Node.js dependencies with `cd assets && npm install`
- * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-## Deployment Instructions
-
-Instructions to deploy to an Ubuntu 16.04 VPS:
-
-As root:
-
- * Install Erlang and Elixir packages.
- * Create a new Linux user account, "memory".
- * Add a nginx config for the new site. See "memory.nginx" for an example.
-
-As the new user:
-
- * Install NodeJS through NVM.
- * Check out this git repository to ~/src/memory
- * Run the deploy script.
-   * You may need to answer "Y" and press return.
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
-
-Ready to run in production? Please
-[check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
+Once users have matched all eight pairs, they will see a "You Won!" message with their click count, which is their score, and a button to reset the game. 
