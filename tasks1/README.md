@@ -1,4 +1,4 @@
-# Tasks1
+# Task Tracker
 ## Part 1
 On the home page, there is a button to register an account. As of now, the user
 only needs to input a name and a unique email. The email needs to be unique
