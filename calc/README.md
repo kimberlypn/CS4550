@@ -5,5 +5,5 @@
 - Calc.main # Should repeatedly print a prompt, read one line, eval it, and print the result
 - Write tests for the public functions in the calc module
 
-## Console Example
+## Example Run
 ![calc](screenshots/calc.png)
