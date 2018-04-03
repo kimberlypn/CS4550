@@ -2,7 +2,7 @@
 
 ## Creating a Game
 When users first visit the home page, they will be prompted for a game name. 
-Users can return to a saved game at any point by entering in the same game name. 
+Users can return to a saved game at any point by entering the same game name. 
 ![homepage](screenshots/homepage.png)
 
 
