@@ -45,9 +45,9 @@ This link will redirect them to a new task form.
 ![creating a new task](screenshots/task-new.png) 
 
 Users can delete an individual task by clicking the "Delete" button beside the 
-task. The user will be asked to confirm the deletion upon clicking this button. 
+task. Users will be asked to confirm the deletion upon clicking this button. 
 ![deleting a task](screenshots/task-delete.png) 
 
 Users can log out by clicking the "Log Out" link in the top-right. After 
-logging out, the user will be redirected back to the homepage. 
+logging out, users will be redirected back to the homepage. 
 ![logging out](screenshots/log-out.png) 
