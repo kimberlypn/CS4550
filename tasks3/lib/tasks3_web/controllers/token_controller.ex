@@ -5,8 +5,8 @@ defmodule Tasks3Web.TokenController do
 
   action_fallback Tasks3Web.FallbackController
 
-  def create(conn, %{"name" => name, "pass" => pass}) do
-    with {:ok, %User{} = user} <- Tasks3.Users.get_and_auth_user(name, pass) do
+  def create(conn, %{"email" => email, "pass" => pass}) do
+    with {:ok, %User{} = user} <- Tasks3.Users.get_and_auth_user(email, pass) do
       token = Phoenix.Token.sign(conn, "auth token", user.id)
       conn
       |> put_status(:created)

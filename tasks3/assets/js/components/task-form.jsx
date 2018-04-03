@@ -25,7 +25,6 @@ function TaskForm(props) {
       type: 'CLEAR_FORM',
     });
   }
-  console.log("TASK FORM: " + props);
 
   let users = (_.map(props.users, (uu) =>
   <option key={uu.id} value={uu.id}>{uu.name}</option>));
@@ -36,8 +35,9 @@ function TaskForm(props) {
       <FormGroup>
         <Label for="user_id">Assignee</Label>
         <Input type="select" name="user_id" value={props.form.user_id}
-          onChange={update} />
-          { users }
+          onChange={update}>
+          {users}
+        </Input>
       </FormGroup>
       <FormGroup>
         <Label for="title">Title</Label>
@@ -51,14 +51,14 @@ function TaskForm(props) {
       </FormGroup>
       <FormGroup>
         <Label for="time_spent">Minutes Spent (in increments of 15)</Label>
-        <Input type="number" name="time_spent" step="15" placeholder="0"
+        <Input type="number" name="time_spent" step="15"
           value={props.form.time_spent} onChange={update} />
       </FormGroup>
       <FormGroup check>
         <Label check>
           <Input type="checkbox" name="completed" value={props.form.completed}
             onChange={update} />
-            Completed
+          Completed
         </Label>
       </FormGroup>
       <br />

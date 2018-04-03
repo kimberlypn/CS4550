@@ -24,8 +24,8 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     <div className="navbar-text">
       <Form inline>
         <FormGroup>
-          <Input type="text" name="name" placeholder="user@example.com"
-            value={props.login.name} onChange={update} />
+          <Input type="text" name="email" placeholder="user@example.com"
+            value={props.login.email} onChange={update} />
         </FormGroup>
         <FormGroup>
           <Input type="password" name="pass" placeholder="password"
@@ -40,7 +40,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 let Session = connect(({token}) => {return {token};})((props) => {
   return (
     <div className="navbar-text">
-      User id = { props.token.user_id }
+      {props.token.user_name}
     </div>
   );
 });
@@ -64,6 +64,11 @@ function Nav(props) {
         <NavItem>
           <NavLink to="/" exact={true} activeClassName="active"
             className="nav-link">Dashboard</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/tasks" href="#"
+            className="nav-link">New Task
+          </NavLink>
         </NavItem>
       </ul>
       {session_info}
