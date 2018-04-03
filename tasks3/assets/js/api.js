@@ -58,6 +58,21 @@ class TheServer {
       },
     });
   }
+
+  delete_task(data) {
+    $.ajax("/api/v1/tasks/" + data, {
+      method: "delete",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'DELETE_TASK',
+          task: resp.data,
+        });
+      },
+    });
+  }
 }
 
 export default new TheServer();

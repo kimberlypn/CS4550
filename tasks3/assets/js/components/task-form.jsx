@@ -20,12 +20,6 @@ function TaskForm(props) {
     api.submit_task(props.form);
   }
 
-  function clear(ev) {
-    props.dispatch({
-      type: 'CLEAR_FORM',
-    });
-  }
-
   let users = (_.map(props.users, (uu) =>
   <option key={uu.id} value={uu.id}>{uu.name}</option>));
 

@@ -6,7 +6,7 @@ import { Row } from 'reactstrap';
 export default function Dashboard(props) {
   let tasks = _.map(props.tasks, function(tt) {
     if (props.user == tt.user.id) {
-      return <Task key={tt.id} task={tt} />;
+      return <Task key={tt.id} task={tt} id={tt.id} />;
     }
   });
 

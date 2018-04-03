@@ -54,9 +54,6 @@ defmodule Tasks3.Tasks do
 
   """
   def create_task(attrs \\ %{}) do
-    IO.inspect("WASSUP")
-    IO.inspect(Task.changeset(%Task{}, attrs))
-
     {:ok, task} = %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()

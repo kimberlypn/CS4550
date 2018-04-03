@@ -15,11 +15,20 @@
   background-color: #c0ede2;
   color: #2d2d2d;
   border-color: #c0ede2;
+  text-decoration: none;
 }
 
 .card-header button:hover {
   background-color: #629e8f;
   border-color: #629e8f;
+}
+
+.card-header button:active {
+    border-color: #629e8f;
+}
+
+.card-header button:visited {
+    border-color: #629e8f;
 }
 
 .card-header .col-md-5 {

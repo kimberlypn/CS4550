@@ -1,4 +1,4 @@
-// Taken from Nat's lecture notes
+// Adapted from Nat's lecture notes
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 
@@ -8,6 +8,8 @@ function tasks(state = [], action) {
     return [...action.tasks];
   case 'ADD_TASK':
     return [action.task, ...state];
+  case 'DELETE_TASK':
+    return state.filter(task => task.id != action.task.id);
   default:
     return state;
   }

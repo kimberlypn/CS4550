@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card, CardBody, CardHeader, Row, Col, Button } from 'reactstrap';
+import api from '../api';
 
 // Adapted from Nat's lecture notes
 export default function Task(props) {
   let task = props.task;
+
+  function delete_task() {
+    api.delete_task(task.id);
+  }
 
   // Returns the task details as a Bootstrap card element
   return (
@@ -16,8 +21,9 @@ export default function Task(props) {
               {task.title}
             </Col>
             <Col md="5">
-              <Button type="button" class="btn btn-primary">Edit</Button>
-              <Button type="button" class="btn btn-danger">Delete</Button>
+              <Button type="button" className="btn btn-primary">Edit</Button>
+              <Button type="button" className="btn btn-danger"
+                onClick={delete_task}>Delete</Button>
             </Col>
           </Row>
         </CardHeader>
