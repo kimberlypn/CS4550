@@ -24,11 +24,21 @@
 }
 
 .card-header button:active {
-    border-color: #629e8f;
+  background-color: #c0ede2;
+  color: #2d2d2d;
+  border-color: #c0ede2;
+}
+
+.card-header button:active:focus {
+  background-color: #c0ede2;
+  color: #2d2d2d;
+  border-color: #c0ede2;
 }
 
 .card-header button:visited {
-    border-color: #629e8f;
+  background-color: #c0ede2;
+  color: #2d2d2d;
+  border-color: #c0ede2;
 }
 
 .card-header .col-md-5 {
@@ -39,4 +49,13 @@
   text-align: center;
   margin-top: 20%;
   font-size: 30px;
+}
+
+.navbar-text span {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar-text a {
+  text-decoration: none;
 }

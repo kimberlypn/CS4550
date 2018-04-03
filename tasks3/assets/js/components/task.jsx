@@ -21,9 +21,8 @@ export default function Task(props) {
               {task.title}
             </Col>
             <Col md="5">
-              <Button type="button" className="btn btn-primary">Edit</Button>
-              <Button type="button" className="btn btn-danger"
-                onClick={delete_task}>Delete</Button>
+              <Button type="button">Edit</Button>
+              <Button type="button" onClick={delete_task}>Delete</Button>
             </Col>
           </Row>
         </CardHeader>

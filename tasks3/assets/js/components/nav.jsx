@@ -6,6 +6,7 @@ import api from '../api';
 
 // Adapted from Nat's lecture notes
 let LoginForm = connect(({login}) => {return {login};})((props) => {
+  // Updates the state with the inputted values from the log-in form
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
@@ -16,6 +17,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     });
   }
 
+  // Sends a request with the information from the log-in form to create a token
   function create_token(ev) {
     api.submit_login(props.login);
   }
@@ -37,14 +39,18 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   );
 });
 
+// Displays the user's name in the top right
 let Session = connect(({token}) => {return {token};})((props) => {
   return (
     <div className="navbar-text">
       {props.token.user_name}
+      <span>|</span>
+      <a href="javascript:void(0)">Log Out</a>
     </div>
   );
 });
 
+// Displays either the user's name or the log-in form
 function Nav(props) {
   let session_info;
 
