@@ -53,3 +53,15 @@ a:hover {
 .hw:hover {
   border-bottom-color: #60914a;
 }
+
+.projects {
+  color: #5d8a91;
+}
+
+.projects:visited {
+  color: #5d8a91;
+}
+
+.projects:hover {
+  border-bottom-color: #5d8a91;
+}
