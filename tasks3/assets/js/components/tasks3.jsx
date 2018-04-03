@@ -18,18 +18,33 @@ export default function tasks3_init(store) {
 }
 
 let Tasks3 = connect((state) => state)((props) => {
+  // Choose what to render depending on whether or not the user is logged in
+  var main;
+  if (!props.form.token) {
+    main = (
+      <div id="no-session">
+        <p>Log in to see your tasks.</p>
+      </div>
+    );
+  }
+  else {
+    main = (
+      <div>
+        <Route path="/" exact={true} render={() =>
+          <Dashboard tasks={props.tasks} user={props.form.user_id} />
+        } />
+        <Route path="/tasks" exact={true} render={() =>
+          <TaskForm />
+        } />
+      </div>
+    );
+  }
+
   return (
     <Router>
       <div>
         <Nav />
-        <Route path="/" exact={true} render={() =>
-          <div>
-            <Dashboard tasks={props.tasks} />
-          </div>
-        } />
-      <Route path="/tasks" exact={true} render={() =>
-          <TaskForm />
-        } />
+        {main}
       </div>
     </Router>
   );
