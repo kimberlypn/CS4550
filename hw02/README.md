@@ -13,5 +13,5 @@ For the second task, I had to create a page with a header starting at the number
 ![task 2](screenshots/task-2.png) 
 
 ## Task 3
-For the third task, I had to practice floats by creating a table. Each link in the left column toggles some text in the right column. 
+For the third task, I had to create two columns, where each link in the left column toggles some text in the right column. 
 ![task 3](screenshots/task-3.png) 
