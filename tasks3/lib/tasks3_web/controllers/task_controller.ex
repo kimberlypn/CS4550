@@ -13,16 +13,21 @@ defmodule Tasks3Web.TaskController do
 
   # Taken from Nat's lecture notes
   def create(conn, %{"task" => task_params, "token" => token}) do
-    {:ok, user_id} = Phoenix.Token.verify(conn, "auth token", token,
-      max_age: 86400)
-    if task_params["user_id"] != user_id do
-      raise "You are not allowed to create a task as someone else."
-    end
+    # Set the default time_spent or convert it to an integer
+    if Map.get(task_params, "time_spent") == "", do:
+      time_spent = 0,
+    else:
+      time_spent = Map.get(task_params, "time_spent")
+      |> String.to_integer()
+
+    task_params = task_params
+    |> Map.put("time_spent", time_spent)
+    |> Map.put("completed", false)
 
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", task_path(conn, :show, task))
+      |> put_resp_header("location", task_path(conn, :index))
       |> render("show.json", task: task)
     end
   end

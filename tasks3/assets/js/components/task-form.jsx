@@ -62,8 +62,7 @@ function TaskForm(props) {
         </Label>
       </FormGroup>
       <br />
-      <Button onClick={submit} color="primary">Submit</Button> &nbsp;
-      <Button onClick={clear}>Clear</Button>
+      <Button onClick={submit} color="primary">Submit</Button>
     </div>
   );
 };
