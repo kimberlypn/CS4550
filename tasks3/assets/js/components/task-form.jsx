@@ -25,6 +25,7 @@ function TaskForm(props) {
       type: 'CLEAR_FORM',
     });
   }
+  console.log("TASK FORM: " + props);
 
   let users = (_.map(props.users, (uu) =>
   <option key={uu.id} value={uu.id}>{uu.name}</option>));

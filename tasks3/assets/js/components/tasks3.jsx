@@ -34,7 +34,7 @@ let Tasks3 = connect((state) => state)((props) => {
         } />
         <Route path="/users/:user_id" render={({match}) =>
           <Dashboard tasks={_.filter(props.tasks, (tt) =>
-            match.params.user_id == tt.user.id )
+            match.props.user_id == tt.user.id )
           } />
         } />
       </div>

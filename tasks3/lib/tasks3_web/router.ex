@@ -23,7 +23,7 @@ defmodule Tasks3Web.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", Tasks3Web do
+  scope "/api/v1", Tasks3Web do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
