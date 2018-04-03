@@ -26,7 +26,7 @@ When users first visit the homepage, they will be prompted with a log-in form.
 ![homepage](screenshots/homepage.png) 
 
 If users do not have an account, they can use the "Register" button to create 
-one. This link will redirect them to a registration form. 
+one. This button will redirect them to a registration form. 
 ![registration form](screenshots/registration-form.png) 
 
 After logging in, users will see their list of tasks. 
