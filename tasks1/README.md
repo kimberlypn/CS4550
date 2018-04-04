@@ -19,35 +19,39 @@ minutes spent, it must be in increments of 15, which the server will validate
 before saving to the database. After filling in all of the fields and clicking
 the 'Submit' button, the user is redirected to the tasks index page, where she
 can choose to edit or view any tasks. Once done, the user can log out via the
-link in the top right. 
+link in the top right.
 
 ## Workflow
-When users first visit the homepage, they will be prompted with a log-in form. 
-![homepage](screenshots/homepage.png) 
+When users first visit the homepage, they will be prompted with a message
+telling them to log-in.
+![homepage](screenshots/homepage.png)
 
-If users do not have an account, they can use the "Register" button to create 
-one. This button will redirect them to a registration form. 
-![registration form](screenshots/registration-form.png) 
+If users do not have an account, they can use the "Register" button to create
+one. This button will redirect them to a registration form.
+![registration form](screenshots/registration-form.png)
 
-After logging in, users will see their list of tasks. 
-![dashboard](screenshots/dashboard.png) 
+Otherwise, users can use the "Log In" button to log in.
+![log-in form](screenshots/log-in-form.png)
 
-Users can view the details of an individual task by clicking the "View" link 
-beside the task. 
-![viewing a task](screenshots/task-view.png) 
+After logging in, users will see their list of tasks.
+![dashboard](screenshots/dashboard.png)
 
-Users can edit the details of an individual task by clicking the "Edit" link 
-beside the task. This link will redirect them to an edit form. 
-![editing a task](screenshots/task-edit.png) 
+Users can view the details of an individual task by clicking the "View" link
+beside the task.
+![viewing a task](screenshots/task-view.png)
 
-Users can create a new task by clicking the "New Task" link in the bottom-left. 
-This link will redirect them to a new task form. 
-![creating a new task](screenshots/task-new.png) 
+Users can edit the details of an individual task by clicking the "Edit" link
+beside the task. This link will redirect them to an edit form.
+![editing a task](screenshots/task-edit.png)
 
-Users can delete an individual task by clicking the "Delete" button beside the 
-task. Users will be asked to confirm the deletion upon clicking this button. 
-![deleting a task](screenshots/task-delete.png) 
+Users can create a new task by clicking the "New Task" link in the bottom-left.
+This link will redirect them to a new task form.
+![creating a new task](screenshots/task-new.png)
 
-Users can log out by clicking the "Log Out" link in the top-right. After 
-logging out, users will be redirected back to the homepage. 
-![logging out](screenshots/log-out.png) 
+Users can delete an individual task by clicking the "Delete" button beside the
+task. Users will be asked to confirm the deletion upon clicking this button.
+![deleting a task](screenshots/task-delete.png)
+
+Users can log out by clicking the "Log Out" link in the top-right. After
+logging out, users will be redirected back to the homepage.
+![logging out](screenshots/log-out.png)

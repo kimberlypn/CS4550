@@ -51,3 +51,57 @@ I have added myself, all of the TAs, and the professor to the production
 database already so that there are available users to test on when grading.
 Also, side note: the datetime input is, unfortunately, not supported on Firefox,
 so it would be easier to create timeblocks on Google Chrome.
+
+## Workflow
+When users first visit the homepage, they will be prompted with a message
+telling them to log-in.
+![homepage](screenshots/homepage.png)
+
+If users do not have an account, they can use the "Register" button to create
+one. This button will redirect them to a registration form.
+![registration form](screenshots/registration-form.png)
+
+Otherwise, users can use the "Log In" button to log in.
+![log-in form](screenshots/log-in-form.png)
+
+After logging in, users will see their task report.
+![task report](screenshots/task-report.png)
+
+Tasks that are assigned to the user have two additional links: "Start" and
+"End". These links allow users to enter the time spent as multiple pairs of
+(start, end) timestamps rather than having to enter both values at once. After
+clicking "Start", the text will change to "In Progress".
+![in-progress task](screenshots/in-progress.png)
+
+The "View Log" link allows users to see the time log for an individual task.
+![time log](screenshots/time-log.png)
+
+Users can edit a specific time log entry by clicking the "Edit" link beside the
+entry. This toggles the edit timeblock form. There is also a "Delete" button
+that users can click to delete an individual timeblock.
+![editing a timeblock](screenshots/edit-time-log.png)
+
+Back on the task report page, users can edit the details of an individual task
+by clicking the "Edit" link beside the task. This link will redirect them to an
+edit task form.
+![editing a task](screenshots/edit-task.png)
+
+Users can delete an individual task by clicking the "Delete" button beside the
+task. Users will be asked to confirm the deletion upon clicking this button.
+![deleting a task](screenshots/delete-task.png)
+
+Users can create a new task by clicking the "New Task" link in the bottom-left.
+This link will redirect them to a new task form.
+![creating a task](screenshots/new-task.png)
+
+Beside the "Task Report" link in the navigation bar is a "Profile" link. Here,
+users can view their manager and the users that they manage.
+![profile](screenshots/profile.png)
+
+Users can manage/unmanage other users by clicking the "Edit" link in the
+bottom-left.
+![manage employees](screenshots/manage.png)
+
+Users can log out by clicking the "Log Out" link in the top-right. After
+logging out, users will be redirected back to the homepage.
+![logging out](screenshots/log-out.png)
