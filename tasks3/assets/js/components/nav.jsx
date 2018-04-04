@@ -48,7 +48,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
       type: 'DESTROY_TOKEN'
     });
   }
-  
+
   return (
     <div className="navbar-text">
       {props.token.user_name} (ID: {props.token.user_id})

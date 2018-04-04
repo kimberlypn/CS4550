@@ -17,6 +17,8 @@ function users(state = [], action) {
   switch (action.type) {
   case 'USERS_LIST':
     return [...action.users];
+  case 'ADD_USER':
+    return [action.user, ...state];
   default:
     return state;
   }
@@ -81,6 +83,23 @@ function login(state = empty_login, action) {
       return Object.assign({}, state, action.data);
     case 'DESTROY_TOKEN':
       return empty_login;
+    default:
+      return state;
+  }
+}
+
+let empty_register = {
+  email: "",
+  name: "",
+  password: ""
+}
+
+function register(state = empty_register, action) {
+  switch (action.type) {
+    case 'UPDATE_REGISTRATION_FORM':
+      return Object.assign({}, state, action.data);
+    case 'CLEAR_FORM':
+      return empty_register;
     default:
       return state;
   }

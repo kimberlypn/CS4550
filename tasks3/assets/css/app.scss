@@ -53,13 +53,30 @@ h3 {
 
 #no-session p {
   text-align: center;
-  margin-top: 20%;
+  margin-top: 18%;
   font-size: 30px;
+}
+
+#no-session a {
+  color: #7eaebc;
+  text-decoration: none;
+}
+
+#no-session a:hover {
+  color: #618c99;
 }
 
 .navbar-text span {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.navbar-text input {
+  margin-left: 6px;
+}
+
+.navbar-text button {
+  margin-left: 6px;
 }
 
 .navbar-text a {
@@ -71,5 +88,13 @@ h3 {
 }
 
 #edit-form button {
+  margin-right: 10px;
+}
+
+#registration-form {
+  display: none;
+}
+
+#registration-form button {
   margin-right: 10px;
 }
