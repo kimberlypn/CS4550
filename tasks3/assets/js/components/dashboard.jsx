@@ -11,13 +11,13 @@ export default function Dashboard(props) {
   // Tasks assigned to the user
   let assigned = _.map(props.tasks, function(tt) {
     if (props.user == tt.user.id) {
-      return <Task key={tt.id} task={tt} id={tt.id} />;
+      return <Task key={tt.id} task={tt} id={tt.id} type={"self"} />;
     }
   });
   // Tasks created by the user and assigned to other users
   let created = _.map(props.tasks, function(tt) {
     if (props.user == tt.creator.id && props.user != tt.user.id) {
-      return <Task key={tt.id} task={tt} id={tt.id} />;
+      return <Task key={tt.id} task={tt} id={tt.id} type={"other"} />;
     }
   });
 

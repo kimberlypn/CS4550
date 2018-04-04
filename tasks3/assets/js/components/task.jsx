@@ -8,6 +8,10 @@ import api from '../api';
 // Renders the details of an individual task as a card
 function Task(props) {
   let task = props.task;
+  // Decide whether to display the assignee or the assigner
+  let assign = props.type == "self" ?
+    <p><b>Assigned By: </b>{task.creator.name}</p>
+      : <p><b>Assigned To: </b>{task.user.name}</p>
 
   // Sends a request to delete the task
   function delete_task() {
@@ -41,7 +45,7 @@ function Task(props) {
         </CardHeader>
         <CardBody>
           <div>
-            <p><b>Assignee: </b>{task.user.name}</p>
+            {assign}
             <p><b>Completed: </b>{task.completed ? "Yes" : "No"}</p>
             <p><b>Minutes Spent: </b>{task.time_spent}</p>
             <p><b>Description: </b>{task.description}</p>
