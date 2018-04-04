@@ -36,11 +36,15 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({token: data.token, task: data}),
       success: (resp) => {
+        alert("Successfully created the task!");
         store.dispatch({
           type: 'ADD_TASK',
           task: resp.data,
         });
       },
+      error: (resp) => {
+        alert("Could not create the task. Please try again.");
+      }
     });
   }
 
@@ -56,6 +60,9 @@ class TheServer {
           token: resp,
         });
       },
+      error: (resp) => {
+        alert("Could not log in. Please try again.");
+      }
     });
   }
 
@@ -71,6 +78,9 @@ class TheServer {
           tasks: resp.data,
         });
       },
+      error: (resp) => {
+        alert("Could not delete the task. Please try again.");
+      }
     });
   }
 
@@ -86,6 +96,9 @@ class TheServer {
           tasks: resp.data,
         });
       },
+      error: (resp) => {
+        alert("Could not edit the task. Please try again.");
+      }
     });
   }
 
@@ -96,10 +109,14 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({user: data}),
       success: (resp) => {
+        alert("Successfully registered! You can now log in.");
         store.dispatch({
           type: 'ADD_USER',
           user: resp.data,
         });
+      },
+      error: (resp) => {
+        alert("Failed to register. Please try again.");
       },
     });
   }

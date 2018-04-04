@@ -39,7 +39,7 @@ defmodule Tasks3.Users do
 
   # Taken from Nat's lecture notes
   def get_and_auth_user(email, pass) do
-    user = Repo.one(from u in User, where: u.email == ^email)
+    user = Repo.one(from u in User, where: u.email == ^String.downcase(email))
     Comeonin.Argon2.check_pass(user, pass)
   end
 

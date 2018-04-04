@@ -46,7 +46,7 @@ function RegistrationForm(props) {
           onChange={update} />
       </FormGroup>
       <FormGroup>
-        <Label for="password">Password</Label>
+        <Label for="password">Password (must be at least 8 characters)</Label>
         <Input type="password" name="password" value={props.form.password}
           onChange={update} />
       </FormGroup>
