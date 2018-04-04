@@ -59,11 +59,11 @@ Users can edit the details of an individual task by clicking the "Edit" button
 in the top-right of the task card. This button will toggle the edit form. 
 Beside the "Edit" button is a "Delete" button, which users can use to delete an 
 individual task. 
-![editing a task](screenshots/edit-task-form.png) 
+![editing a task](screenshots/edit-task.png) 
 
 Users can create a new task by clicking the "New Task" link in the navigation 
 bar. This link will redirect them to a new task form. 
-![creating a new task](screenshots/new-task-form.png) 
+![creating a new task](screenshots/new-task.png) 
 
 Users can log out by clicking the "Log Out" link in the top-right. After 
 logging out, users will be redirected back to the homepage.
