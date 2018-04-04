@@ -43,9 +43,11 @@ function NewTaskForm(props) {
         </Input>
       </FormGroup>
       <FormGroup>
-        <Label for="title">Title</Label>
+        <Label for="title">
+          Title (Remaining Characters: {75 - props.form.title.length})
+        </Label>
         <Input type="text" name="title" value={props.form.title}
-          onChange={update} />
+          maxLength="75" onChange={update} />
       </FormGroup>
       <FormGroup>
         <Label for="description">Description</Label>
@@ -54,7 +56,7 @@ function NewTaskForm(props) {
       </FormGroup>
       <FormGroup>
         <Label for="time_spent">Minutes Spent (in increments of 15)</Label>
-        <Input type="number" name="time_spent" step="15"
+        <Input type="number" name="time_spent" min="0" step="15" 
           value={props.form.time_spent} onChange={update} />
       </FormGroup>
       <FormGroup check>

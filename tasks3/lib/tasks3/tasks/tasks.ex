@@ -21,6 +21,7 @@ defmodule Tasks3.Tasks do
     Repo.all(from t in Task,
       order_by: [desc: :inserted_at])
     |> Repo.preload(:user)
+    |> Repo.preload(:creator)
   end
 
   @doc """
@@ -40,6 +41,7 @@ defmodule Tasks3.Tasks do
   def get_task!(id) do
     Repo.get!(Task, id)
     |> Repo.preload(:user)
+    |> Repo.preload(:creator)
   end
 
   @doc """
@@ -58,7 +60,7 @@ defmodule Tasks3.Tasks do
     {:ok, task} = %Task{}
     |> Task.changeset(attrs)
     |> Repo.insert()
-    {:ok, Repo.preload(task, :user)}
+    {:ok, Repo.preload(task, :user) |> Repo.preload(:creator)}
   end
 
   @doc """

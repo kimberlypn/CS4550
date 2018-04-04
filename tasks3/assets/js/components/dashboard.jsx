@@ -8,9 +8,15 @@ import EditTaskForm from './edit-task-form';
 // Renders the edit form (hidden by default) and the tasks;
 // adapted from Nat's lecture notes
 export default function Dashboard(props) {
-  // Only display tasks assigned to the user
-  let tasks = _.map(props.tasks, function(tt) {
+  // Tasks assigned to the user
+  let assigned = _.map(props.tasks, function(tt) {
     if (props.user == tt.user.id) {
+      return <Task key={tt.id} task={tt} id={tt.id} />;
+    }
+  });
+  // Tasks created by the user and assigned to other users
+  let created = _.map(props.tasks, function(tt) {
+    if (props.user == tt.creator.id && props.user != tt.user.id) {
       return <Task key={tt.id} task={tt} id={tt.id} />;
     }
   });
@@ -20,7 +26,10 @@ export default function Dashboard(props) {
       <Route path="/" exact={true} render={() =>
         <EditTaskForm />
       } />
-      <Row>{tasks}</Row>
+      <h3>>> Assigned to You</h3>
+      <Row>{assigned}</Row>
+      <h3>>> Created by You</h3>
+      <Row>{created}</Row>
     </div>
   );
 }

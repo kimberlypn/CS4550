@@ -47,35 +47,40 @@ defmodule Seeds do
       description: "Make a task for Alice",
       completed: true,
       time_spent: 15,
-      user_id: a.id
+      user_id: a.id,
+      creator_id: a.id
     })
     Repo.insert!(%Task{
       title: "Bob Example",
       description: "Make a task for Bob",
       completed: true,
       time_spent: 30,
-      user_id: b.id
+      user_id: b.id,
+      creator_id: b.id
     })
     Repo.insert!(%Task{
       title: "Bob Example Again",
       description: "Make another task for Bob",
       completed: false,
       time_spent: 0,
-      user_id: b.id
+      user_id: b.id,
+      creator_id: a.id
     })
     Repo.insert!(%Task{
       title: "Carol Example",
       description: "Make a task for Carol",
       completed: false,
       time_spent: 0,
-      user_id: c.id
+      user_id: c.id,
+      creator_id: c.id
     })
     Repo.insert!(%Task{
       title: "Dave Example",
       description: "Make a task for Dave",
       completed: true,
       time_spent: 45,
-      user_id: d.id
+      user_id: d.id,
+      creator_id: d.id
     })
   end
 end

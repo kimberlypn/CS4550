@@ -30,7 +30,7 @@ let empty_form = {
   completed: false,
   token: "",
   id: "",
-  session_id: ""
+  creator_id: ""
 };
 
 function form(state = empty_form, action) {
@@ -47,7 +47,7 @@ function form(state = empty_form, action) {
       return Object.assign({}, state, cleared);
     case 'SET_TOKEN':
       let session = {
-        session_id: action.token.user_id,
+        creator_id: action.token.user_id,
         token: action.token.token,
         user_id: action.token.user_id
       }
