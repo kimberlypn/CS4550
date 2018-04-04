@@ -52,6 +52,8 @@ function form(state = empty_form, action) {
         user_id: action.token.user_id
       }
       return Object.assign({}, state, session);
+    case 'DESTROY_TOKEN':
+      return empty_form;
     default:
       return state;
   }
@@ -61,6 +63,8 @@ function token(state = null, action) {
   switch (action.type) {
     case 'SET_TOKEN':
       return action.token;
+    case 'DESTROY_TOKEN':
+      return null;
     default:
       return state;
   }
@@ -75,6 +79,8 @@ function login(state = empty_login, action) {
   switch (action.type) {
     case 'UPDATE_LOGIN_FORM':
       return Object.assign({}, state, action.data);
+    case 'DESTROY_TOKEN':
+      return empty_login;
     default:
       return state;
   }

@@ -42,11 +42,18 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
 // Displays the user's name in the top right
 let Session = connect(({token}) => {return {token};})((props) => {
+  // Sends a request to destroy the current token
+  function destroy_token() {
+    props.dispatch({
+      type: 'DESTROY_TOKEN'
+    });
+  }
+  
   return (
     <div className="navbar-text">
       {props.token.user_name} (ID: {props.token.user_id})
       <span>|</span>
-      <a href="javascript:void(0)">Log Out</a>
+      <a href="javascript:void(0)" onClick={destroy_token}>Log Out</a>
     </div>
   );
 });
