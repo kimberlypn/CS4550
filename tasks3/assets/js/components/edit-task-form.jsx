@@ -53,7 +53,7 @@ function EditTaskForm(props) {
       </FormGroup>
       <FormGroup>
         <Label for="title">
-          Title (Remaining Characters: {75 - props.form.title.length})
+          Title (remaining characters: {75 - props.form.title.length})
         </Label>
         <Input type="text" name="title" value={props.form.title}
           maxLength="75" onChange={update} />
