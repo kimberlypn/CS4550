@@ -10,7 +10,12 @@ function NewTaskForm(props) {
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
-    data[tgt.attr('name')] = tgt.val();
+    if (tgt.attr('name') == "completed") {
+      data['completed'] = tgt.is(':checked') ? true : false;
+    }
+    else {
+      data[tgt.attr('name')] = tgt.val();
+    }
     let action = {
       type: 'UPDATE_FORM',
       data: data
@@ -54,8 +59,8 @@ function NewTaskForm(props) {
       </FormGroup>
       <FormGroup check>
         <Label check>
-          <Input type="checkbox" name="completed" value={props.form.completed}
-            onChange={update} />
+          <Input type="checkbox" name="completed" onChange={update}
+            checked={props.form.completed ? "checked" : "false"} />
           Completed
         </Label>
       </FormGroup>

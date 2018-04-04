@@ -9,7 +9,12 @@ function EditTaskForm(props) {
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
-    data[tgt.attr('name')] = tgt.val();
+    if (tgt.attr('name') == "completed") {
+      data['completed'] = tgt.is(':checked') ? true : false;
+    }
+    else {
+      data[tgt.attr('name')] = tgt.val();
+    }
     // Send the hidden task id as well, which is needed to update the task
     data['id'] = $('input[name="id"]').val();
     let action = {
@@ -63,8 +68,8 @@ function EditTaskForm(props) {
       </FormGroup>
       <FormGroup check>
         <Label check>
-          <Input type="checkbox" name="completed" value={props.form.completed}
-            onChange={update} />
+          <Input type="checkbox" name="completed" onChange={update}
+            checked={props.form.completed ? "checked" : "false"} />
           Completed
         </Label>
       </FormGroup>
