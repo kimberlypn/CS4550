@@ -44,7 +44,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 let Session = connect(({token}) => {return {token};})((props) => {
   return (
     <div className="navbar-text">
-      {props.token.user_name}
+      {props.token.user_name} (ID: {props.token.user_id})
       <span>|</span>
       <a href="javascript:void(0)">Log Out</a>
     </div>

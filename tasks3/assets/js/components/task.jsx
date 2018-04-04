@@ -10,8 +10,8 @@ function Task(props) {
   let task = props.task;
   // Decide whether to display the assignee or the assigner
   let assign = props.type == "self" ?
-    <p><b>Assigned By: </b>{task.creator.name}</p>
-      : <p><b>Assigned To: </b>{task.user.name}</p>
+    <p><b>Assigned By: </b>{task.creator.name} (ID: {task.creator.id})</p>
+      : <p><b>Assigned To: </b>{task.user.name} (ID: {task.user.id})</p>
 
   // Sends a request to delete the task
   function delete_task() {
