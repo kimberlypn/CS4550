@@ -14,8 +14,8 @@ short. Errors are displayed as an alert message.
 Once users have an account, they can log in via the log-in form in the 
 top-right. After users click the "Log In" button, the server hashes the entered 
 password and checks the email and password hash combination against the 
-database. If the authentication succeeds, users will be able to see their 
-dashboard. 
+database. If the authentication succeeds, a token is created, and users will be 
+able to see their dashboards. 
 
 The dashboard is divided into two sections: tasks assigned to the user and 
 tasks created by the user but assigned to others. Any other tasks in the 
