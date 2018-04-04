@@ -95,7 +95,7 @@ This link will redirect them to a new task form.
 ![creating a task](screenshots/new-task.png)
 
 Beside the "Task Report" link in the navigation bar is a "Profile" link. Here,
-users can view their manager and the users that they manage.
+users can view the details of their manager and the users that they manage.
 ![profile](screenshots/profile.png)
 
 Users can manage/unmanage other users by clicking the "Edit" link in the
