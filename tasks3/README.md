@@ -35,7 +35,7 @@ will throw an error if any of the fields are blank. The "Completed" and
 to change the minutes spent, it must be in increments of 15, which the server 
 will validate before saving to the database. Furthermore, the title of the task 
 is limited to 75 characters. If users successfully fill out the form, they will 
-receive an alert indicating this and can view the newly created task by going 
+receive an alert indicating so and can view the newly created task by going 
 back to the dashboard.
 
 Once done, users can log out via the "Log Out" link in the top-right. Clicking 
