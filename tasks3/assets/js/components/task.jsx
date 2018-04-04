@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Card, CardBody, CardHeader, Row, Col, Button } from 'reactstrap';
 
 import api from '../api';
 
 // Renders the details of an individual task as a card
-export default function Task(props) {
+function Task(props) {
   let task = props.task;
 
   // Sends a request to delete the task
@@ -13,9 +14,13 @@ export default function Task(props) {
     api.delete_task(task.id);
   }
 
-  // Displays the edit form, and populates the task id hidden field
+  // Displays the edit form, populates the hidden field with the task id, and
+  // clears all other fields
   function edit_task() {
     $("#edit-form").show();
+      props.dispatch({
+        type: 'CLEAR_FORM',
+      });
     $('input[name="id"]').val(task.id);
   }
 
@@ -46,3 +51,12 @@ export default function Task(props) {
     </Col>
   );
 }
+
+function state2props(state) {
+  return {
+    form: state.form,
+    users: state.users
+  };
+}
+
+export default connect(state2props)(Task);

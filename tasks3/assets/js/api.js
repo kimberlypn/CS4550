@@ -67,8 +67,8 @@ class TheServer {
       data: JSON.stringify(data),
       success: (resp) => {
         store.dispatch({
-          type: 'DELETE_TASK',
-          task: resp.data,
+          type: 'TASKS_LIST',
+          tasks: resp.data,
         });
       },
     });
@@ -82,8 +82,8 @@ class TheServer {
       data: JSON.stringify({token: data.token, task: data}),
       success: (resp) => {
         store.dispatch({
-          type: 'UPDATE_TASK',
-          task: resp.data,
+          type: 'TASKS_LIST',
+          tasks: resp.data,
         });
       },
     });

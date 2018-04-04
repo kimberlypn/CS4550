@@ -18,7 +18,8 @@ defmodule Tasks3.Tasks do
 
   """
   def list_tasks do
-    Repo.all(Task)
+    Repo.all(from t in Task,
+      order_by: [desc: :inserted_at])
     |> Repo.preload(:user)
   end
 

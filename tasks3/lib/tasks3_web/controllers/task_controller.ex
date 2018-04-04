@@ -11,22 +11,8 @@ defmodule Tasks3Web.TaskController do
     render(conn, "index.json", tasks: tasks)
   end
 
-  # Set the default time_spent or convert it to an integer
-  defp convert_time(task_params) do
-    if Map.get(task_params, "time_spent") == "", do:
-      0,
-    else:
-      Map.get(task_params, "time_spent")
-      |> String.to_integer()
-  end
-
   # Taken from Nat's lecture notes
   def create(conn, %{"task" => task_params}) do
-    # Make any necessary type conversions
-    task_params = task_params
-    |> Map.put("time_spent", convert_time(task_params))
-    |> Map.put("completed", false)
-
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn
       |> put_status(:created)
@@ -48,16 +34,11 @@ defmodule Tasks3Web.TaskController do
     # Get the task to be updated
     task = Tasks.get_task!(id)
 
-    # Make any necessary type conversions
-    task_params = task_params
-    |> Map.put("time_spent", convert_time(task_params))
-    |> Map.put("completed", false)
-
     with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
       conn
       |> put_status(:ok)
       |> put_resp_header("location", page_path(conn, :index))
-      |> render("show.json", task: task)
+      |> render("index.json", tasks: Tasks.list_tasks())
     end
   end
 
@@ -67,7 +48,7 @@ defmodule Tasks3Web.TaskController do
       conn
       |> put_status(:ok)
       |> put_resp_header("location", page_path(conn, :index))
-      |> render("show.json", task: task)
+      |> render("index.json", tasks: Tasks.list_tasks())
     end
   end
 end

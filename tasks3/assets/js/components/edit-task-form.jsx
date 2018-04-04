@@ -24,8 +24,11 @@ function EditTaskForm(props) {
     api.edit_task(props.form);
   }
 
-  // Closes the edit form
+  // Clears all of the fields and closes the form
   function cancel() {
+    props.dispatch({
+      type: 'CLEAR_FORM',
+    });
     $("#edit-form").hide();
   }
 

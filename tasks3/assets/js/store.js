@@ -8,11 +8,6 @@ function tasks(state = [], action) {
     return [...action.tasks];
   case 'ADD_TASK':
     return [action.task, ...state];
-  case 'DELETE_TASK':
-    return state.filter(task => task.id != action.task.id);
-  case 'UPDATE_TASK':
-    console.log("UPDATE STORE");
-    return state;
   default:
     return state;
   }
@@ -31,8 +26,8 @@ let empty_form = {
   user_id: "",
   title: "",
   description: "",
-  time_spent: "",
-  completed: "",
+  time_spent: 0,
+  completed: false,
   token: "",
   id: ""
 };
@@ -41,6 +36,14 @@ function form(state = empty_form, action) {
   switch (action.type) {
     case 'UPDATE_FORM':
       return Object.assign({}, state, action.data);
+    case 'CLEAR_FORM':
+      let cleared = {
+        title: "",
+        description: "",
+        time_spent: 0,
+        completed: false
+      }
+      return Object.assign({}, state, cleared);
     case 'SET_TOKEN':
       return Object.assign({}, state, action.token);
     default:
