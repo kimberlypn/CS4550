@@ -5,7 +5,8 @@ import { Row } from 'reactstrap';
 
 import EditTaskForm from './edit-task-form';
 
-// Adapted from Nat's lecture notes
+// Renders the edit form (hidden by default) and the tasks;
+// adapted from Nat's lecture notes
 export default function Dashboard(props) {
   // Only display tasks assigned to the user
   let tasks = _.map(props.tasks, function(tt) {

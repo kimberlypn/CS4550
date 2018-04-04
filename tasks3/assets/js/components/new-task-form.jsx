@@ -4,8 +4,9 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../api';
 
-// Adapted from Nat's lecture notes
+// Renders the new task form; adapted from Nat's lecture notes
 function NewTaskForm(props) {
+  // Updates the state with the inputted values from the new task form
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
@@ -17,10 +18,12 @@ function NewTaskForm(props) {
     props.dispatch(action);
   }
 
+  // Sends a request to create a task with the values from the forms
   function submit(ev) {
     api.submit_task(props.form);
   }
 
+  // Grabs all of the users to populate the dropdown
   let users = (_.map(props.users, (uu) =>
   <option key={uu.id} value={uu.id}>{uu.name}</option>));
 

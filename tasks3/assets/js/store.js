@@ -10,6 +10,9 @@ function tasks(state = [], action) {
     return [action.task, ...state];
   case 'DELETE_TASK':
     return state.filter(task => task.id != action.task.id);
+  case 'UPDATE_TASK':
+    console.log("UPDATE STORE");
+    return state;
   default:
     return state;
   }
@@ -31,6 +34,7 @@ let empty_form = {
   time_spent: "",
   completed: "",
   token: "",
+  id: ""
 };
 
 function form(state = empty_form, action) {

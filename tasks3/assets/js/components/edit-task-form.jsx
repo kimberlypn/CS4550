@@ -4,12 +4,14 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../api';
 
-// Adapted from Nat's lecture notes
+// Renders the edit form; adapted from Nat's lecture notes
 function EditTaskForm(props) {
   function update(ev) {
     let tgt = $(ev.target);
     let data = {};
     data[tgt.attr('name')] = tgt.val();
+    // Send the hidden task id as well, which is needed to update the task
+    data['id'] = $('input[name="id"]').val();
     let action = {
       type: 'UPDATE_FORM',
       data: data
@@ -17,10 +19,17 @@ function EditTaskForm(props) {
     props.dispatch(action);
   }
 
+  // Sends a request to update the task
   function submit(ev) {
-    api.submit_task(props.form);
+    api.edit_task(props.form);
   }
 
+  // Closes the edit form
+  function cancel() {
+    $("#edit-form").hide();
+  }
+
+  // Grabs all of the users to populate the dropdown
   let users = (_.map(props.users, (uu) =>
   <option key={uu.id} value={uu.id}>{uu.name}</option>));
 
@@ -56,8 +65,11 @@ function EditTaskForm(props) {
           Completed
         </Label>
       </FormGroup>
-      <br />
+      <FormGroup>
+        <Input type="hidden" name="id" />
+      </FormGroup>
       <Button onClick={submit} color="primary">Submit</Button>
+      <Button onClick={cancel} color="primary">Cancel</Button>
     </div>
   );
 };

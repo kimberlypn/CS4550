@@ -4,16 +4,19 @@ import { Card, CardBody, CardHeader, Row, Col, Button } from 'reactstrap';
 
 import api from '../api';
 
-// Adapted from Nat's lecture notes
+// Renders the details of an individual task as a card
 export default function Task(props) {
   let task = props.task;
 
+  // Sends a request to delete the task
   function delete_task() {
     api.delete_task(task.id);
   }
 
+  // Displays the edit form, and populates the task id hidden field
   function edit_task() {
-    $("#edit-form").toggle();
+    $("#edit-form").show();
+    $('input[name="id"]').val(task.id);
   }
 
   // Returns the task details as a Bootstrap card element

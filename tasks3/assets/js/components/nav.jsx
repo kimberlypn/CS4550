@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import api from '../api';
 
-// Adapted from Nat's lecture notes
+// Renders the navigation bar; adapted from Nat's lecture notes
 let LoginForm = connect(({login}) => {return {login};})((props) => {
   // Updates the state with the inputted values from the log-in form
   function update(ev) {
@@ -18,7 +18,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     });
   }
 
-  // Sends a request with the information from the log-in form to create a token
+  // Sends a request with the values from the log-in form to create a token
   function create_token(ev) {
     api.submit_login(props.login);
   }

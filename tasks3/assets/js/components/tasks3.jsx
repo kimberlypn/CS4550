@@ -7,7 +7,7 @@ import Nav from './nav';
 import NoSession from './no-session';
 import Main from './main';
 
-// Adapted from Nat's lecture notes
+// Renders the main application; adapted from Nat's lecture notes
 export default function tasks3_init(store) {
   ReactDOM.render(
     <Provider store={store}>

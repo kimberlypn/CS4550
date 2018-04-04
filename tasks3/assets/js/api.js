@@ -73,6 +73,21 @@ class TheServer {
       },
     });
   }
+
+  edit_task(data) {
+    $.ajax("/api/v1/tasks/" + data.id, {
+      method: "patch",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({token: data.token, task: data}),
+      success: (resp) => {
+        store.dispatch({
+          type: 'UPDATE_TASK',
+          task: resp.data,
+        });
+      },
+    });
+  }
 }
 
 export default new TheServer();
