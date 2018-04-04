@@ -29,7 +29,8 @@ let empty_form = {
   time_spent: 0,
   completed: false,
   token: "",
-  id: ""
+  id: "",
+  session_id: ""
 };
 
 function form(state = empty_form, action) {
@@ -45,7 +46,12 @@ function form(state = empty_form, action) {
       }
       return Object.assign({}, state, cleared);
     case 'SET_TOKEN':
-      return Object.assign({}, state, action.token);
+      let session = {
+        session_id: action.token.user_id,
+        token: action.token.token,
+        user_id: action.token.user_id
+      }
+      return Object.assign({}, state, session);
     default:
       return state;
   }

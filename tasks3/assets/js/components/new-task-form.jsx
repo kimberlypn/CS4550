@@ -60,7 +60,7 @@ function NewTaskForm(props) {
       <FormGroup check>
         <Label check>
           <Input type="checkbox" name="completed" onChange={update}
-            checked={props.form.completed ? "checked" : "false"} />
+            checked={props.form.completed ? "checked" : false} />
           Completed
         </Label>
       </FormGroup>

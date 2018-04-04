@@ -20,7 +20,7 @@ export default function tasks3_init(store) {
 let Tasks3 = connect((state) => state)((props) => {
   // Choose what to render depending on whether or not the user is logged in
   let main = !props.form.token ? <NoSession /> :
-  <Main tasks={props.tasks} user={props.form.user_id} />;
+  <Main tasks={props.tasks} user={props.form.session_id} />;
 
   return (
     <Router>
