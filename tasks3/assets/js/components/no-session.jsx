@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
 import RegistrationForm from './registration-form';
@@ -16,7 +17,9 @@ export default function NoSession(props) {
       <Row>
         <Col md="2"></Col>
         <Col md="8">
-          <RegistrationForm />
+          <Route path="/" exact={true} render={() =>
+            <RegistrationForm />
+          } />
         </Col>
         <Col md="2"></Col>
       </Row>

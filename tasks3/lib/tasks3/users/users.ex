@@ -56,9 +56,10 @@ defmodule Tasks3.Users do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
+    {:ok, user} = %User{}
     |> User.changeset(attrs)
     |> Repo.insert()
+    {:ok, user}
   end
 
   @doc """

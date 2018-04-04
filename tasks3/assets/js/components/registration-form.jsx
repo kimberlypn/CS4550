@@ -34,11 +34,11 @@ function RegistrationForm(props) {
 
   return (
     <div id="registration-form" style={{padding: "4ex"}}>
-      <h2>Registration Form</h2>
+      <h2>Register Account</h2>
       <FormGroup>
         <Label for="email">Email</Label>
         <Input type="email" name="email" value={props.form.email}
-          onChange={update} />
+          onChange={update} placeholder="user@example.com" />
       </FormGroup>
       <FormGroup>
         <Label for="name">Name</Label>
@@ -57,9 +57,10 @@ function RegistrationForm(props) {
 };
 
 function state2props(state) {
+  console.log("STATE");
+  console.log(state);
   return {
-    form: state.form,
-    users: state.users
+    form: state.register
   };
 }
 

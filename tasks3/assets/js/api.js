@@ -94,7 +94,7 @@ class TheServer {
       method: "post",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify(data),
+      data: JSON.stringify({user: data}),
       success: (resp) => {
         store.dispatch({
           type: 'ADD_USER',

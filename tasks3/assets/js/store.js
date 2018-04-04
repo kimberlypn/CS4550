@@ -109,7 +109,7 @@ function root_reducer(state0, action) {
   console.log("reducer", action);
   // {tasks, users, form} is ES6 shorthand for
   // {tasks: tasks, users: users, form: form}
-  let reducer = combineReducers({tasks, users, form, token, login});
+  let reducer = combineReducers({tasks, users, form, token, login, register});
   let state1 = reducer(state0, action);
   return deepFreeze(state1);
 };
