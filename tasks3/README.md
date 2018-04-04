@@ -25,7 +25,8 @@ top-right of each task card are an "Edit" button and a "Delete" button.
 Clicking the "Edit" button toggles the edit task form. If users successfully 
 fill out the form, they will see the details in the corresponding task card get 
 updated upon clicking "Submit". There is also a "Cancel" button to close the 
-form if users change their mind. 
+form if users change their mind. The "Delete" button allows users to delete 
+individual tasks. 
 
 Beside the "Dashboard" link in the navigation bar is a "New Task" link. Here, 
 users can create new tasks via a form similar to the edit task form. The server 
