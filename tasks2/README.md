@@ -61,7 +61,7 @@ If users do not have an account, they can use the "Register" button to create
 one. This button will redirect them to a registration form.
 ![registration form](screenshots/registration-form.png)
 
-Otherwise, users can use the "Log In" button to log in.
+If users do have an account, they can use the "Log In" button to log in.
 ![log-in form](screenshots/log-in-form.png)
 
 After logging in, users will see their task report.
