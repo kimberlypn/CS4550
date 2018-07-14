@@ -1,6 +1,8 @@
 # CS4550 Web Development (Spring 2018)
 **Main Website**: www.kimberlynguyen.solutions 
 
+**UPDATE**: My domain has now been taken down. I may work on re-deploying everything in the future.
+
 **Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/ 
  
 
