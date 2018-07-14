@@ -19,8 +19,8 @@ This repository contains all of my assignments for CS4550 Web Development.
 - [HW08 - Task Tracker Pt. 3](/tasks3)
 
 ## Projects
-- [Project 1 - Web Game](http://shambomon.kimberlynguyen.solutions/)  
-- [Project 2 - Web App](http://travelpal.kimberlynguyen.solutions/)  
+- [Project 1 - Web Game](https://github.com/kimberlypn/Shambomon)  
+- [Project 2 - Web App](https://github.com/kimberlypn/TravelPal)  
 
 ## Main Website
 ![main website](hw01/www/main/screenshots/main-website.png)
